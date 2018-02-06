@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Eco Car Wash</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="Home_Tab1">Tiempos</string>
+    <string name="Home_Tab2">Activos</string>
+    <string name="Home_Tab3">Registro</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
