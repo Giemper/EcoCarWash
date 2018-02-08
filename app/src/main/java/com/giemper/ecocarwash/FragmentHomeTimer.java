@@ -48,9 +48,9 @@ public class FragmentHomeTimer extends Fragment {
                     public void onClick(View view)
                     {
                         int index = findCountdownIndex(view.getId());
+                        Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         layout.removeView(CountdownList.get(index));
                         CountdownList.remove(index);
-                        Snackbar.make(view, "Countdown at " + index + "was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
                 });
             }

@@ -1,9 +1,13 @@
 package com.giemper.ecocarwash;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,24 +15,83 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class Countdown extends CardView {
+public class Countdown extends CardView
+{
     private Context mContext;
     public SquareButton stopButton;
 
-    public Countdown(Context context) {
+    public Countdown(Context context)
+    {
         super(context);
         mContext = context;
-        CreateCard();
+
+        switch (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+        {
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                CreateCardMDPI();
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                CreateCardMDPI();
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                CreateCardHDPI();
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                CreateCardHDPI();
+                break;
+            default:
+                CreateCardMDPI();
+                break;
+        }
     }
 
-    public Countdown(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mContext = context;
-        CreateCard();
+    private void CreateCardMDPI()
+    {
+        this.setLayoutParams(new CardView.LayoutParams(
+                CardView.LayoutParams.MATCH_PARENT,
+                pxToDp(160)
+        ));
+        CardView.LayoutParams Card_Layout = (CardView.LayoutParams) this.getLayoutParams();
+        Card_Layout.setMargins(pxToDp(0), pxToDp(1), pxToDp(0), 0);
+        this.requestLayout();
+        this.setRadius(4);
+        this.setId(View.generateViewId());
 
+
+        LinearLayout bigLayout = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, null);
+        bigLayout.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));
+        LinearLayout secondLayout1 = CreateLinearLayout(1f, LinearLayout.VERTICAL, bigLayout);
+
+        LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
+        TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 30, true, thirdLayout1);
+        TextView Time = CreateTextView("00:00:00", 28, false, thirdLayout1);
+
+        LinearLayout thirdLayout2 = CreateLinearLayout(2f, LinearLayout.VERTICAL, secondLayout1);
+        LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
+        TextView title_marca = CreateTextView("Marca", 13, true, forthLayout1);
+        TextView title_modelo = CreateTextView("Modelo", 13, true, forthLayout1);
+        TextView title_ano = CreateTextView("Año", 13, true, forthLayout1);
+        TextView title_placa = CreateTextView("Placas", 13, true, forthLayout1);
+        LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
+        TextView info_marca = CreateTextView("Chevrolet", 13, false, forthLayout2);
+        TextView info_modelo = CreateTextView("Chevy", 13, false, forthLayout2);
+        TextView info_ano = CreateTextView("2007", 13, false, forthLayout2);
+        TextView info_placa = CreateTextView("AK-4785", 13, false, forthLayout2);
+
+        LinearLayout secondLayout2 = CreateLinearLayout(3f, LinearLayout.HORIZONTAL, bigLayout);
+        secondLayout2.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));
+        secondLayout2.setGravity(Gravity.CENTER);
+
+        stopButton = new SquareButton(mContext);
+        stopButton.setId(View.generateViewId());
+        stopButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        stopButton.setBackgroundResource(R.drawable.ic_stop);
+        secondLayout2.addView(stopButton);
+        this.addView(bigLayout);
     }
 
-    private void CreateCard() {
+    private void CreateCardHDPI()
+    {
         this.setLayoutParams(new CardView.LayoutParams(
                 CardView.LayoutParams.MATCH_PARENT,
                 pxToDp(160)
@@ -45,7 +108,7 @@ public class Countdown extends CardView {
         LinearLayout secondLayout1 = CreateLinearLayout(1f, LinearLayout.VERTICAL, bigLayout);
 
         LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
-        TextView Name = CreateTextView("Luis " + Calendar.getInstance().get(Calendar.SECOND), 36, true, thirdLayout1);
+        TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, true, thirdLayout1);
         TextView Time = CreateTextView("00:00:00", 36, false, thirdLayout1);
 
         LinearLayout thirdLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, secondLayout1);
@@ -72,7 +135,8 @@ public class Countdown extends CardView {
         this.addView(bigLayout);
     }
 
-    private LinearLayout CreateLinearLayout(float weight, int orientation, LinearLayout ParentLayout) {
+    private LinearLayout CreateLinearLayout(float weight, int orientation, LinearLayout ParentLayout)
+    {
         LinearLayout layout = new LinearLayout(mContext);
         layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, weight));
         layout.setOrientation((int) orientation);
@@ -83,11 +147,12 @@ public class Countdown extends CardView {
         return layout;
     }
 
-    private TextView CreateTextView(String text, int textSize, Boolean isBold, LinearLayout lay) {
+    private TextView CreateTextView(String text, int textSize, Boolean isBold, LinearLayout lay)
+    {
         TextView textView = new TextView(mContext);
         textView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f));
         textView.setGravity(Gravity.CENTER_VERTICAL);
-        textView.setTextSize((float) pxToDp(textSize));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         if (isBold)
             textView.setTypeface(null, Typeface.BOLD);
         textView.setText(text);
@@ -98,7 +163,8 @@ public class Countdown extends CardView {
         return textView;
     }
 
-    private int pxToDp(int x) {
+    private int pxToDp(int x)
+    {
         float density = mContext.getResources().getDisplayMetrics().density;
         return Math.round((float) x * density);
     }

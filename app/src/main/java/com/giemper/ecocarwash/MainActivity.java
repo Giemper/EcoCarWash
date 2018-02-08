@@ -2,45 +2,39 @@ package com.giemper.ecocarwash;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Countdown> CountdownList = new ArrayList<Countdown>();
-    LinearLayout layout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        layout = findViewById(R.id.Card_Layout);
+        ViewPager viewHome = findViewById(R.id.view_home);
+        final FragmentHome fragmentHome = new FragmentHome(this, getSupportFragmentManager());
+        viewHome.setAdapter(fragmentHome);
+        viewHome.setOffscreenPageLimit(fragmentHome.getCount());
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
-                CountdownList.add(new Countdown(getApplicationContext()));
-                int last = CountdownList.size() - 1;
-                layout.addView(CountdownList.get(last).card, layout.getChildCount() - 1);
-            }
-        });
-
-//        tabThings();
+        TabLayout homeTab = findViewById(R.id.tab_home);
+        homeTab.setupWithViewPager(viewHome);
+        homeTab.getTabAt(0).setIcon(R.drawable.ic_timer);
+        homeTab.getTabAt(1).setIcon(R.drawable.ic_people);
+        homeTab.getTabAt(2).setIcon(R.drawable.ic_format_list);
+        homeTab.setTabGravity(TabLayout.GRAVITY_FILL);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
