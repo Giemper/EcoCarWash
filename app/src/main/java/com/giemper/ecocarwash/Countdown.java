@@ -3,22 +3,28 @@ package com.giemper.ecocarwash;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class Countdown extends CardView
 {
     private Context mContext;
+    private TextView TimeView;
+//    public CountDownTimer Timer;
+//    public Chronometer Timer;
+    public long currentMillis;
     public SquareButton stopButton;
+
 
     public Countdown(Context context)
     {
@@ -28,21 +34,27 @@ public class Countdown extends CardView
         switch (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
         {
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
+//                Snackbar.make(getRootView(), "Small", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardMDPI();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+//                Snackbar.make(getRootView(), "Normal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardMDPI();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
+//                Snackbar.make(getRootView(), "Large", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardHDPI();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+//                Snackbar.make(getRootView(), "XLarge", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardHDPI();
                 break;
             default:
+//                Snackbar.make(getRootView(), "Default", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardMDPI();
                 break;
         }
+
     }
 
     private void CreateCardMDPI()
@@ -64,7 +76,7 @@ public class Countdown extends CardView
 
         LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
         TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 30, true, thirdLayout1);
-        TextView Time = CreateTextView("00:00:00", 28, false, thirdLayout1);
+        TimeView = CreateTextView("00:00:00", 28, false, thirdLayout1);
 
         LinearLayout thirdLayout2 = CreateLinearLayout(2f, LinearLayout.VERTICAL, secondLayout1);
         LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
@@ -109,7 +121,22 @@ public class Countdown extends CardView
 
         LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
         TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, true, thirdLayout1);
-        TextView Time = CreateTextView("00:00:00", 36, false, thirdLayout1);
+        TimeView = CreateTextView("00:00:00", 36, false, thirdLayout1);
+        Chronometer chrono = new Chronometer(mContext);
+//        chrono.setFormat("HH:MM:SS");
+        chrono.setGravity(Gravity.CENTER_VERTICAL);
+        chrono.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
+        chrono.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
+            @Override
+            public void onChronometerTick(Chronometer chronometer)
+            {
+//                Snackbar.make(getRootView(), (int)(SystemClock.elapsedRealtime() - chronometer.getBase()) + "", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+        chrono.start();
+
+        thirdLayout1.addView(chrono);
 
         LinearLayout thirdLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, secondLayout1);
         LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
