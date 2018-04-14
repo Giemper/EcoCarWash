@@ -54,7 +54,6 @@ public class Countdown extends CardView
                 CreateCardMDPI();
                 break;
         }
-
     }
 
     private void CreateCardMDPI()
@@ -76,7 +75,8 @@ public class Countdown extends CardView
 
         LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
         TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 30, true, thirdLayout1);
-        TimeView = CreateTextView("00:00:00", 28, false, thirdLayout1);
+//        TimeView = CreateTextView("00:00:00", 28, false, thirdLayout1);
+        Chronometer chrono = CreateChronometer(28, thirdLayout1);
 
         LinearLayout thirdLayout2 = CreateLinearLayout(2f, LinearLayout.VERTICAL, secondLayout1);
         LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
@@ -121,22 +121,9 @@ public class Countdown extends CardView
 
         LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
         TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, true, thirdLayout1);
-        TimeView = CreateTextView("00:00:00", 36, false, thirdLayout1);
-        Chronometer chrono = new Chronometer(mContext);
-//        chrono.setFormat("HH:MM:SS");
-        chrono.setGravity(Gravity.CENTER_VERTICAL);
-        chrono.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
-        chrono.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-        chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
-            @Override
-            public void onChronometerTick(Chronometer chronometer)
-            {
-//                Snackbar.make(getRootView(), (int)(SystemClock.elapsedRealtime() - chronometer.getBase()) + "", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-        chrono.start();
+//        TimeView = CreateTextView("00:00:00", 36, false, thirdLayout1);
+        Chronometer chrono = CreateChronometer(36, thirdLayout1);
 
-        thirdLayout1.addView(chrono);
 
         LinearLayout thirdLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, secondLayout1);
         LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
@@ -188,6 +175,26 @@ public class Countdown extends CardView
             lay.addView(textView);
 
         return textView;
+    }
+
+    private Chronometer CreateChronometer(int textSize, LinearLayout ParentLayout)
+    {
+        Chronometer chrono = new Chronometer(mContext);
+        //        chrono.setFormat("HH:MM:SS");
+        chrono.setGravity(Gravity.CENTER_VERTICAL);
+        chrono.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        chrono.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
+            @Override
+            public void onChronometerTick(Chronometer chronometer)
+            {
+//                Snackbar.make(getRootView(), (int)(SystemClock.elapsedRealtime() - chronometer.getBase()) + "", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+        chrono.start();
+        ParentLayout.addView(chrono);
+
+        return chrono;
     }
 
     private int pxToDp(int x)

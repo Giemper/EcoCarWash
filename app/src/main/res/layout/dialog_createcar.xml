@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/Dialog_CreateCar_Title"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:text="Paquete"/>
+
+        <org.honorato.multistatetogglebutton.MultiStateToggleButton
+            android:id="@+id/mstb_multi_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            mstb:values="@array/Dialog_CreateCar_ToggleArray"
+            mstb:mstbPrimaryColor="@color/colorPrimary"
+            mstb:mstbSecondaryColor="@color/colorPaper"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:text="Color del Auto"/>
+
+        <Spinner
+            android:id="@+id/Dialog_CreateCar_Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"></Spinner>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Placas"
+            android:textColorHint="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"
+                android:text="@string/Cancelar"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/Dialog_Button"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"
+                android:text="@string/Agregar"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

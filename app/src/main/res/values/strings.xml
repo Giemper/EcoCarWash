@@ -2,10 +2,30 @@
     <string name="app_name">Eco Car Wash</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Default string -->
+    <string name="Agregar">Agregar</string>
+    <string name="Cancelar">Cancelar</string>
+
+    <!-- Home Tab -->
     <string name="Home_Tab1">Tiempos</string>
     <string name="Home_Tab2">Activos</string>
     <string name="Home_Tab3">Registro</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Dialog Create Car -->
+    <string name="Dialog_CreateCar_Title">1) Agregar Auto</string>
+
+    <!-- Arrays -->
+    <string-array name="Dialog_CreateCar_ToggleArray">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="Dialog_CreateCar_SpinnerArray">
+        <item>Azul</item>
+        <item>Verde</item>
+        <item>Blanco</item>
+        <item>Plateado</item>
+        <item>Negro</item>
+    </string-array>
+
 </resources>

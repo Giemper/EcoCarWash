@@ -54,6 +54,9 @@ public class FragmentHomeTimer extends Fragment {
                         CountdownList.remove(index);
                     }
                 });
+
+                DialogCreateCar dcc = new DialogCreateCar();
+                dcc.AddDialog(getActivity(), view);
             }
         });
 
