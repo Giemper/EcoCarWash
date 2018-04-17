@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,24 +40,53 @@ public class FragmentHomeTimer extends Fragment {
             @Override
             public void onClick(View view) {
 
-                CountdownList.add(new Countdown(getActivity()));
-                int last = CountdownList.size() - 1;
-                layout.addView(CountdownList.get(last), layout.getChildCount() - 1);
-
-                CountdownList.get(last).stopButton.setOnClickListener(new View.OnClickListener(){
+                final DialogCreateCar dcc = new DialogCreateCar();
+                dcc.AddDialog(getActivity(), view);
+                Button add = dcc.dialog.findViewById(R.id.Dialog_Button_Add);
+                add.setOnClickListener(new View.OnClickListener(){
                     @Override
-                    public void onClick(View view)
+                    public void onClick(View v)
                     {
-                        int index = findCountdownIndex(view.getId());
-                        Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                        CountdownList.get(index).Timer.stop();
-                        layout.removeView(CountdownList.get(index));
-                        CountdownList.remove(index);
+                        CreateCarValue values = dcc.getCarValues(dcc.dialog);
+                        if(values.Package >= 0 && values.Size >= 0 && values.License != "")
+                        {
+                            CountdownList.add(new Countdown(getActivity()));
+                            int last = CountdownList.size() - 1;
+                            layout.addView(CountdownList.get(last), layout.getChildCount() - 1);
+
+                            CountdownList.get(last).stopButton.setOnClickListener(new View.OnClickListener(){
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    int index = findCountdownIndex(view.getId());
+                                    Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    layout.removeView(CountdownList.get(index));
+                                    CountdownList.remove(index);
+                                }
+                            });
+
+                            dcc.dialog.dismiss();
+                        }
                     }
                 });
 
-                DialogCreateCar dcc = new DialogCreateCar();
-                dcc.AddDialog(getActivity(), view);
+//                CountdownList.add(new Countdown(getActivity()));
+//                int last = CountdownList.size() - 1;
+//                layout.addView(CountdownList.get(last), layout.getChildCount() - 1);
+//
+//                CountdownList.get(last).stopButton.setOnClickListener(new View.OnClickListener(){
+//                    @Override
+//                    public void onClick(View view)
+//                    {
+//                        int index = findCountdownIndex(view.getId());
+//                        Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+////                        CountdownList.get(index).Timer.stop();
+//                        layout.removeView(CountdownList.get(index));
+//                        CountdownList.remove(index);
+//                    }
+//                });
+
+
             }
         });
 

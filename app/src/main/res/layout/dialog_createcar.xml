@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mstb="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white">
@@ -30,24 +30,76 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="5dp"
             android:textColor="@color/gray"
             android:textSize="16sp"
             android:text="Paquete"/>
 
-        <org.honorato.multistatetogglebutton.MultiStateToggleButton
-            android:id="@+id/mstb_multi_id"
+        <android.support.v7.widget.ToggleGroup
+            android:id="@+id/Dialog_CreateCar_Toggle_Pack"
+            style="@style/ContrastToggle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            mstb:values="@array/Dialog_CreateCar_ToggleArray"
-            mstb:mstbPrimaryColor="@color/colorPrimary"
-            mstb:mstbSecondaryColor="@color/colorPaper"/>
+            android:layout_height="60dp"
+            app:exclusive="true"
+            app:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <android.support.v7.widget.ToggleButton
+                android:layout_weight="1"
+                style="@style/ContrastToggle"
+                android:button="@drawable/ic_pack_one"/>
+
+            <android.support.v7.widget.ToggleButton
+                android:layout_weight="1"
+                style="@style/ContrastToggle"
+                android:button="@drawable/ic_pack_two"/>
+
+            <android.support.v7.widget.ToggleButton
+                android:layout_weight="1"
+                style="@style/ContrastToggle"
+                android:button="@drawable/ic_pack_three"/>
+
+        </android.support.v7.widget.ToggleGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:text="Tamaño de Auto"/>
+
+        <android.support.v7.widget.ToggleGroup
+            android:id="@+id/Dialog_CreateCar_Toggle_Size"
+            style="@style/ContrastToggle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:exclusive="true"
+            app:orientation="horizontal"
+            android:layout_margin="5dp">
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_car_small"/>
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_car_med"/>
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_car_large"
+                    android:checked="true"/>
+
+        </android.support.v7.widget.ToggleGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:textColor="@color/gray"
             android:textSize="16sp"
             android:text="Color del Auto"/>
@@ -56,22 +108,32 @@
             android:id="@+id/Dialog_CreateCar_Spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"></Spinner>
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:text="Placas"/>
 
         <EditText
+            android:id="@+id/Dialog_Text_Licence"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="Placas"
+            android:layout_marginBottom="20dp"
             android:textColorHint="@color/gray"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="right"
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/Dialog_Button_Quit"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:textColor="@color/colorPrimaryDark"
@@ -80,7 +142,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
             <Button
-                android:id="@+id/Dialog_Button"
+                android:id="@+id/Dialog_Button_Add"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:textColor="@color/colorPrimaryDark"
