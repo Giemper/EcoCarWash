@@ -39,7 +39,7 @@
             android:id="@+id/Dialog_CreateCar_Toggle_Pack"
             style="@style/ContrastToggle"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             app:exclusive="true"
             app:orientation="horizontal"
             android:layout_margin="5dp">
@@ -73,7 +73,7 @@
             android:id="@+id/Dialog_CreateCar_Toggle_Size"
             style="@style/ContrastToggle"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             app:exclusive="true"
             app:orientation="horizontal"
             android:layout_margin="5dp">
@@ -91,8 +91,7 @@
                 <android.support.v7.widget.ToggleButton
                     android:layout_weight="1"
                     style="@style/ContrastToggle"
-                    android:button="@drawable/ic_car_large"
-                    android:checked="true"/>
+                    android:button="@drawable/ic_car_large"/>
 
         </android.support.v7.widget.ToggleGroup>
 
@@ -107,7 +106,7 @@
         <Spinner
             android:id="@+id/Dialog_CreateCar_Spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="20dp"/>
 
         <TextView
@@ -121,35 +120,50 @@
         <EditText
             android:id="@+id/Dialog_Text_Licence"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="20dp"
-            android:textColorHint="@color/gray"/>
+            android:textColorHint="@color/gray"
+            android:hint="Obligatorio"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="right"
             android:orientation="horizontal">
+            <Chronometer
+                android:id="@+id/Dialog_Chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="30sp"
+                android:gravity="left"/>
 
-            <Button
-                android:id="@+id/Dialog_Button_Quit"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAllCaps="true"
-                android:text="@string/Cancelar"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/Dialog_Button_Add"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAllCaps="true"
-                android:text="@string/Agregar"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
+                <Button
+                    android:id="@+id/Dialog_Button_Quit"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:textAllCaps="true"
+                    android:text="@string/Cancelar"
+                    style="@style/BorderlessButton"/>
+
+                <Button
+                    android:id="@+id/Dialog_Button_Add"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:textAllCaps="true"
+                    android:text="@string/Agregar"
+                    android:enabled="false"
+                    style="@style/BorderlessButton"/>
+            </LinearLayout>
         </LinearLayout>
+
+
 
     </LinearLayout>
 

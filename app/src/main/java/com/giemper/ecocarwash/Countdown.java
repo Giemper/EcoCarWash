@@ -14,6 +14,7 @@ import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Countdown extends CardView
@@ -24,12 +25,16 @@ public class Countdown extends CardView
 //    public Chronometer Timer;
     public long currentMillis;
     public SquareButton stopButton;
+    public CreateCarValue values;
 
+    private Calendar StartTime;
 
-    public Countdown(Context context)
+    public Countdown(Context context, CreateCarValue _values, Calendar _start)
     {
         super(context);
         mContext = context;
+        values = _values;
+        StartTime = _start;
 
         switch (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
         {
@@ -77,18 +82,19 @@ public class Countdown extends CardView
         TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 30, true, thirdLayout1);
 //        TimeView = CreateTextView("00:00:00", 28, false, thirdLayout1);
         Chronometer chrono = CreateChronometer(28, thirdLayout1);
+        chrono.setBase(SystemClock.elapsedRealtime() - ((Calendar.getInstance().getTimeInMillis() - StartTime.getTimeInMillis())));
 
         LinearLayout thirdLayout2 = CreateLinearLayout(2f, LinearLayout.VERTICAL, secondLayout1);
         LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
-        TextView title_marca = CreateTextView("Marca", 13, true, forthLayout1);
-        TextView title_modelo = CreateTextView("Modelo", 13, true, forthLayout1);
-        TextView title_ano = CreateTextView("Año", 13, true, forthLayout1);
+        TextView title_marca = CreateTextView("Paquete", 13, true, forthLayout1);
+        TextView title_modelo = CreateTextView("Tamaño", 13, true, forthLayout1);
+        TextView title_ano = CreateTextView("Color", 13, true, forthLayout1);
         TextView title_placa = CreateTextView("Placas", 13, true, forthLayout1);
         LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
-        TextView info_marca = CreateTextView("Chevrolet", 13, false, forthLayout2);
-        TextView info_modelo = CreateTextView("Chevy", 13, false, forthLayout2);
-        TextView info_ano = CreateTextView("2007", 13, false, forthLayout2);
-        TextView info_placa = CreateTextView("AK-4785", 13, false, forthLayout2);
+        TextView info_marca = CreateTextView(values.Package + "", 13, false, forthLayout2);
+        TextView info_modelo = CreateTextView(values.Size + "", 13, false, forthLayout2);
+        TextView info_ano = CreateTextView(values.Color, 13, false, forthLayout2);
+        TextView info_placa = CreateTextView(values.License, 13, false, forthLayout2);
 
         LinearLayout secondLayout2 = CreateLinearLayout(3f, LinearLayout.HORIZONTAL, bigLayout);
         secondLayout2.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));

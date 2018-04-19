@@ -46,22 +46,22 @@ public class FragmentHome extends FragmentPagerAdapter {
     }
 
     // This determines the title for each tab
-    @Override
-    public CharSequence getPageTitle(int position)
-    {
-        // Generate title based on item position
-
-        switch (position) {
-            case 0:
-                return mContext.getString(R.string.Home_Tab1);
-            case 1:
-                return mContext.getString(R.string.Home_Tab2);
-            case 2:
-                return mContext.getString(R.string.Home_Tab3);
-            default:
-                return null;
-        }
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position)
+//    {
+//        // Generate title based on item position
+//
+//        switch (position) {
+//            case 0:
+//                return mContext.getString(R.string.Home_Tab1);
+//            case 1:
+//                return mContext.getString(R.string.Home_Tab2);
+//            case 2:
+//                return mContext.getString(R.string.Home_Tab3);
+//            default:
+//                return null;
+//        }
+//    }
 
 
 }
