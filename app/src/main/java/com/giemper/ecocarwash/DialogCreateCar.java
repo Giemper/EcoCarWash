@@ -74,7 +74,6 @@ public class DialogCreateCar
             public void onCheckedChanged(ToggleGroup group, int[] checkedId)
             {
                 CheckPack = true;
-                Snackbar.make(view, "Pack Check", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CheckDialog();
             }
         });
@@ -86,7 +85,6 @@ public class DialogCreateCar
             public void onCheckedChanged(ToggleGroup group, int[] checkedId)
             {
                 CheckSize = true;
-                Snackbar.make(view, "Size Check", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CheckDialog();
             }
         });
