@@ -45,10 +45,10 @@ public class DialogCreateCar
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        Chronometer chrono = dialog.findViewById(R.id.Dialog_Chronometer);
+        Chronometer chrono = dialog.findViewById(R.id.Dialog_CreateCar_Chronometer);
         chrono.start();
 
-        Button quit = (Button) dialog.findViewById(R.id.Dialog_Button_Quit);
+        Button quit = (Button) dialog.findViewById(R.id.Dialog_CreateCar_Button_Quit);
         quit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -56,8 +56,6 @@ public class DialogCreateCar
                 dialog.dismiss();
             }
         });
-
-        Button add = (Button) dialog.findViewById(R.id.Dialog_Button_Add);
 
         setListeners(view);
 
@@ -89,7 +87,7 @@ public class DialogCreateCar
             }
         });
 
-        EditText License = dialog.findViewById(R.id.Dialog_Text_Licence);
+        EditText License = dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
         License.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -114,7 +112,7 @@ public class DialogCreateCar
 
     private void CheckDialog()
     {
-        Button add = dialog.findViewById(R.id.Dialog_Button_Add);
+        Button add = dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
         if(CheckPack && CheckSize && CheckLicence)
             add.setEnabled(true);
         else
@@ -127,7 +125,7 @@ public class DialogCreateCar
         ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
         ToggleGroup Group_Size = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Size);
         Spinner Spinner_Color = dialog.findViewById(R.id.Dialog_CreateCar_Spinner);
-        EditText Text_Licence =dialog.findViewById(R.id.Dialog_Text_Licence);
+        EditText Text_Licence =dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
 
         values.Color = Spinner_Color.getSelectedItem().toString();
         values.License = Text_Licence.getText().toString();

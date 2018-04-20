@@ -4,15 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview_chronometer"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:layout_marginTop="1dp"
-    android:layout_marginLeft="0dp"
-    android:layout_marginRight="0dp"
+    android:layout_height="200dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     app:cardCornerRadius="4dp">
-    <!--change here-->
 
-    <!--Phone-->
+
+    <!--Tablet-->
     <!-- Big Layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="4">
+            android:layout_weight="5">
             <!-- Second Layout -->
             <LinearLayout
                 android:layout_width="0dp"
@@ -41,26 +42,21 @@
                     android:layout_height="0dp"
                     android:layout_weight="4"
                     android:orientation="horizontal">
-
-                    <!--Change here-->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="Luis Antonio G."
-                        android:textColor="@color/grayDark"
-                        android:textSize="24dp"
+                        android:textSize="36dp"
                         android:textStyle="bold"
                         android:layout_weight="1"/>
                 </LinearLayout>
 
-                <!--change here-->
                 <!--Third Layout 2-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="5"
-                    android:paddingBottom="5dp"
                     android:orientation="horizontal">
 
                     <!--Fourth Layout 1-->
@@ -77,15 +73,13 @@
                             android:gravity="bottom"
                             android:text="Entrada" />
 
-                        <!--change here-->
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="bottom"
-                            android:textColor="@color/grayDark"
                             android:text="00:00:00"
-                            android:textSize="24dp" />
+                            android:textSize="36dp" />
                     </LinearLayout>
 
                     <!--Fourth Layout 2-->
@@ -102,15 +96,13 @@
                             android:gravity="bottom"
                             android:text="Secado" />
 
-                        <!--change here-->
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="bottom"
-                            android:textColor="@color/grayDark"
                             android:text="00:00:00"
-                            android:textSize="24dp" />
+                            android:textSize="36dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -120,7 +112,7 @@
             </LinearLayout>
 
             <!--Second Layout 2-->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -130,18 +122,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="15dp"
-                    android:backgroundTint="@color/grayDark"
-                    android:background="@drawable/ic_next"/>
+                    android:background="@drawable/ic_stop"/>
 
-                <com.giemper.ecocarwash.SquareButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="15dp"
-                    android:backgroundTint="@color/grayDark"
-                    android:background="@drawable/ic_next"
-                    android:visibility="gone"/>
-
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -154,7 +137,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <TextView
@@ -162,7 +145,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
-                android:textSize="12sp"
                 android:text="Paquete 1" />
 
             <View
@@ -177,7 +159,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
-                android:textSize="12sp"
                 android:text="Grande" />
 
             <View
@@ -192,7 +173,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
-                android:textSize="12sp"
                 android:text="Azul" />
 
             <View
@@ -207,7 +187,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
-                android:textSize="12sp"
                 android:text="RAPI2-4OSO" />
         </LinearLayout>
 

@@ -12,7 +12,8 @@
     <string name="Home_Tab3">Registro</string>
 
     <!-- Dialog Create Car -->
-    <string name="Dialog_CreateCar_Title">1) Agregar Auto</string>
+    <string name="Dialog_CreateCar_Title">Agrega Auto</string>
+    <string name="Dialog_CreateDryer_Title">Asigna Secador</string>
 
     <!-- Arrays -->
     <string-array name="Dialog_CreateCar_ToggleArray">

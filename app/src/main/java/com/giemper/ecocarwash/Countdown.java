@@ -1,6 +1,7 @@
 package com.giemper.ecocarwash;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
@@ -26,10 +27,16 @@ import java.util.concurrent.TimeUnit;
 public class Countdown extends CardView
 {
     private Context mContext;
+    public SquareButton nextButton;
     public SquareButton stopButton;
     public CreateCarValue values;
+    public LinearLayout secondLayout2;
+    public Chronometer chrono2;
 
     private Calendar StartTime;
+    public Calendar MidTime;
+    public Calendar EndTime;
+
 
     public Countdown(Context context, CreateCarValue _values, Calendar _start)
     {
@@ -38,48 +45,77 @@ public class Countdown extends CardView
         values = _values;
         StartTime = _start;
 
-
+//                Snackbar.make(getRootView(), "Small", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         switch (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
         {
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-//                Snackbar.make(getRootView(), "Small", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardMDPI();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-//                Snackbar.make(getRootView(), "Normal", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardMDPI();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
-//                Snackbar.make(getRootView(), "Large", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                CreateCardHDPI2();
+                CreateCardHDPI();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-//                Snackbar.make(getRootView(), "XLarge", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                CreateCardHDPI2();
+                CreateCardHDPI();
                 break;
             default:
-//                Snackbar.make(getRootView(), "Default", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 CreateCardMDPI();
                 break;
         }
     }
 
-    private void test()
+    private void CreateCardMDPI()
     {
-        this.addView(findViewById(R.id.cardview_chronometer));
+        this.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, pxToDp(160)));
+        CardView.LayoutParams Card_Layout = (CardView.LayoutParams) this.getLayoutParams();
+        Card_Layout.setMargins(0, pxToDp(1), 0, 0);
+        this.requestLayout();
+        this.setRadius(4);
+        this.setId(View.generateViewId());
+
+        LinearLayout bigLayout = CreateLinearLayout(1f, LinearLayout.VERTICAL, null);
+        LinearLayout lowerLayout = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, bigLayout);
+        LinearLayout upperLayout = CreateLinearLayout(4f, LinearLayout.HORIZONTAL, bigLayout);
+        LinearLayout secondLayout1 = CreateLinearLayout(3f, LinearLayout.VERTICAL, upperLayout);
+        secondLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, upperLayout);
+        LinearLayout thirdLayout1 = CreateLinearLayout(4f, LinearLayout.HORIZONTAL, secondLayout1);
+        LinearLayout thirdLayout2 = CreateLinearLayout(5f, LinearLayout.HORIZONTAL, secondLayout1);
+        LinearLayout forthLayout1 = CreateLinearLayout(2f, LinearLayout.VERTICAL, thirdLayout2);
+        LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, thirdLayout2);
+        bigLayout.setPadding(pxToDp(15), pxToDp(10), pxToDp(15), pxToDp(10));
+        thirdLayout2.setPadding(0,0,0,pxToDp(5));
+        secondLayout2.setGravity(Gravity.CENTER);
+
+        TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
+        TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
+        TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
+        TextView title_pack = CreateTextView(values.Package + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_size = CreateTextView(values.Size, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_color = CreateTextView(values.Color, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 13, 1f,false, lowerLayout);
+        TextView title_license = CreateTextView(values.License, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 13,  1f,false, lowerLayout);
+        textName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
+
+        Chronometer chrono = CreateChronometer(24, 1f, forthLayout1);
+        chrono2 = CreateChronometer(24, 1f, forthLayout2);
+        chrono.setBase(SystemClock.elapsedRealtime() - ((Calendar.getInstance().getTimeInMillis() - StartTime.getTimeInMillis())));
+        chrono.start();
+
+        View middleSeparator = CreateSeparator(LinearLayout.HORIZONTAL, 1,0, 5, bigLayout);
+        View lowerSeparator1 = CreateSeparator(LinearLayout.VERTICAL, 1,3,3, lowerLayout);
+        View lowerSeparator2 = CreateSeparator(LinearLayout.VERTICAL,3, 3,3, lowerLayout);
+        View lowerSeparator3 = CreateSeparator(LinearLayout.VERTICAL, 5,3,3, lowerLayout);
+
+        nextButton = CreateSquareButton(R.drawable.ic_next, secondLayout2);
+        stopButton = CreateSquareButton(R.drawable.ic_stop, null);
+        stopButton.setVisibility(GONE);
+        this.addView(bigLayout);
     }
 
-    private void CreateCardMDPI2()
+    private void CreateCardHDPI()
     {
-
-    }
-
-    private void CreateCardHDPI2()
-    {
-        this.setLayoutParams(new CardView.LayoutParams(
-                CardView.LayoutParams.MATCH_PARENT,
-                pxToDp(200)
-        ));
+        this.setLayoutParams(new CardView.LayoutParams(CardView.LayoutParams.MATCH_PARENT, pxToDp(200)));
         CardView.LayoutParams Card_Layout = (CardView.LayoutParams) this.getLayoutParams();
         Card_Layout.setMargins(pxToDp(15), pxToDp(15), pxToDp(15), 0);
         this.requestLayout();
@@ -87,143 +123,38 @@ public class Countdown extends CardView
         this.setId(View.generateViewId());
 
         LinearLayout bigLayout = CreateLinearLayout(1f, LinearLayout.VERTICAL, null);
-        bigLayout.setPadding(pxToDp(15), pxToDp(10), pxToDp(15), pxToDp(10));
-
         LinearLayout upperLayout = CreateLinearLayout(5f, LinearLayout.HORIZONTAL, bigLayout);
-        View middleSeparator = CreateSeparator(LinearLayout.HORIZONTAL, 0, 5, bigLayout);
-
+        LinearLayout lowerLayout = CreateLinearLayout(2f, LinearLayout.HORIZONTAL, bigLayout);
         LinearLayout secondLayout1 = CreateLinearLayout(3f, LinearLayout.VERTICAL, upperLayout);
+        secondLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, upperLayout);
         LinearLayout thirdLayout1 = CreateLinearLayout(4f, LinearLayout.HORIZONTAL, secondLayout1);
-        TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, true,thirdLayout1);
-
         LinearLayout thirdLayout2 = CreateLinearLayout(5f, LinearLayout.HORIZONTAL, secondLayout1);
         LinearLayout forthLayout1 = CreateLinearLayout(2f, LinearLayout.VERTICAL, thirdLayout2);
-        TextView textEntry = CreateTextView("Entrada", 14, true, forthLayout1);
-        ((LinearLayout.LayoutParams) textEntry.getLayoutParams()).weight = 2f;
-        Chronometer chrono = CreateChronometer(36, forthLayout1);
-        chrono.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
-        ((LinearLayout.LayoutParams) chrono.getLayoutParams()).weight = 1f;
+        LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, thirdLayout2);
+        bigLayout.setPadding(pxToDp(15), pxToDp(10), pxToDp(15), pxToDp(10));
+        secondLayout2.setGravity(Gravity.CENTER);
+
+        TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36,Gravity.CENTER_VERTICAL, 1f, true,thirdLayout1);
+        TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
+        TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
+        TextView title_pack = CreateTextView(values.Package + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_size = CreateTextView(values.Size, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_color = CreateTextView(values.Color, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_license = CreateTextView(values.License, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        textName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
+
+        Chronometer chrono = CreateChronometer(36, 1f, forthLayout1);
+        chrono2 = CreateChronometer(36, 1f, forthLayout2);
         chrono.setBase(SystemClock.elapsedRealtime() - ((Calendar.getInstance().getTimeInMillis() - StartTime.getTimeInMillis())));
         chrono.start();
-        LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, thirdLayout2);
-        TextView textDry = CreateTextView("Secado", 14, true, forthLayout2);
-        ((LinearLayout.LayoutParams) textDry.getLayoutParams()).weight = 2f;
-        Chronometer chrono2 = CreateChronometer(36, forthLayout2);
-        ((LinearLayout.LayoutParams) chrono2.getLayoutParams()).weight = 1f;
-        chrono2.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
 
-        LinearLayout secondLayout2= CreateLinearLayout(1f, LinearLayout.VERTICAL, upperLayout);
-        secondLayout2.setGravity(Gravity.CENTER);
-        stopButton = CreateSquareButton(R.drawable.ic_stop, secondLayout2);
+        View middleSeparator = CreateSeparator(LinearLayout.HORIZONTAL, 1,0, 5, bigLayout);
+        View lowerSeparator1 = CreateSeparator(LinearLayout.VERTICAL, 1,3,3, lowerLayout);
+        View lowerSeparator2 = CreateSeparator(LinearLayout.VERTICAL, 3,3,3, lowerLayout);
+        View lowerSeparator3 = CreateSeparator(LinearLayout.VERTICAL, 5,3,3, lowerLayout);
 
-        LinearLayout lowerLayout = CreateLinearLayout(2f, LinearLayout.HORIZONTAL, bigLayout);
-        TextView title_pack = CreateTextView(values.Package + "", 13, false, lowerLayout);
-        title_pack.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-        View lowerSeparator1 = CreateSeparator(LinearLayout.VERTICAL, 3,3, lowerLayout);
-        TextView title_size = CreateTextView(values.Size, 13, false, lowerLayout);
-        title_size.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-        View lowerSeparator2 = CreateSeparator(LinearLayout.VERTICAL, 3,3, lowerLayout);
-        TextView title_color = CreateTextView(values.Color, 13, false, lowerLayout);
-        title_color.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-        View lowerSeparator3 = CreateSeparator(LinearLayout.VERTICAL, 3,3, lowerLayout);
-        TextView title_license = CreateTextView(values.License, 13, false, lowerLayout);
-        title_license.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-
-        this.addView(bigLayout);
-    }
-
-    private void CreateCardMDPI()
-    {
-        this.setLayoutParams(new CardView.LayoutParams(
-                CardView.LayoutParams.MATCH_PARENT,
-                pxToDp(160)
-        ));
-        CardView.LayoutParams Card_Layout = (CardView.LayoutParams) this.getLayoutParams();
-        Card_Layout.setMargins(pxToDp(0), pxToDp(1), pxToDp(0), 0);
-        this.requestLayout();
-        this.setRadius(4);
-        this.setId(View.generateViewId());
-
-
-        LinearLayout bigLayout = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, null);
-        bigLayout.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));
-        LinearLayout secondLayout1 = CreateLinearLayout(1f, LinearLayout.VERTICAL, bigLayout);
-
-        LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
-        TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 30, true, thirdLayout1);
-//        TimeView = CreateTextView("00:00:00", 28, false, thirdLayout1);
-        Chronometer chrono = CreateChronometer(28, thirdLayout1);
-        chrono.setBase(SystemClock.elapsedRealtime() - ((Calendar.getInstance().getTimeInMillis() - StartTime.getTimeInMillis())));
-
-        LinearLayout thirdLayout2 = CreateLinearLayout(2f, LinearLayout.VERTICAL, secondLayout1);
-        LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
-        TextView title_marca = CreateTextView("Paquete", 13, true, forthLayout1);
-        TextView title_modelo = CreateTextView("Tamaño", 13, true, forthLayout1);
-        TextView title_ano = CreateTextView("Color", 13, true, forthLayout1);
-        TextView title_placa = CreateTextView("Placas", 13, true, forthLayout1);
-        LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
-        TextView info_marca = CreateTextView(values.Package + "", 13, false, forthLayout2);
-        TextView info_modelo = CreateTextView(values.Size + "", 13, false, forthLayout2);
-        TextView info_ano = CreateTextView(values.Color, 13, false, forthLayout2);
-        TextView info_placa = CreateTextView(values.License, 13, false, forthLayout2);
-
-        LinearLayout secondLayout2 = CreateLinearLayout(3f, LinearLayout.HORIZONTAL, bigLayout);
-        secondLayout2.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));
-        secondLayout2.setGravity(Gravity.CENTER);
-
-        stopButton = new SquareButton(mContext);
-        stopButton.setId(View.generateViewId());
-        stopButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        stopButton.setBackgroundResource(R.drawable.ic_stop);
-        secondLayout2.addView(stopButton);
-
-        this.addView(bigLayout);
-    }
-
-    private void CreateCardHDPI()
-    {
-        this.setLayoutParams(new CardView.LayoutParams(
-                CardView.LayoutParams.MATCH_PARENT,
-                pxToDp(160)
-        ));
-        CardView.LayoutParams Card_Layout = (CardView.LayoutParams) this.getLayoutParams();
-        Card_Layout.setMargins(pxToDp(15), pxToDp(15), pxToDp(15), 0);
-        this.requestLayout();
-        this.setRadius(4);
-        this.setId(View.generateViewId());
-
-
-        LinearLayout bigLayout = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, null);
-        bigLayout.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));
-        LinearLayout secondLayout1 = CreateLinearLayout(1f, LinearLayout.VERTICAL, bigLayout);
-
-        LinearLayout thirdLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, secondLayout1);
-        TextView Name = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, true, thirdLayout1);
-//        TimeView = CreateTextView("00:00:00", 36, false, thirdLayout1);
-        Chronometer chrono = CreateChronometer(36, thirdLayout1);
-
-
-        LinearLayout thirdLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, secondLayout1);
-        LinearLayout forthLayout1 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
-        TextView title_marca = CreateTextView("Marca", 18, true, forthLayout1);
-        TextView title_modelo = CreateTextView("Modelo", 18, true, forthLayout1);
-        TextView title_ano = CreateTextView("Año", 18, true, forthLayout1);
-        TextView title_placa = CreateTextView("Placas", 18, true, forthLayout1);
-        LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, thirdLayout2);
-        TextView info_marca = CreateTextView("Chevrolet", 18, false, forthLayout2);
-        TextView info_modelo = CreateTextView("Chevy", 18, false, forthLayout2);
-        TextView info_ano = CreateTextView("2007", 18, false, forthLayout2);
-        TextView info_placa = CreateTextView("AK-4785", 18, false, forthLayout2);
-
-        LinearLayout secondLayout2 = CreateLinearLayout(3f, LinearLayout.HORIZONTAL, bigLayout);
-        secondLayout2.setPadding(pxToDp(15), pxToDp(15), pxToDp(15), pxToDp(15));
-        secondLayout2.setGravity(Gravity.CENTER);
-
-        stopButton = new SquareButton(mContext);
-        stopButton.setId(View.generateViewId());
-        stopButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        stopButton.setBackgroundResource(R.drawable.ic_stop);
-        secondLayout2.addView(stopButton);
+        nextButton = CreateSquareButton(R.drawable.ic_next, secondLayout2);
+        stopButton = CreateSquareButton(R.drawable.ic_stop, null);
         this.addView(bigLayout);
     }
 
@@ -247,11 +178,11 @@ public class Countdown extends CardView
         return layout;
     }
 
-    private TextView CreateTextView(String text, int textSize, Boolean isBold, LinearLayout lay)
+    private TextView CreateTextView(String text, int textSize, int gravity, float weight, Boolean isBold,  LinearLayout lay)
     {
         TextView textView = new TextView(mContext);
         textView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f));
-        textView.setGravity(Gravity.CENTER_VERTICAL);
+        textView.setGravity(gravity);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         if (isBold)
             textView.setTypeface(null, Typeface.BOLD);
@@ -263,13 +194,13 @@ public class Countdown extends CardView
         return textView;
     }
 
-    private Chronometer CreateChronometer(int textSize, LinearLayout ParentLayout)
+    private Chronometer CreateChronometer(int textSize, float weight, LinearLayout ParentLayout)
     {
         Chronometer chrono = new Chronometer(mContext);
-        //        chrono.setFormat("HH:MM:SS");
         chrono.setGravity(Gravity.CENTER_VERTICAL);
         chrono.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        chrono.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        chrono.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, weight));
+        chrono.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
         chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
             @Override
             public void onChronometerTick(Chronometer c)
@@ -285,11 +216,10 @@ public class Countdown extends CardView
         });
 
         ParentLayout.addView(chrono);
-
         return chrono;
     }
 
-    private View CreateSeparator(int orientation, int marginTop, int marginBottom, LinearLayout ParentLayout)
+    private View CreateSeparator(int orientation, int index, int marginTop, int marginBottom, LinearLayout ParentLayout)
     {
         View view = new View(mContext);
         LayoutParams params;
@@ -301,7 +231,7 @@ public class Countdown extends CardView
         view.setLayoutParams(params);
         view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.separator));
 
-        ParentLayout.addView(view);
+        ParentLayout.addView(view, index);
         return view;
     }
 
@@ -312,8 +242,11 @@ public class Countdown extends CardView
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         params.setMargins(pxToDp(10), pxToDp(10), pxToDp(10), pxToDp(10));
         button.setLayoutParams(params);
-        button.setBackgroundResource(R.drawable.ic_stop);
-        ParentLayout.addView(button);
+        button.setBackgroundResource(draw);
+        button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.grayDark)));
+
+        if(ParentLayout != null)
+            ParentLayout.addView(button);
 
         return button;
     }
