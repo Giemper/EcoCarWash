@@ -89,7 +89,7 @@ public class Countdown extends CardView
         lowerLayoutParams.setMargins(0, pxToDp(10), 0, 0);
         secondLayout2.setGravity(Gravity.CENTER);
 
-        TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
+        TextView textName = CreateTextView("Esperando Asignacíon", 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
         TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
         TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
         TextView title_pack = CreateTextView(values.Package + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
@@ -111,6 +111,7 @@ public class Countdown extends CardView
         View lowerSeparator3 = CreateSeparator(LinearLayout.VERTICAL, 5,3,3, lowerLayout);
 
         nextButton = CreateSquareButton(R.drawable.ic_next, secondLayout2);
+        nextButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary)));
         stopButton = CreateSquareButton(R.drawable.ic_stop, null);
         this.addView(bigLayout);
     }
