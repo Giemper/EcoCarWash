@@ -5,7 +5,6 @@ import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.ToggleGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,25 +67,30 @@ public class FragmentHomeTimer extends Fragment {
             @Override
             public void onClick(View view)
             {
+
                 final int index = findCountdownIndex(view.getId());
 
+                CountdownList.get(index).MidTime = Calendar.getInstance();
                 final DialogCreateDryer dialogDryer = new DialogCreateDryer();
                 dialogDryer.AddDialog(getActivity(), view);
                 Button add = dialogDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
+
                 add.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v)
                     {
                         Countdown c = CountdownList.get(index);
-                        c.MidTime = Calendar.getInstance();
                         c.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - c.MidTime.getTimeInMillis()));
                         c.chrono2.start();
+
+                        CountdownList.get(index).secondLayout2.removeView(c.nextButton);
+                        CountdownList.get(index).secondLayout2.addView(c.stopButton);
                         dialogDryer.dialog.dismiss();
                     }
                 });
 
-                CountdownList.get(index).secondLayout2.removeView(view);
-                CountdownList.get(index).secondLayout2.addView(CountdownList.get(index).stopButton);
+
+
             }
         });
 

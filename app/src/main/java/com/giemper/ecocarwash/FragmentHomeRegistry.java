@@ -2,6 +2,7 @@ package com.giemper.ecocarwash;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,21 @@ public class FragmentHomeRegistry extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_registry, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_registry, container, false);
+
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                final DialogSendReport dialog = new DialogSendReport();
+                dialog.AddDialog(getActivity(), view);
+            }
+        });
+
+        return rootView;
+
+
     }
 
 }

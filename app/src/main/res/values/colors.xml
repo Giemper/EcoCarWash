@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#2a5c21</color>
     <color name="colorPrimaryLight">#bed7bd</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent2">#4090ff</color>
+    <color name="colorAccent3">#ffaf40</color>
     <color name="colorPaper">#FAFAFA</color>
 
     <color name="separator">#3ca1a1a1</color>

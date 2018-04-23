@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
-    android:layout_height="wrap_content"
+    android:layout_height="350dp"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -21,63 +21,66 @@
             android:textSize="24sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Paquete"/>
-
-        <android.support.v7.widget.ToggleGroup
-            android:id="@+id/Dialog_CreateCar_Toggle_Pack"
-            style="@style/ContrastToggle"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:exclusive="true"
-            app:orientation="horizontal"
-            android:layout_margin="5dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <android.support.v7.widget.ToggleButton
-                android:layout_weight="1"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Paquete"/>
+
+            <android.support.v7.widget.ToggleGroup
+                android:id="@+id/Dialog_CreateCar_Toggle_Pack"
                 style="@style/ContrastToggle"
-                android:button="@drawable/ic_pack_one"/>
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:exclusive="true"
+                app:orientation="horizontal"
+                android:layout_margin="5dp">
 
-            <android.support.v7.widget.ToggleButton
-                android:layout_weight="1"
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_pack_one"/>
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_pack_two"/>
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_pack_three"/>
+
+            </android.support.v7.widget.ToggleGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Tamaño de Auto"/>
+
+            <android.support.v7.widget.ToggleGroup
+                android:id="@+id/Dialog_CreateCar_Toggle_Size"
                 style="@style/ContrastToggle"
-                android:button="@drawable/ic_pack_two"/>
-
-            <android.support.v7.widget.ToggleButton
-                android:layout_weight="1"
-                style="@style/ContrastToggle"
-                android:button="@drawable/ic_pack_three"/>
-
-        </android.support.v7.widget.ToggleGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Tamaño de Auto"/>
-
-        <android.support.v7.widget.ToggleGroup
-            android:id="@+id/Dialog_CreateCar_Toggle_Size"
-            style="@style/ContrastToggle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:exclusive="true"
-            app:orientation="horizontal"
-            android:layout_margin="5dp">
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:exclusive="true"
+                app:orientation="horizontal"
+                android:layout_margin="5dp">
 
                 <android.support.v7.widget.ToggleButton
                     android:layout_weight="1"
@@ -94,63 +97,62 @@
                     style="@style/ContrastToggle"
                     android:button="@drawable/ic_car_large"/>
 
-        </android.support.v7.widget.ToggleGroup>
+            </android.support.v7.widget.ToggleGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Color del Auto"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Color del Auto"/>
 
-        <Spinner
-            android:id="@+id/Dialog_CreateCar_Spinner"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            <Spinner
+                android:id="@+id/Dialog_CreateCar_Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Placas"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Placas"/>
 
-        <EditText
-            android:id="@+id/Dialog_CreateCar_Text_Licence"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:textColorHint="@color/gray"
-            android:hint="Obligatorio"/>
+            <EditText
+                android:id="@+id/Dialog_CreateCar_Text_Licence"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:textColorHint="@color/gray"
+                android:hint="Obligatorio"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Cronometro de Secado"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Cronometro de Secado"/>
+            <Chronometer
+                android:id="@+id/Dialog_CreateCar_Chronometer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/grayDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="left"/>
 
-        <Chronometer
-            android:id="@+id/Dialog_CreateCar_Chronometer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/grayDark"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="left"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!--<Chronometer-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!--<Chronometer-->
                 <!--android:id="@+id/Dialog_Chronometer"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
@@ -158,32 +160,35 @@
                 <!--android:textSize="30sp"-->
                 <!--android:gravity="left"/>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="right"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="right"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/Dialog_CreateCar_Button_Quit"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:textAllCaps="true"
-                    android:text="@string/Cancelar"
-                    style="@style/BorderlessButton"/>
+                    <Button
+                        android:id="@+id/Dialog_CreateCar_Button_Quit"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:textAllCaps="true"
+                        android:text="@string/Cancelar"
+                        style="@style/BorderlessButton"/>
 
-                <Button
-                    android:id="@+id/Dialog_CreateCar_Button_Add"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:textAllCaps="true"
-                    android:text="@string/Agregar"
-                    android:enabled="false"
-                    style="@style/BorderlessButton"/>
+                    <Button
+                        android:id="@+id/Dialog_CreateCar_Button_Add"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:textAllCaps="true"
+                        android:text="@string/Agregar"
+                        android:enabled="false"
+                        style="@style/BorderlessButton"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </LinearLayout>

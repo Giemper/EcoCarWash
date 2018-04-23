@@ -76,8 +76,8 @@ public class Countdown extends CardView
         this.setId(View.generateViewId());
 
         LinearLayout bigLayout = CreateLinearLayout(1f, LinearLayout.VERTICAL, null);
-        LinearLayout lowerLayout = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, bigLayout);
         LinearLayout upperLayout = CreateLinearLayout(4f, LinearLayout.HORIZONTAL, bigLayout);
+        LinearLayout lowerLayout = CreateLinearLayout(1f, LinearLayout.HORIZONTAL, bigLayout);
         LinearLayout secondLayout1 = CreateLinearLayout(3f, LinearLayout.VERTICAL, upperLayout);
         secondLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, upperLayout);
         LinearLayout thirdLayout1 = CreateLinearLayout(4f, LinearLayout.HORIZONTAL, secondLayout1);
@@ -85,7 +85,8 @@ public class Countdown extends CardView
         LinearLayout forthLayout1 = CreateLinearLayout(2f, LinearLayout.VERTICAL, thirdLayout2);
         LinearLayout forthLayout2 = CreateLinearLayout(1f, LinearLayout.VERTICAL, thirdLayout2);
         bigLayout.setPadding(pxToDp(15), pxToDp(10), pxToDp(15), pxToDp(10));
-        thirdLayout2.setPadding(0,0,0,pxToDp(5));
+        LinearLayout.LayoutParams lowerLayoutParams = (LinearLayout.LayoutParams) lowerLayout.getLayoutParams();
+        lowerLayoutParams.setMargins(0, pxToDp(10), 0, 0);
         secondLayout2.setGravity(Gravity.CENTER);
 
         TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
@@ -93,8 +94,8 @@ public class Countdown extends CardView
         TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
         TextView title_pack = CreateTextView(values.Package + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
         TextView title_size = CreateTextView(values.Size, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
-        TextView title_color = CreateTextView(values.Color, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 13, 1f,false, lowerLayout);
-        TextView title_license = CreateTextView(values.License, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 13,  1f,false, lowerLayout);
+        TextView title_color = CreateTextView(values.Color, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f,false, lowerLayout);
+        TextView title_license = CreateTextView(values.License, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f,false, lowerLayout);
         textName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
 
         Chronometer chrono = CreateChronometer(24, 1f, forthLayout1);
@@ -103,13 +104,14 @@ public class Countdown extends CardView
         chrono.start();
 
         View middleSeparator = CreateSeparator(LinearLayout.HORIZONTAL, 1,0, 5, bigLayout);
+        LinearLayout.LayoutParams middleSeparatorParams = (LinearLayout.LayoutParams)middleSeparator.getLayoutParams();
+        middleSeparatorParams.setMargins(0,pxToDp(10),0,0);
         View lowerSeparator1 = CreateSeparator(LinearLayout.VERTICAL, 1,3,3, lowerLayout);
         View lowerSeparator2 = CreateSeparator(LinearLayout.VERTICAL,3, 3,3, lowerLayout);
         View lowerSeparator3 = CreateSeparator(LinearLayout.VERTICAL, 5,3,3, lowerLayout);
 
         nextButton = CreateSquareButton(R.drawable.ic_next, secondLayout2);
         stopButton = CreateSquareButton(R.drawable.ic_stop, null);
-        stopButton.setVisibility(GONE);
         this.addView(bigLayout);
     }
 
