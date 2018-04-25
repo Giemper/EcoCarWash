@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -16,7 +17,7 @@ import java.util.Calendar;
 public class DialogCreateDryer
 {
     public Dialog dialog;
-    public Button add;
+    public String DryerName;
     public Calendar StartTime;
 
     public void AddDialog(Activity activity, View view)
@@ -27,6 +28,9 @@ public class DialogCreateDryer
         dialog.setContentView(R.layout.dialog_createdryer);
 
         StartTime = Calendar.getInstance();
+
+        TextView TextName = dialog.findViewById(R.id.Dryer_Name);
+        DryerName = TextName.getText().toString();
 
         Chronometer chrono = dialog.findViewById(R.id.Dialog_CreateDryer_Chronometer);
         chrono.start();

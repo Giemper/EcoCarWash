@@ -29,21 +29,23 @@ public class Countdown extends CardView
     private Context mContext;
     public SquareButton nextButton;
     public SquareButton stopButton;
-    public CreateCarValue values;
+    public CarValues values;
     public LinearLayout secondLayout2;
     public Chronometer chrono2;
+    public int ClockID;
 
     private Calendar StartTime;
     public Calendar MidTime;
     public Calendar EndTime;
 
 
-    public Countdown(Context context, CreateCarValue _values, Calendar _start)
+    public Countdown(Context context, Calendar _start, CarValues _values, int ID)
     {
         super(context);
         mContext = context;
         values = _values;
         StartTime = _start;
+        ClockID = ID;
 
 //                Snackbar.make(getRootView(), "Small", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         switch (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
@@ -92,10 +94,10 @@ public class Countdown extends CardView
         TextView textName = CreateTextView("Esperando Asignacíon", 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
         TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
         TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
-        TextView title_pack = CreateTextView(values.Package + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
-        TextView title_size = CreateTextView(values.Size, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
-        TextView title_color = CreateTextView(values.Color, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f,false, lowerLayout);
-        TextView title_license = CreateTextView(values.License, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f,false, lowerLayout);
+        TextView title_pack = CreateTextView(values.getPackage() + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_size = CreateTextView(values.getSize(), 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_color = CreateTextView(values.getColor(), 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f,false, lowerLayout);
+        TextView title_license = CreateTextView(values.getLicense(), 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f,false, lowerLayout);
         textName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
 
         Chronometer chrono = CreateChronometer(24, 1f, forthLayout1);
@@ -140,10 +142,10 @@ public class Countdown extends CardView
         TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36,Gravity.CENTER_VERTICAL, 1f, true,thirdLayout1);
         TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
         TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
-        TextView title_pack = CreateTextView(values.Package + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
-        TextView title_size = CreateTextView(values.Size, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
-        TextView title_color = CreateTextView(values.Color, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
-        TextView title_license = CreateTextView(values.License, 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_pack = CreateTextView(values.getPackage() + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_size = CreateTextView(values.getSize(), 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_color = CreateTextView(values.getColor(), 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
+        TextView title_license = CreateTextView(values.getLicense(), 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
         textName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
 
         Chronometer chrono = CreateChronometer(36, 1f, forthLayout1);

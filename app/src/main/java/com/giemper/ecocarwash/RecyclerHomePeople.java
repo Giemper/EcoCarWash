@@ -6,12 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-
 import java.util.ArrayList;
-
-/**
- * Created by gmoma on 4/20/2018.
- */
 
 public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.ViewHolder>
 {

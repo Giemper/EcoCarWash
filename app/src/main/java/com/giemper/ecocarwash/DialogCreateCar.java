@@ -26,7 +26,6 @@ public class DialogCreateCar
     public Dialog dialog;
     public Button add;
     public Calendar StartTime;
-
     private Boolean CheckPack = false;
     private Boolean CheckSize = false;
     private Boolean CheckLicence = false;
@@ -118,54 +117,4 @@ public class DialogCreateCar
         else
             add.setEnabled(false);
     }
-
-    public CreateCarValue getCarValues(Dialog dialog)
-    {
-        CreateCarValue values = new CreateCarValue();
-        ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
-        ToggleGroup Group_Size = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Size);
-        Spinner Spinner_Color = dialog.findViewById(R.id.Dialog_CreateCar_Spinner);
-        EditText Text_Licence =dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
-
-        values.Color = Spinner_Color.getSelectedItem().toString();
-        values.License = Text_Licence.getText().toString();
-
-        for(int i = 0; i < Group_Pack.getChildCount(); i++)
-        {
-            ToggleButton temp = (ToggleButton)Group_Pack.getChildAt(i);
-            if(temp.isChecked())
-            {
-                values.Package = i + 1;
-                break;
-            }
-        }
-
-        int sizeInt = 0;
-        for(int i = 0; i < Group_Size.getChildCount(); i++)
-        {
-            ToggleButton temp = (ToggleButton)Group_Size.getChildAt(i);
-            if(temp.isChecked())
-            {
-                sizeInt = i + 1;
-                break;
-            }
-        }
-
-        if(sizeInt == 0)
-            values.Size = "Pequeño";
-        else if(sizeInt == 1)
-            values.Size = "Mediano";
-        else
-            values.Size = "Grande";
-
-        return values;
-    }
-}
-
-class CreateCarValue
-{
-    public int Package;
-    public String Size;
-    public String Color;
-    public String License;
 }
