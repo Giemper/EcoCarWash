@@ -17,16 +17,17 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Intent intent;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ViewPager viewHome = findViewById(R.id.view_home);
@@ -42,9 +43,11 @@ public class MainActivity extends AppCompatActivity {
         homeTab.getTabAt(1).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
         homeTab.getTabAt(2).setIcon(R.drawable.ic_format_list);
         homeTab.getTabAt(2).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
+
         homeTab.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        homeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+        homeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {

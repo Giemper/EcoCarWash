@@ -23,6 +23,7 @@ public class Clocks
     {
         TransactionID = ID;
         isActive = true;
+        Car = new CarValues();
     }
 
     public void setCarValues(Dialog dialog)

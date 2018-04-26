@@ -13,7 +13,8 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
     private String[] mDataset;
     private ArrayList<CheckTracker> checkTracker = new ArrayList<>();
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder
+    {
         // each data item is just a string in this case
         public CheckBox mCheckBox;
         public ViewHolder(View v) {
@@ -22,21 +23,24 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
         }
     }
 
-    public RecyclerHomePeople(String[] myDataset) {
+    public RecyclerHomePeople(String[] myDataset)
+    {
         mDataset = myDataset;
         for(int i = 0; i < mDataset.length; i++)
             checkTracker.add(new CheckTracker());
     }
 
     @Override
-    public RecyclerHomePeople.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerHomePeople.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_checkbox, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position)
+    {
         final CheckTracker track = checkTracker.get(position);
 
         holder.mCheckBox.setText(mDataset[position]);
@@ -53,7 +57,8 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return mDataset.length;
     }
 

@@ -31,8 +31,10 @@ public class Countdown extends CardView
     public SquareButton stopButton;
     public CarValues values;
     public LinearLayout secondLayout2;
+    public TextView textName;
     public Chronometer chrono2;
     public int ClockID;
+
 
     private Calendar StartTime;
     public Calendar MidTime;
@@ -91,7 +93,7 @@ public class Countdown extends CardView
         lowerLayoutParams.setMargins(0, pxToDp(10), 0, 0);
         secondLayout2.setGravity(Gravity.CENTER);
 
-        TextView textName = CreateTextView("Esperando Asignacíon", 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
+        textName = CreateTextView("Esperando Asignacíon", 36, Gravity.CENTER_VERTICAL, 1f, true, thirdLayout1);
         TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
         TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
         TextView title_pack = CreateTextView(values.getPackage() + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);
@@ -139,7 +141,7 @@ public class Countdown extends CardView
         bigLayout.setPadding(pxToDp(15), pxToDp(10), pxToDp(15), pxToDp(10));
         secondLayout2.setGravity(Gravity.CENTER);
 
-        TextView textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36,Gravity.CENTER_VERTICAL, 1f, true,thirdLayout1);
+        textName = CreateTextView("Taco " + Calendar.getInstance().get(Calendar.SECOND), 36,Gravity.CENTER_VERTICAL, 1f, true,thirdLayout1);
         TextView textEntry = CreateTextView("Entrada", 14, Gravity.BOTTOM, 2f, true, forthLayout1);
         TextView textDry = CreateTextView("Secado", 14, Gravity.BOTTOM, 2f, true, forthLayout2);
         TextView title_pack = CreateTextView(values.getPackage() + "", 13, Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 1f, false, lowerLayout);

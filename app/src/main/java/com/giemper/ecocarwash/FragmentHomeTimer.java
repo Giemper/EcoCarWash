@@ -1,10 +1,12 @@
 package com.giemper.ecocarwash;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +98,13 @@ public class FragmentHomeTimer extends Fragment {
                 c.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - c.MidTime.getTimeInMillis()));
                 c.chrono2.start();
 
+
+
                 ClockList.get(c.ClockID).setDryer(0, dialogDryer.DryerName);
+                c.textName.setText(ClockList.get(c.ClockID).getDryerName());
+                c.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+
+
 
                 CountdownList.get(index).secondLayout2.removeView(c.nextButton);
                 CountdownList.get(index).secondLayout2.addView(c.stopButton);
