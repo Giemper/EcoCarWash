@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.ViewHolder>
 {
     private String[] mDataset;
+    private List<Dryer> activeList;
     private ArrayList<CheckTracker> checkTracker = new ArrayList<>();
+    private DryerStatus status = new DryerStatus();
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        // each data item is just a string in this case
         public CheckBox mCheckBox;
         public ViewHolder(View v) {
             super(v);
@@ -28,6 +31,16 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
         mDataset = myDataset;
         for(int i = 0; i < mDataset.length; i++)
             checkTracker.add(new CheckTracker());
+    }
+
+    public RecyclerHomePeople(List<Dryer> myDataset)
+    {
+        activeList = myDataset.stream().filter(e -> e.getActive()).collect(Collectors.toList());
+        for(int i = 0; i < activeList.size(); i++)
+        {
+            checkTracker.add(new CheckTracker(activeList.get(i)));
+        }
+
     }
 
     @Override
@@ -46,13 +59,15 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
         holder.mCheckBox.setText(mDataset[position]);
         holder.mCheckBox.setOnCheckedChangeListener(null);
         holder.mCheckBox.setChecked(track.getCheck());
-        holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        holder.mCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
         {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                track.setCheck(isChecked);
-            }
+
+            track.setCheck(isChecked);
+            if(isChecked)
+                status.addDryer(track.getDryer());
+            else
+                status.removeDryer(track.getDryer());
+
         });
     }
 
@@ -64,11 +79,17 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
 
     class CheckTracker
     {
-        private boolean isChecked;
+        private boolean isChecked = false;
+        private Dryer dryer;
 
         public CheckTracker()
         {
-            isChecked = false;
+
+        }
+
+        public CheckTracker(Dryer dry)
+        {
+            dryer = dry;
         }
 
         public void setCheck(boolean b)
@@ -79,6 +100,11 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
         public boolean getCheck()
         {
             return isChecked;
+        }
+
+        public Dryer getDryer()
+        {
+            return dryer;
         }
     }
 }

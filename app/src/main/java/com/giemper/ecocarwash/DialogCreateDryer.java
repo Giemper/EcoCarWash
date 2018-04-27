@@ -36,9 +36,9 @@ public class DialogCreateDryer
         chrono.start();
 
         Button quit = dialog.findViewById(R.id.Dialog_CreateDryer_Button_Quit);
-        quit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) { dialog.dismiss(); }
+        quit.setOnClickListener((View v) ->
+        {
+            dialog.dismiss();
         });
 
         dialog.show();

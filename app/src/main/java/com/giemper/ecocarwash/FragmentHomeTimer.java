@@ -47,16 +47,12 @@ public class FragmentHomeTimer extends Fragment {
     private void setFloatingListener()
     {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
+        fab.setOnClickListener((View view) ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                final DialogCreateCar dcc = new DialogCreateCar();
-                dcc.AddDialog(getActivity(), view);
+            final DialogCreateCar dcc = new DialogCreateCar();
+            dcc.AddDialog(getActivity(), view);
 
-                setDialogCreateCarListener(dcc);
-            }
+            setDialogCreateCarListener(dcc);
         });
     }
 
@@ -64,22 +60,18 @@ public class FragmentHomeTimer extends Fragment {
     {
         final DialogCreateCar dialogCreateCar = dcc;
         Button add = dialogCreateCar.dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
-        add.setOnClickListener(new View.OnClickListener()
+        add.setOnClickListener((View view) ->
         {
-            @Override
-            public void onClick(View v)
-            {
-                Clocks clock = new Clocks(ClockList.size());
-                clock.setCarValues(dialogCreateCar.dialog);
-                ClockList.add(clock);
+            Clocks clock = new Clocks(ClockList.size());
+            clock.setCarValues(dialogCreateCar.dialog);
+            ClockList.add(clock);
 
-                CountdownList.add(new Countdown(getActivity(), dialogCreateCar.StartTime, clock.Car, ClockList.size() - 1));
-                int last = CountdownList.size() - 1;
-                layout.addView(CountdownList.get(last), layout.getChildCount() - 1);
-                dialogCreateCar.dialog.dismiss();
+            CountdownList.add(new Countdown(getActivity(), dialogCreateCar.StartTime, clock.Car, ClockList.size() - 1));
+            int last = CountdownList.size() - 1;
+            layout.addView(CountdownList.get(last), layout.getChildCount() - 1);
+            dialogCreateCar.dialog.dismiss();
 
-                setCountdownButtonListener(CountdownList.get(last));
-            }
+            setCountdownButtonListener(CountdownList.get(last));
         });
     }
 
@@ -89,58 +81,42 @@ public class FragmentHomeTimer extends Fragment {
         final DialogCreateDryer dialogDryer = dcd;
         Button add = dialogDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
 
-        add.setOnClickListener(new View.OnClickListener()
+        add.setOnClickListener((View view) ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                Countdown c = CountdownList.get(index);
-                c.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - c.MidTime.getTimeInMillis()));
-                c.chrono2.start();
+            Countdown c = CountdownList.get(index);
+            c.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - c.MidTime.getTimeInMillis()));
+            c.chrono2.start();
 
+            ClockList.get(c.ClockID).setDryer(0, dialogDryer.DryerName);
+            c.textName.setText(ClockList.get(c.ClockID).getDryerName());
+            c.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
 
-
-                ClockList.get(c.ClockID).setDryer(0, dialogDryer.DryerName);
-                c.textName.setText(ClockList.get(c.ClockID).getDryerName());
-                c.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
-
-
-
-                CountdownList.get(index).secondLayout2.removeView(c.nextButton);
-                CountdownList.get(index).secondLayout2.addView(c.stopButton);
-                dialogDryer.dialog.dismiss();
-            }
+            CountdownList.get(index).secondLayout2.removeView(c.nextButton);
+            CountdownList.get(index).secondLayout2.addView(c.stopButton);
+            dialogDryer.dialog.dismiss();
         });
     }
 
     private void setCountdownButtonListener(Countdown cd)
     {
-        cd.nextButton.setOnClickListener(new View.OnClickListener()
+        cd.nextButton.setOnClickListener((View view) ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                final int index = findCountdownIndex(view.getId());
+            final int index = findCountdownIndex(view.getId());
 
-                CountdownList.get(index).MidTime = Calendar.getInstance();
-                final DialogCreateDryer dialogDryer = new DialogCreateDryer();
-                dialogDryer.AddDialog(getActivity(), view);
+            CountdownList.get(index).MidTime = Calendar.getInstance();
+            final DialogCreateDryer dialogDryer = new DialogCreateDryer();
+            dialogDryer.AddDialog(getActivity(), view);
 
-                setDialogCreateDryerListener(dialogDryer, index);
-            }
+            setDialogCreateDryerListener(dialogDryer, index);
         });
 
-        cd.stopButton.setOnClickListener(new View.OnClickListener()
+        cd.stopButton.setOnClickListener((View view) ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                int index = findCountdownIndex(view.getId());
-                CountdownList.get(index).EndTime = Calendar.getInstance();
-                Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                layout.removeView(CountdownList.get(index));
-                CountdownList.remove(index);
-            }
+            int index = findCountdownIndex(view.getId());
+            CountdownList.get(index).EndTime = Calendar.getInstance();
+            Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            layout.removeView(CountdownList.get(index));
+            CountdownList.remove(index);
         });
     }
 
