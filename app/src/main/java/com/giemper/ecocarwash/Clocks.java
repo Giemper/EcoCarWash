@@ -14,9 +14,9 @@ public class Clocks
     private int TransactionID;
     private int DryerID;
     private String DryerName;
-    private Calendar StartTime;
-    private Calendar MidTime;
-    private Calendar EndTime;
+    private long StartTime;
+    private long MidTime;
+    private long EndTime;
     private boolean isActive;
 
     public Clocks(int ID)
@@ -24,6 +24,8 @@ public class Clocks
         TransactionID = ID;
         isActive = true;
         Car = new CarValues();
+        StartTime = 0;
+        DryerName = "TBA";
     }
 
     public void setCarValues(Dialog dialog)
@@ -31,7 +33,7 @@ public class Clocks
         ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
         ToggleGroup Group_Size = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Size);
         Spinner Spinner_Color = dialog.findViewById(R.id.Dialog_CreateCar_Spinner);
-        EditText Text_Licence =dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
+        EditText Text_Licence = dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
 
         Car.setColor(Spinner_Color.getSelectedItem().toString());
         Car.setLicense(Text_Licence.getText().toString());
@@ -46,15 +48,14 @@ public class Clocks
             }
         }
 
-        int sizeInt = 0;
         for(int i = 0; i < Group_Size.getChildCount(); i++)
         {
             ToggleButton temp = (ToggleButton)Group_Size.getChildAt(i);
             if(temp.isChecked())
             {
-                if(sizeInt == 0)
+                if(i == 0)
                     Car.setSize("Pequeño");
-                else if(sizeInt == 1)
+                else if(i == 1)
                     Car.setSize("Mediano");
                 else
                     Car.setSize("Grande");
@@ -66,6 +67,10 @@ public class Clocks
     public int getTransactionID()
     {
         return TransactionID;
+    }
+    public String getTransactionID_String()
+    {
+        return Integer.toString(TransactionID);
     }
 
     public void setDryer(int ID, String Name)
@@ -85,27 +90,27 @@ public class Clocks
 
     public void setStartTime(Calendar Start)
     {
-        StartTime = Start;
+        StartTime = Start.getTimeInMillis();
     }
-    public Calendar getStartTime()
+    public long getStartTime()
     {
         return StartTime;
     }
 
     public void setMidTime(Calendar Mid)
     {
-        MidTime = Mid;
+        MidTime = Mid.getTimeInMillis();
     }
-    public Calendar getMidTime()
+    public long getMidTime()
     {
         return MidTime;
     }
 
     public void setEndTime(Calendar End)
     {
-        EndTime = End;
+        EndTime = End.getTimeInMillis();
     }
-    public Calendar getEndTime()
+    public long getEndTime()
     {
         return EndTime;
     }

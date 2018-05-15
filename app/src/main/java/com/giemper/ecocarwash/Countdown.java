@@ -41,12 +41,13 @@ public class Countdown extends CardView
     public Calendar EndTime;
 
 
-    public Countdown(Context context, Calendar _start, CarValues _values, int ID)
+    public Countdown(Context context, long _start, CarValues _values, int ID)
     {
         super(context);
         mContext = context;
         values = _values;
-        StartTime = _start;
+        StartTime = Calendar.getInstance();
+        StartTime.setTimeInMillis(_start);
         ClockID = ID;
 
 //                Snackbar.make(getRootView(), "Small", Snackbar.LENGTH_LONG).setAction("Action", null).show();

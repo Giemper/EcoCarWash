@@ -48,12 +48,9 @@ public class DialogCreateCar
         chrono.start();
 
         Button quit = (Button) dialog.findViewById(R.id.Dialog_CreateCar_Button_Quit);
-        quit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                dialog.dismiss();
-            }
+        quit.setOnClickListener((View v) ->
+        {
+            dialog.dismiss();
         });
 
         setListeners(view);
@@ -65,25 +62,17 @@ public class DialogCreateCar
     {
         final View view = _view;
         ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
-        Group_Pack.setOnCheckedChangeListener(new ToggleGroup.OnCheckedChangeListener()
+        Group_Pack.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
         {
-            @Override
-            public void onCheckedChanged(ToggleGroup group, int[] checkedId)
-            {
-                CheckPack = true;
-                CheckDialog();
-            }
+            CheckPack = true;
+            CheckDialog();
         });
 
         ToggleGroup Group_Size = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Size);
-        Group_Size.setOnCheckedChangeListener(new ToggleGroup.OnCheckedChangeListener()
+        Group_Size.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
         {
-            @Override
-            public void onCheckedChanged(ToggleGroup group, int[] checkedId)
-            {
-                CheckSize = true;
-                CheckDialog();
-            }
+            CheckSize = true;
+            CheckDialog();
         });
 
         EditText License = dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
