@@ -8,69 +8,67 @@ import java.util.Calendar;
 
 public class Dryer
 {
-    private int ID;
+    private String DryerID;
     private String FirstName;
-    private String MiddleName;
     private String LastNameFather;
     private String LastNameMother;
-    private Calendar StartTime;
-    private Calendar EndTime;
-    private boolean isActive;
+    private String StartTime;
+    private long EndTime;
+    public int CarWashed = 0;
 
-    public Dryer(String first, String middle, String lastFather, String lastMother, Calendar start)
+    public Dryer() { }
+
+    public String getDryerID()
     {
-        FirstName = first;
-        MiddleName = middle;
-        LastNameFather = lastFather;
-        LastNameMother = lastMother;
-        StartTime = start;
-        isActive = true;
+        return DryerID;
     }
-
-    public int getID()
+    public void setDryerID(String id)
     {
-        return ID;
+        DryerID = id;
     }
 
     public String getFirstName()
     {
         return FirstName;
     }
-
-    public String getMiddleName()
+    public void setFirstName(String name)
     {
-        return MiddleName;
+        FirstName = name;
     }
 
     public String getLastNameFather()
     {
         return LastNameFather;
     }
+    public void setLastNameFather(String name)
+    {
+        LastNameFather = name;
+    }
 
     public String getLastNameMother()
     {
         return LastNameMother;
     }
+    public void setLastNameMother(String name)
+    {
+        LastNameMother = name;
+    }
 
-    public Calendar getStartTime()
+    public String getStartTime()
     {
         return StartTime;
     }
+    public void setStartTime(String start)
+    {
+        StartTime = start;
+    }
 
-    public Calendar getEndTime()
+    public long getEndTime()
     {
         return EndTime;
     }
-    public void setEndTime(Calendar end)
+    public void setEndTime(long end)
     {
         EndTime = end;
-        isActive = false;
     }
-
-    public boolean getActive()
-    {
-        return isActive;
-    }
-
-
 }

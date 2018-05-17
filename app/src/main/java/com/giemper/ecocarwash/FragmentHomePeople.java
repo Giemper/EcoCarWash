@@ -9,7 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import static com.giemper.ecocarwash.CarMethods.*;
+import java.util.Calendar;
+
 
 
 /**
@@ -17,8 +23,10 @@ import android.widget.ArrayAdapter;
  */
 public class FragmentHomePeople extends Fragment {
 
+    private DatabaseReference ecoDatabase;
     private View rootView;
     private RecyclerHomePeople adapterHomePeople;
+
 
     public FragmentHomePeople() {
         // Required empty public constructor
@@ -28,6 +36,8 @@ public class FragmentHomePeople extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_home_people, container, false);
+        ecoDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         String[] arrayHomePoeple = getResources().getStringArray(R.array.Recycler_Home_People);
         adapterHomePeople = new RecyclerHomePeople(arrayHomePoeple);
@@ -55,7 +65,26 @@ public class FragmentHomePeople extends Fragment {
 
     private void setDialogCreateDryerListener(DialogCreateDryer dcd)
     {
+        final DialogCreateDryer dialogCreateDryer = dcd;
+        Button add = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
+        add.setOnClickListener((View view) ->
+        {
+            EditText firstName = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Name);
+            EditText lastNameFather = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_LastNameFather);
+            EditText lastNameMother = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_LastNameMother);
+            long dryerID = Calendar.getInstance().getTimeInMillis();
 
+            Dryer dryer = new Dryer();
+            dryer.setDryerID(Long.toString(dryerID));
+            dryer.setFirstName(firstName.getText().toString());
+            dryer.setLastNameFather(lastNameFather.getText().toString());
+            dryer.setLastNameMother(lastNameMother.getText().toString());
+            dryer.setStartTime(getFullDate());
+
+            dialogCreateDryer.dialog.dismiss();
+
+            ecoDatabase.child("Dryers").child("List").setValue(dryer);
+        });
     }
 
 }

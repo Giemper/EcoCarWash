@@ -1,6 +1,5 @@
 package com.giemper.ecocarwash;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
@@ -11,21 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.LinearLayout;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.time.Clock;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
 import static com.giemper.ecocarwash.CarMethods.*;
 
 
@@ -36,8 +28,6 @@ public class FragmentHomeTimer extends Fragment
 {
     private DatabaseReference ecoDatabase;
     private View rootView;
-    List<Countdown> CountdownList = new ArrayList<Countdown>();
-    List<Clocks> ClockList = new ArrayList<Clocks>();
     LinearLayout layout;
 
     public FragmentHomeTimer() {
@@ -69,11 +59,9 @@ public class FragmentHomeTimer extends Fragment
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 layout.removeAllViews();
-//                ClockList = new ArrayList<>();
                 for(DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Clocks clock = snap.getValue(Clocks.class);
-//                    ClockList.add(clock);
                     Countdown cd = new Countdown(getActivity(), clock);
 
 
@@ -90,7 +78,6 @@ public class FragmentHomeTimer extends Fragment
 
                     }
 
-//                    setCountdownButtonListener(CountdownList.get(index));
                     setCountdownButtonListener(cd);
 
                     layout.addView(cd);
@@ -128,8 +115,6 @@ public class FragmentHomeTimer extends Fragment
                         ecoDatabase.child("Clocks/Active").child(snapKey).removeValue();
                     }
                 }
-
-
             }
 
             @Override
@@ -138,8 +123,6 @@ public class FragmentHomeTimer extends Fragment
 
             }
         });
-
-
     }
 
     private void setFloatingListener()
@@ -208,8 +191,6 @@ public class FragmentHomeTimer extends Fragment
 
         cd.stopButton.setOnClickListener((View view) ->
         {
-
-//            Countdown c = CountdownList.get(index);
             cd.EndTime = Calendar.getInstance();
             Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerName() + " fue terminado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
@@ -217,28 +198,5 @@ public class FragmentHomeTimer extends Fragment
             ecoDatabase.child("Clocks/Active").child(getFullDate()).child(cd.clock.getTransactionID()).removeValue();
             ecoDatabase.child("Clocks/Archive").child(getYear() + "/" + getMonth() + "/" +  getDay()).child(cd.clock.getTransactionID()).setValue(cd.clock);
         });
-    }
-
-    public int findCountdownIndex(int id)
-    {
-        for(int i=0; i < CountdownList.size(); i++)
-        {
-            if (CountdownList.get(i).stopButton.getId() == id)
-                return i;
-            else if (CountdownList.get(i).nextButton.getId() == id)
-                return i;
-        }
-        return -1;
-    }
-
-    public int findClockIndex(String id)
-    {
-        for(int i=0; i < ClockList.size(); i++)
-        {
-            if(ClockList.get(i).getTransactionID() == id)
-                return i;
-        }
-
-        return -1;
     }
 }
