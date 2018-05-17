@@ -11,21 +11,24 @@ import java.util.Calendar;
 public class Clocks
 {
     public CarValues Car;
-    private int TransactionID;
+    private String TransactionID;
     private int DryerID;
     private String DryerName;
     private long StartTime;
     private long MidTime;
     private long EndTime;
-    private boolean isActive;
 
-    public Clocks(int ID)
+    public Clocks()
     {
-        TransactionID = ID;
-        isActive = true;
         Car = new CarValues();
         StartTime = 0;
-        DryerName = "TBA";
+    }
+
+    public Clocks(String id)
+    {
+        TransactionID = id;
+        Car = new CarValues();
+        StartTime = 0;
     }
 
     public void setCarValues(Dialog dialog)
@@ -64,13 +67,14 @@ public class Clocks
         }
     }
 
-    public int getTransactionID()
+    public void setTransactionID(String id)
+    {
+        TransactionID = id;
+    }
+
+    public String getTransactionID()
     {
         return TransactionID;
-    }
-    public String getTransactionID_String()
-    {
-        return Integer.toString(TransactionID);
     }
 
     public void setDryer(int ID, String Name)
@@ -78,9 +82,19 @@ public class Clocks
         DryerID = ID;
         DryerName = Name;
     }
+
+    public void setDryerID(int id)
+    {
+        DryerID = id;
+    }
     public int getDryerID()
     {
         return DryerID;
+    }
+
+    public void setDryerName(String name)
+    {
+        DryerName = name;
     }
     public String getDryerName()
     {
@@ -88,39 +102,30 @@ public class Clocks
     }
 
 
-    public void setStartTime(Calendar Start)
+    public void setStartTime(long Start)
     {
-        StartTime = Start.getTimeInMillis();
+        StartTime = Start;
     }
     public long getStartTime()
     {
         return StartTime;
     }
 
-    public void setMidTime(Calendar Mid)
+    public void setMidTime(long Mid)
     {
-        MidTime = Mid.getTimeInMillis();
+        MidTime = Mid;
     }
     public long getMidTime()
     {
         return MidTime;
     }
 
-    public void setEndTime(Calendar End)
+    public void setEndTime(long End)
     {
-        EndTime = End.getTimeInMillis();
+        EndTime = End;
     }
     public long getEndTime()
     {
         return EndTime;
-    }
-
-    public void setActive(Boolean Active)
-    {
-        isActive = Active;
-    }
-    public Boolean getActive()
-    {
-        return isActive;
     }
 }

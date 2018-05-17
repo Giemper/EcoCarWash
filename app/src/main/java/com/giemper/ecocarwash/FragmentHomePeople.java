@@ -2,6 +2,7 @@ package com.giemper.ecocarwash;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +36,26 @@ public class FragmentHomePeople extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.setAdapter(adapterHomePeople);
 
+        setFloatingListener();
+
         return rootView;
+    }
+
+    private void setFloatingListener()
+    {
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener((View view) ->
+        {
+            final DialogCreateDryer dcd = new DialogCreateDryer();
+            dcd.AddDialog(getActivity(), view);
+
+            setDialogCreateDryerListener(dcd);
+        });
+    }
+
+    private void setDialogCreateDryerListener(DialogCreateDryer dcd)
+    {
+
     }
 
 }

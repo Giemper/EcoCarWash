@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorAccent2">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,78 +21,122 @@
             android:textSize="24sp" />
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Nombre del Secador"/>
+
+            <EditText
+                android:id="@+id/Dialog_CreateDryer_Name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:textColorHint="@color/gray"
+                android:hint="Obligatorio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Apellido Paterno"/>
+
+            <EditText
+                android:id="@+id/Dialog_CreateDryer_LastNameFather"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:textColorHint="@color/gray"
+                android:hint="Obligatorio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Apellido Materno"/>
+
+            <EditText
+                android:id="@+id/Dialog_CreateDryer_LastNameMother"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:textColorHint="@color/gray"
+                android:hint="Obligatorio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:text="Fecha de Ingreso"/>
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:inputType="date" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/grayLight"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Secador"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/Dryer_Name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/grayDark"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:text="Taco de Asada"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Cronometro de Secado"/>
-
-        <Chronometer
-            android:id="@+id/Dialog_CreateDryer_Chronometer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/grayDark"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="left"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="right"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="right"
-                android:orientation="horizontal">
+            <Button
+                android:id="@+id/Dialog_CreateDryer_Button_Quit"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textAllCaps="true"
+                android:text="@string/Cancelar"
+                android:textColor="@color/colorAccent2"
+                style="@style/BorderlessButton"/>
 
-                <Button
-                    android:id="@+id/Dialog_CreateDryer_Button_Quit"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:textAllCaps="true"
-                    android:text="@string/Cancelar"
-                    style="@style/BorderlessButton"/>
-
-                <Button
-                    android:id="@+id/Dialog_CreateDryer_Button_Add"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:textAllCaps="true"
-                    android:text="@string/Agregar"
-                    style="@style/BorderlessButton"/>
-            </LinearLayout>
+            <Button
+                android:id="@+id/Dialog_CreateDryer_Button_Add"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textAllCaps="true"
+                android:text="@string/Agregar"
+                android:textColor="@color/colorAccent2"
+                style="@style/BorderlessButton"/>
         </LinearLayout>
-
-
     </LinearLayout>
+
 
 </LinearLayout>

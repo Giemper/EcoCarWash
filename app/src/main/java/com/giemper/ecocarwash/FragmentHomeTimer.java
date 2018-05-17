@@ -11,13 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.LinearLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,7 +39,6 @@ public class FragmentHomeTimer extends Fragment
     List<Countdown> CountdownList = new ArrayList<Countdown>();
     List<Clocks> ClockList = new ArrayList<Clocks>();
     LinearLayout layout;
-    int ClockCount;
 
     public FragmentHomeTimer() {
         // Required empty public constructor
@@ -49,43 +52,48 @@ public class FragmentHomeTimer extends Fragment
         ecoDatabase = FirebaseDatabase.getInstance().getReference();
 
         setFloatingListener();
-        setDatabaseListener();
+
         setDatabaseSingleListener();
+        setDatabaseListener();
+
 
         return rootView;
     }
 
     private void setDatabaseListener()
     {
-        ecoDatabase.addValueEventListener(new ValueEventListener()
+        Query queryChronometers = ecoDatabase.child("Clocks/Active").child(getFullDate()).orderByKey();
+        queryChronometers.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                ClockCount = dataSnapshot.child("Clocks").child("ClockCount").getValue(int.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
-        });
-    }
-
-    private void setDatabaseSingleListener()
-    {
-        ecoDatabase.addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-//
-
-                for (DataSnapshot postSnapshot: dataSnapshot.child("Clocks").child("Active").getChildren())
+                layout.removeAllViews();
+//                ClockList = new ArrayList<>();
+                for(DataSnapshot snap : dataSnapshot.getChildren())
                 {
+                    Clocks clock = snap.getValue(Clocks.class);
+//                    ClockList.add(clock);
+                    Countdown cd = new Countdown(getActivity(), clock);
 
 
+
+                    if(clock.getMidTime() > 0)
+                    {
+                        cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
+                        cd.chrono2.start();
+
+                        cd.textName.setText(clock.getDryerName());
+                        cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+                        cd.secondLayout2.removeView(cd.nextButton);
+                        cd.secondLayout2.addView(cd.stopButton);
+
+                    }
+
+//                    setCountdownButtonListener(CountdownList.get(index));
+                    setCountdownButtonListener(cd);
+
+                    layout.addView(cd);
                 }
             }
 
@@ -95,6 +103,43 @@ public class FragmentHomeTimer extends Fragment
 
             }
         });
+
+    }
+
+    private void setDatabaseSingleListener()
+    {
+        Query temp = ecoDatabase.child("Clocks").child("Active");
+
+        temp.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                for(DataSnapshot snap: dataSnapshot.getChildren())
+                {
+                    String snapKey = snap.getKey();
+                    boolean snapDate = (snapKey).equals(getFullDate());
+
+                    if(!snapDate)
+                    {
+                        String[] dates = snapKey.split("-");
+
+                        ecoDatabase.child("Clocks/Archive").child(dates[0]).child(dates[1]).child(dates[2]).setValue(snap.getValue());
+                        ecoDatabase.child("Clocks/Active").child(snapKey).removeValue();
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+
+
     }
 
     private void setFloatingListener()
@@ -115,50 +160,38 @@ public class FragmentHomeTimer extends Fragment
         Button add = dialogCreateCar.dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
         add.setOnClickListener((View view) ->
         {
-            Clocks clock = new Clocks(ClockCount);
+            Clocks clock = new Clocks(Long.toString(Calendar.getInstance().getTimeInMillis()));
             clock.setCarValues(dialogCreateCar.dialog);
-            clock.setStartTime(dialogCreateCar.StartTime);
-            ClockList.add(clock);
+            clock.setStartTime(dialogCreateCar.StartTime.getTimeInMillis());
 
-            CountdownList.add(new Countdown(getActivity(), clock.getStartTime(), clock.Car, clock.getTransactionID()));
-            int last = CountdownList.size() - 1;
-            layout.addView(CountdownList.get(last), layout.getChildCount() - 1);
             dialogCreateCar.dialog.dismiss();
 
-            setCountdownButtonListener(CountdownList.get(last));
-
-            ecoDatabase.child("Clocks").child("Active").child(getFullDate()).child(clock.getTransactionID_String()).setValue(clock);
-            ecoDatabase.child("Clocks").child("ClockCount").setValue(ClockCount + 1);
+            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(clock.getTransactionID()).setValue(clock);
         });
     }
 
-    private void setDialogCreateDryerListener(DialogCreateDryer dcd, int _index)
+    private void setDialogCreateDryerListener(DialogCreateCarDryer dcd, Countdown cd)
     {
-        final int index = _index;
-        final DialogCreateDryer dialogDryer = dcd;
-        Button add = dialogDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
+        final DialogCreateCarDryer dialogCarDryer = dcd;
+        Button add = dialogCarDryer.dialog.findViewById(R.id.Dialog_CreateCarDryer_Button_Add);
 
         add.setOnClickListener((View view) ->
         {
 
+            cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - cd.MidTime.getTimeInMillis()));
+            cd.chrono2.start();
 
-            Countdown c = CountdownList.get(index);
-            c.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - c.MidTime.getTimeInMillis()));
-            c.chrono2.start();
+            cd.textName.setText(cd.clock.getDryerName());
+            cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+            cd.secondLayout2.removeView(cd.nextButton);
+            cd.secondLayout2.addView(cd.stopButton);
 
-            int ClockIndex = findClockIndex(c.ClockID);
-            Clocks clock = ClockList.get(ClockIndex);
-            clock.setDryer(0, dialogDryer.DryerName);
-            clock.setMidTime(c.MidTime);
+            cd.clock.setDryer(0, dialogCarDryer.DryerName);
+            cd.clock.setMidTime(cd.MidTime.getTimeInMillis());
 
-            c.textName.setText(ClockList.get(ClockIndex).getDryerName());
-            c.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+            dialogCarDryer.dialog.dismiss();
 
-            CountdownList.get(index).secondLayout2.removeView(c.nextButton);
-            CountdownList.get(index).secondLayout2.addView(c.stopButton);
-            dialogDryer.dialog.dismiss();
-
-            ecoDatabase.child("Clocks").child("Active").child(getFullDate()).child(clock.getTransactionID_String()).setValue(clock);
+            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(cd.clock.getTransactionID()).setValue(cd.clock);
         });
     }
 
@@ -166,31 +199,23 @@ public class FragmentHomeTimer extends Fragment
     {
         cd.nextButton.setOnClickListener((View view) ->
         {
-            final int index = findCountdownIndex(view.getId());
+            cd.MidTime = Calendar.getInstance();
+            final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer();
+            dialogCarDryer.AddDialog(getActivity(), view);
 
-            CountdownList.get(index).MidTime = Calendar.getInstance();
-            final DialogCreateDryer dialogDryer = new DialogCreateDryer();
-            dialogDryer.AddDialog(getActivity(), view);
-
-            setDialogCreateDryerListener(dialogDryer, index);
+            setDialogCreateDryerListener(dialogCarDryer, cd);
         });
 
         cd.stopButton.setOnClickListener((View view) ->
         {
-            int index = findCountdownIndex(view.getId());
-            Countdown c = CountdownList.get(index);
-            c.EndTime = Calendar.getInstance();
-            Snackbar.make(view, "Countdown at " + index + " was removed.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            layout.removeView(CountdownList.get(index));
-            CountdownList.remove(index);
 
-            int ClockIndex = findClockIndex(c.ClockID);
-            Clocks clock = ClockList.get(ClockIndex);
-            clock.setEndTime(c.EndTime);
-            clock.setActive(false);
+//            Countdown c = CountdownList.get(index);
+            cd.EndTime = Calendar.getInstance();
+            Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerName() + " fue terminado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
 
-            ecoDatabase.child("Clocks").child("Active").child(getFullDate()).child(clock.getTransactionID_String()).removeValue();
-            ecoDatabase.child("Clocks").child("Archive").child(getYear() + "/" + getMonth() + "/" +  getDay()).child(clock.getTransactionID_String()).setValue(clock);
+            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(cd.clock.getTransactionID()).removeValue();
+            ecoDatabase.child("Clocks/Archive").child(getYear() + "/" + getMonth() + "/" +  getDay()).child(cd.clock.getTransactionID()).setValue(cd.clock);
         });
     }
 
@@ -206,7 +231,7 @@ public class FragmentHomeTimer extends Fragment
         return -1;
     }
 
-    public int findClockIndex(int id)
+    public int findClockIndex(String id)
     {
         for(int i=0; i < ClockList.size(); i++)
         {
