@@ -64,8 +64,6 @@ public class FragmentHomeTimer extends Fragment
                     Clocks clock = snap.getValue(Clocks.class);
                     Countdown cd = new Countdown(getActivity(), clock);
 
-
-
                     if(clock.getMidTime() > 0)
                     {
                         cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));

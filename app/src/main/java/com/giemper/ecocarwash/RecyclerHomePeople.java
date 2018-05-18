@@ -35,12 +35,10 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
 
     public RecyclerHomePeople(List<Dryer> myDataset)
     {
-        activeList = myDataset.stream().filter(e -> e.getActive()).collect(Collectors.toList());
-        for(int i = 0; i < activeList.size(); i++)
+        for(int i = 0; i < myDataset.size(); i++)
         {
-            checkTracker.add(new CheckTracker(activeList.get(i)));
+            checkTracker.add(new CheckTracker(myDataset.get(i)));
         }
-
     }
 
     @Override
@@ -82,10 +80,7 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
         private boolean isChecked = false;
         private Dryer dryer;
 
-        public CheckTracker()
-        {
-
-        }
+        public CheckTracker() { }
 
         public CheckTracker(Dryer dry)
         {

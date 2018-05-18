@@ -14,6 +14,7 @@ public class Dryer
     private String LastNameMother;
     private String StartTime;
     private long EndTime;
+    private boolean Active;
     public int CarWashed = 0;
 
     public Dryer() { }
@@ -70,5 +71,14 @@ public class Dryer
     public void setEndTime(long end)
     {
         EndTime = end;
+    }
+
+    public boolean getActive()
+    {
+        return Active;
+    }
+    public void setActive(boolean act)
+    {
+        Active = act;
     }
 }

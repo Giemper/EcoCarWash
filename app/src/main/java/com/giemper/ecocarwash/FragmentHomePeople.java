@@ -10,12 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import static com.giemper.ecocarwash.CarMethods.*;
-import java.util.Calendar;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import static com.giemper.ecocarwash.CarMethods.*;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -26,7 +37,8 @@ public class FragmentHomePeople extends Fragment {
     private DatabaseReference ecoDatabase;
     private View rootView;
     private RecyclerHomePeople adapterHomePeople;
-
+    private List<Dryer> DryerList;
+    LinearLayout layout;
 
     public FragmentHomePeople() {
         // Required empty public constructor
@@ -36,19 +48,64 @@ public class FragmentHomePeople extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_home_people, container, false);
+        layout = rootView.findViewById(R.id.Card_Layout);
         ecoDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-        String[] arrayHomePoeple = getResources().getStringArray(R.array.Recycler_Home_People);
-        adapterHomePeople = new RecyclerHomePeople(arrayHomePoeple);
-        RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.Recycler);
-        recycler.setHasFixedSize(true);
-        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        recycler.setAdapter(adapterHomePeople);
-
+        setDatabaseListener();
         setFloatingListener();
 
+//        String[] arrayHomePoeple = getResources().getStringArray(R.array.Recycler_Home_People);
+//        adapterHomePeople = new RecyclerHomePeople(arrayHomePoeple);
+//        adapterHomePeople = new RecyclerHomePeople(DryerList);
+//        RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.Recycler);
+//        recycler.setHasFixedSize(true);
+//        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recycler.setAdapter(adapterHomePeople);
+
         return rootView;
+    }
+
+    private void setDatabaseListener()
+    {
+        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
+        queryList.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                layout.removeAllViews();
+                for(DataSnapshot snap : dataSnapshot.getChildren())
+                {
+                    Dryer dryer = snap.getValue(Dryer.class);
+                    CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
+
+                    setCheckboxListener(dryerCheck.Box, dryer);
+
+                    layout.addView(dryerCheck);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
+
+    private void setCheckboxListener(CheckBox box, Dryer dryer)
+    {
+        box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
+        {
+            if(isChecked)
+            {
+                ecoDatabase.child("Dryers").child("Active").child("Available").child(dryer.getDryerID()).setValue("Available");
+            }
+            else
+            {
+                ecoDatabase.child("Dryers").child("Active").child("Available").child(dryer.getDryerID()).removeValue();
+            }
+        });
     }
 
     private void setFloatingListener()
@@ -80,11 +137,24 @@ public class FragmentHomePeople extends Fragment {
             dryer.setLastNameFather(lastNameFather.getText().toString());
             dryer.setLastNameMother(lastNameMother.getText().toString());
             dryer.setStartTime(getFullDate());
+            dryer.setActive(true);
 
             dialogCreateDryer.dialog.dismiss();
 
-            ecoDatabase.child("Dryers").child("List").setValue(dryer);
+            ecoDatabase.child("Dryers").child("List").child(dryer.getDryerID()).setValue(dryer);
         });
     }
 
+    class BoxStatus
+    {
+        public boolean Available;
+        public int Queue;
+
+        public BoxStatus()
+        {
+            Available = true;
+            // termina de hacer esta parte
+        }
+
+    }
 }

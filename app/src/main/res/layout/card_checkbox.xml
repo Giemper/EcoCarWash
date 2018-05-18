@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:buttonTint="@color/colorAccent2"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
