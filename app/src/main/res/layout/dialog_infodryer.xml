@@ -15,15 +15,12 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:gravity="center_vertical"
-            android:text="@string/Dialog_CreateDryer_Title"
+            android:text="@string/Dialog_InfoDryer_Title"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="24sp" />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,47 +33,16 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorAccentLight2"
                 android:textSize="16sp"
-                android:text="Nombre del Secador"/>
-
-            <EditText
-                android:id="@+id/Dialog_CreateDryer_Name"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:textColorHint="@color/gray"
-                android:hint="Obligatorio"/>
+                android:text="Nombre Completo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccentLight2"
-                android:textSize="16sp"
-                android:text="Apellido Paterno"/>
-
-            <EditText
-                android:id="@+id/Dialog_CreateDryer_LastNameFather"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
-                android:textColorHint="@color/gray"
-                android:hint="Obligatorio"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccentLight2"
-                android:textSize="16sp"
-                android:text="Apellido Materno"/>
-
-            <EditText
-                android:id="@+id/Dialog_CreateDryer_LastNameMother"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:textColorHint="@color/gray"
-                android:hint="Obligatorio"/>
+                android:lineSpacingExtra="3sp"
+                android:text="Guillermo Magdaleno Perez"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,17 +52,31 @@
                 android:textSize="16sp"
                 android:text="Fecha de Ingreso"/>
 
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:inputType="date" />
+                android:lineSpacingExtra="3sp"
+                android:text="Septiembre 14, 1992"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorAccentLight2"
+                android:textSize="16sp"
+                android:text="Total de Automoviles Lavados"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3sp"
+                android:text="5"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
         </LinearLayout>
-    </ScrollView>
-
     <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
@@ -107,35 +87,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left">
+            <Button
+                android:id="@+id/Dialog_InfoDryer_Delete"
+                style="@style/BorderlessButton"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="@string/Borrar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAlert" />
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="right"
-            android:orientation="horizontal">
-
+            android:layout_weight="1"
+            android:gravity="right">
             <Button
-                android:id="@+id/Dialog_CreateDryer_Button_Quit"
+                android:id="@+id/Dialog_InfoDryer_Close"
+                style="@style/BorderlessButton"
                 android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
+                android:text="@string/Ok"
                 android:textAllCaps="true"
-                android:text="@string/Cancelar"
-                android:textColor="@color/colorAccent2"
-                style="@style/BorderlessButton"/>
-
-            <Button
-                android:id="@+id/Dialog_CreateDryer_Button_Add"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:textAllCaps="true"
-                android:text="@string/Agregar"
-                android:textColor="@color/colorAccent2"
-                style="@style/BorderlessButton"/>
+                android:textColor="@color/colorAccent2" />
         </LinearLayout>
+
+
+
+
     </LinearLayout>
 
 

@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/Recycler_Checkbox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:buttonTint="@color/colorAccent2"
-        android:textSize="20sp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grayLight"/>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <CheckBox
+            android:id="@+id/Dryer_Checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:buttonTint="@color/colorAccent2"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grayLight"/>
+    </LinearLayout>
+
+    <com.giemper.ecocarwash.SquareButton
+        android:id="@+id/Dryer_InfoButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_info"
+        android:backgroundTint="@color/gray" />
+
+
+
+</RelativeLayout>
 
 

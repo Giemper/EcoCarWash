@@ -6,6 +6,8 @@
     <string name="Agregar">Agregar</string>
     <string name="Cancelar">Cancelar</string>
     <string name="Enviar">Enviar</string>
+    <string name="Ok">OK</string>
+    <string name="Borrar">Borrar</string>
 
     <!-- Home Tab -->
     <string name="Home_Tab1">Tiempos</string>
@@ -17,6 +19,7 @@
     <string name="Dialog_CreateCarDryer_Title">Asignar Secador</string>
     <string name="Dialog_SendReport_Title">Enviar Reporte</string>
     <string name="Dialog_CreateDryer_Title">Crear Secador</string>
+    <string name="Dialog_InfoDryer_Title">Información del Secador</string>
 
     <!-- Arrays -->
     <string-array name="Dialog_CreateCar_ToggleArray">

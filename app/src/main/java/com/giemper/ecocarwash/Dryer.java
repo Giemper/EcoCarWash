@@ -15,6 +15,7 @@ public class Dryer
     private String StartTime;
     private long EndTime;
     private boolean Active;
+    private String WorkStatus;
     public int CarWashed = 0;
 
     public Dryer() { }
@@ -80,5 +81,14 @@ public class Dryer
     public void setActive(boolean act)
     {
         Active = act;
+    }
+
+    public String getWorkStatus()
+    {
+        return WorkStatus;
+    }
+    public void setWorkStatus(String status)
+    {
+        WorkStatus = status;
     }
 }

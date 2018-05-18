@@ -71,7 +71,6 @@ public class Clocks
     {
         TransactionID = id;
     }
-
     public String getTransactionID()
     {
         return TransactionID;

@@ -4,8 +4,6 @@ package com.giemper.ecocarwash;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +12,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import static com.giemper.ecocarwash.CarMethods.*;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -38,6 +32,7 @@ public class FragmentHomePeople extends Fragment {
     private View rootView;
     private RecyclerHomePeople adapterHomePeople;
     private List<Dryer> DryerList;
+    private int QueueCount = 0;
     LinearLayout layout;
 
     public FragmentHomePeople() {
@@ -54,14 +49,6 @@ public class FragmentHomePeople extends Fragment {
         setDatabaseListener();
         setFloatingListener();
 
-//        String[] arrayHomePoeple = getResources().getStringArray(R.array.Recycler_Home_People);
-//        adapterHomePeople = new RecyclerHomePeople(arrayHomePoeple);
-//        adapterHomePeople = new RecyclerHomePeople(DryerList);
-//        RecyclerView recycler = (RecyclerView) rootView.findViewById(R.id.Recycler);
-//        recycler.setHasFixedSize(true);
-//        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recycler.setAdapter(adapterHomePeople);
-
         return rootView;
     }
 
@@ -77,11 +64,7 @@ public class FragmentHomePeople extends Fragment {
                 for(DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Dryer dryer = snap.getValue(Dryer.class);
-                    CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
-
-                    setCheckboxListener(dryerCheck.Box, dryer);
-
-                    layout.addView(dryerCheck);
+                    setCardCheckBoxListener(dryer);
                 }
             }
 
@@ -91,19 +74,20 @@ public class FragmentHomePeople extends Fragment {
 
             }
         });
-    }
 
-    private void setCheckboxListener(CheckBox box, Dryer dryer)
-    {
-        box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
+        Query queryQueueCount = ecoDatabase.child("Dryers").child("Queue");
+        queryQueueCount.addValueEventListener(new ValueEventListener()
         {
-            if(isChecked)
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
             {
-                ecoDatabase.child("Dryers").child("Active").child("Available").child(dryer.getDryerID()).setValue("Available");
+                QueueCount = dataSnapshot.getValue(int.class);
             }
-            else
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
             {
-                ecoDatabase.child("Dryers").child("Active").child("Available").child(dryer.getDryerID()).removeValue();
+
             }
         });
     }
@@ -145,16 +129,31 @@ public class FragmentHomePeople extends Fragment {
         });
     }
 
-    class BoxStatus
+    private void setCardCheckBoxListener(Dryer dryer)
     {
-        public boolean Available;
-        public int Queue;
+        CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
+        layout.addView(dryerCheck);
 
-        public BoxStatus()
+        dryerCheck.Box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
         {
-            Available = true;
-            // termina de hacer esta parte
-        }
+            if(isChecked)
+            {
+                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("Status").setValue("Available");
+                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("Queue").setValue(QueueCount);
+                ecoDatabase.child("Dryers").child("Queue").setValue(QueueCount + 1);
+            }
+            else
+            {
+                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("Status").setValue("None");
+            }
+        });
+
+        dryerCheck.InfoButton.setOnClickListener((View view) ->
+        {
+
+        });
+
+
 
     }
 }
