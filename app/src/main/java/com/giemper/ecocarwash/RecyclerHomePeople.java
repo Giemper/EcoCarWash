@@ -22,7 +22,7 @@ public class RecyclerHomePeople extends RecyclerView.Adapter<RecyclerHomePeople.
         public CheckBox mCheckBox;
         public ViewHolder(View v) {
             super(v);
-            mCheckBox = v.findViewById(R.id.Recycler_Checkbox);
+            mCheckBox = v.findViewById(R.id.Dryer_Checkbox);
         }
     }
 

@@ -54,7 +54,7 @@ public class FragmentHomePeople extends Fragment {
 
     private void setDatabaseListener()
     {
-        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
+        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("Active").equalTo(true);
         queryList.addValueEventListener(new ValueEventListener()
         {
             @Override
@@ -64,7 +64,17 @@ public class FragmentHomePeople extends Fragment {
                 for(DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Dryer dryer = snap.getValue(Dryer.class);
-                    setCardCheckBoxListener(dryer);
+                    CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
+                    setCardCheckBoxListener(dryer, dryerCheck);
+
+                    if(dryer.getWorkStatus() == "Available")
+                    {
+                        dryerCheck.Box.setChecked(true);
+                    }
+                    else
+                    {
+                        dryerCheck.Box.setChecked(false);
+                    }
                 }
             }
 
@@ -129,9 +139,8 @@ public class FragmentHomePeople extends Fragment {
         });
     }
 
-    private void setCardCheckBoxListener(Dryer dryer)
+    private void setCardCheckBoxListener(Dryer dryer, CardCheckbox dryerCheck)
     {
-        CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
         layout.addView(dryerCheck);
 
         dryerCheck.Box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
