@@ -94,7 +94,6 @@ public class FragmentHomeTimer extends Fragment
     private void setDatabaseSingleListener()
     {
         Query temp = ecoDatabase.child("Clocks").child("Active");
-
         temp.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -114,12 +113,8 @@ public class FragmentHomeTimer extends Fragment
                     }
                 }
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
+            public void onCancelled(DatabaseError databaseError){}
         });
     }
 
@@ -130,49 +125,7 @@ public class FragmentHomeTimer extends Fragment
         {
             final DialogCreateCar dcc = new DialogCreateCar();
             dcc.AddDialog(getActivity(), view);
-
-            setDialogCreateCarListener(dcc);
-        });
-    }
-
-    private void setDialogCreateCarListener(DialogCreateCar dcc)
-    {
-        final DialogCreateCar dialogCreateCar = dcc;
-        Button add = dialogCreateCar.dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
-        add.setOnClickListener((View view) ->
-        {
-            Clocks clock = new Clocks(Long.toString(Calendar.getInstance().getTimeInMillis()));
-            clock.setCarValues(dialogCreateCar.dialog);
-            clock.setStartTime(dialogCreateCar.StartTime.getTimeInMillis());
-
-            dialogCreateCar.dialog.dismiss();
-
-            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(clock.getTransactionID()).setValue(clock);
-        });
-    }
-
-    private void setDialogCreateDryerListener(DialogCreateCarDryer dcd, Countdown cd)
-    {
-        final DialogCreateCarDryer dialogCarDryer = dcd;
-        Button add = dialogCarDryer.dialog.findViewById(R.id.Dialog_CreateCarDryer_Button_Add);
-
-        add.setOnClickListener((View view) ->
-        {
-
-            cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - cd.MidTime.getTimeInMillis()));
-            cd.chrono2.start();
-
-            cd.textName.setText(cd.clock.getDryerName());
-            cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
-            cd.secondLayout2.removeView(cd.nextButton);
-            cd.secondLayout2.addView(cd.stopButton);
-
-            cd.clock.setDryer(0, dialogCarDryer.DryerName);
-            cd.clock.setMidTime(cd.MidTime.getTimeInMillis());
-
-            dialogCarDryer.dialog.dismiss();
-
-            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(cd.clock.getTransactionID()).setValue(cd.clock);
+            dcc.setDialogCreateCarListener(ecoDatabase);
         });
     }
 
@@ -183,8 +136,7 @@ public class FragmentHomeTimer extends Fragment
             cd.MidTime = Calendar.getInstance();
             final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer();
             dialogCarDryer.AddDialog(getActivity(), view);
-
-            setDialogCreateDryerListener(dialogCarDryer, cd);
+            dialogCarDryer.setDialogCreateDryerListener(cd, ecoDatabase);
         });
 
         cd.stopButton.setOnClickListener((View view) ->

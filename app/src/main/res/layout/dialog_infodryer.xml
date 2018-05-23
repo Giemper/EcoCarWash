@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:gravity="right">
             <Button
-                android:id="@+id/Dialog_InfoDryer_Close"
+                android:id="@+id/Dialog_InfoDryer_Accept"
                 style="@style/BorderlessButton"
                 android:layout_width="100dp"
                 android:layout_height="40dp"

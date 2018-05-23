@@ -15,7 +15,12 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.support.v7.widget.ToggleButton;
+
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.Calendar;
+
+import static com.giemper.ecocarwash.CarMethods.getFullDate;
 
 /**
  * Created by gmoma on 4/13/2018.
@@ -95,6 +100,21 @@ public class DialogCreateCar
 
             @Override
             public void afterTextChanged(Editable s){}
+        });
+    }
+
+    public void setDialogCreateCarListener(DatabaseReference ecoDatabase)
+    {
+        Button add = dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
+        add.setOnClickListener((View view) ->
+        {
+            Clocks clock = new Clocks(Long.toString(Calendar.getInstance().getTimeInMillis()));
+            clock.setCarValues(dialog);
+            clock.setStartTime(StartTime.getTimeInMillis());
+
+            dialog.dismiss();
+
+            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(clock.getTransactionID()).setValue(clock);
         });
     }
 

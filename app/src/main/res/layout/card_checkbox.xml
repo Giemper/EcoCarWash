@@ -32,8 +32,6 @@
         android:background="@drawable/ic_info"
         android:backgroundTint="@color/gray" />
 
-
-
 </RelativeLayout>
 
 
