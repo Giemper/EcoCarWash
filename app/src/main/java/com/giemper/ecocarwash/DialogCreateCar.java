@@ -2,7 +2,7 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.support.v7.widget.ToggleGroup;
 import android.text.Editable;
 import android.text.TextWatcher;

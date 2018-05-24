@@ -2,19 +2,14 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 
 public class CardCheckbox extends LinearLayout
@@ -31,7 +26,6 @@ public class CardCheckbox extends LinearLayout
         Box.setText(dryer.getFirstName() + " " + dryer.getLastNameFather());
 
         InfoButton = ll.findViewById(R.id.Dryer_InfoButton);
-
     }
 
     public void setCheckBoxListener(Dryer dryer, DatabaseReference ecoDatabase, Activity activity)
