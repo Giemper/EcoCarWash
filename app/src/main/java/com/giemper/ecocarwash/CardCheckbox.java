@@ -1,5 +1,6 @@
 package com.giemper.ecocarwash;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -33,7 +34,7 @@ public class CardCheckbox extends LinearLayout
 
     }
 
-    public void setCheckBoxListener(Dryer dryer, DatabaseReference ecoDatabase)
+    public void setCheckBoxListener(Dryer dryer, DatabaseReference ecoDatabase, Activity activity)
     {
         Box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
         {
@@ -55,11 +56,16 @@ public class CardCheckbox extends LinearLayout
         InfoButton.setOnClickListener((View view) ->
         {
             final DialogInfoDryer did = new DialogInfoDryer();
-            did.AddDialog(((Fragment)getParent()).getActivity(), view);
+            did.AddDialog(activity, view);
+
+            did.Name.setText(dryer.getFirstName() + " " + dryer.getLastNameFather() + " " + dryer.getLastNameMother());
+            did.Date.setText(dryer.getStartTime());
+//            did.Count.setText("" + dryer.CarWashed);
 
             did.Delete.setOnClickListener((View v) ->
             {
-                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("Active").setValue(false);
+                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("active").setValue(false);
+                did.dialog.dismiss();
             });
         });
     }

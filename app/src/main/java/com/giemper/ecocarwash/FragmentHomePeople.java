@@ -53,7 +53,7 @@ public class FragmentHomePeople extends Fragment {
 
     private void setDatabaseListener()
     {
-        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("Active").equalTo(true);
+        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
         queryList.addValueEventListener(new ValueEventListener()
         {
             @Override
@@ -65,7 +65,7 @@ public class FragmentHomePeople extends Fragment {
                     Dryer dryer = snap.getValue(Dryer.class);
                     CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
 
-                    dryerCheck.setCheckBoxListener(dryer, ecoDatabase);
+                    dryerCheck.setCheckBoxListener(dryer, ecoDatabase, getActivity());
 
                     if(dryer.getWorkStatus() == "Available")
                         dryerCheck.Box.setChecked(true);

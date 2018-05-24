@@ -36,6 +36,7 @@
                 android:text="Nombre Completo"/>
 
             <TextView
+                android:id="@+id/Dialog_InfoDryer_Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -53,6 +54,7 @@
                 android:text="Fecha de Ingreso"/>
 
             <TextView
+                android:id="@+id/Dialog_InfoDryer_Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -70,6 +72,7 @@
                 android:text="Total de Automoviles Lavados"/>
 
             <TextView
+                android:id="@+id/Dialog_InfoDryer_WasherCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="3sp"
