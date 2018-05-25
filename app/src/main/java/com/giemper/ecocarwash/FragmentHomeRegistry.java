@@ -2,18 +2,18 @@ package com.giemper.ecocarwash;
 
 
 import android.os.Bundle;
-//import android.support.design.widget.FloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHomeRegistry extends Fragment {
+public class FragmentHomeRegistry extends Fragment
+{
 
 
     public FragmentHomeRegistry() {

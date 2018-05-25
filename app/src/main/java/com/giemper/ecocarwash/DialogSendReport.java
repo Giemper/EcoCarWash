@@ -5,9 +5,6 @@ import android.app.Dialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Chronometer;
-
-import java.util.Calendar;
 
 /**
  * Created by gmoma on 4/21/2018.

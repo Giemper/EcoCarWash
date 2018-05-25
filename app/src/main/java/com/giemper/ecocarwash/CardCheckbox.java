@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 
 public class CardCheckbox extends LinearLayout
@@ -34,9 +35,9 @@ public class CardCheckbox extends LinearLayout
         {
             if(isChecked)
             {
-                Map status = new HashMap();
-                status.put("Status", "Available");
-                status.put("Queue", (Calendar.getInstance().getTimeInMillis() - getTodayInMillis()));
+                Map status = new HashMap<String, Object>();
+                status.put("workStatus", "Available");
+                status.put("queue", (Calendar.getInstance().getTimeInMillis() - getTodayInMillis()));
 
                 ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).updateChildren(status);
 

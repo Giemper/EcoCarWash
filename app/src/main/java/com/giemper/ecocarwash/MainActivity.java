@@ -3,14 +3,11 @@ package com.giemper.ecocarwash;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-//import android.support.design.widget.TabLayout;
-
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 
 public class MainActivity extends AppCompatActivity
 {
@@ -24,12 +21,13 @@ public class MainActivity extends AppCompatActivity
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        ViewPager viewHome = findViewById(R.id.view_home);
+        ViewPager viewHome = (ViewPager) findViewById(R.id.view_home);
         final FragmentHome fragmentHome = new FragmentHome(this, getSupportFragmentManager());
+
         viewHome.setAdapter(fragmentHome);
         viewHome.setOffscreenPageLimit(fragmentHome.getCount());
 
-        TabLayout homeTab = findViewById(R.id.tab_home);
+        TabLayout homeTab = (TabLayout) findViewById(R.id.tab_home);
         homeTab.setupWithViewPager(viewHome);
         homeTab.getTabAt(0).setIcon(R.drawable.ic_timer);
         homeTab.getTabAt(0).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);

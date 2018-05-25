@@ -2,11 +2,9 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.app.Dialog;
-import com.google.android.material.snackbar.Snackbar;
 import android.support.v7.widget.ToggleGroup;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -14,7 +12,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.support.v7.widget.ToggleButton;
 
 import com.google.firebase.database.DatabaseReference;
 

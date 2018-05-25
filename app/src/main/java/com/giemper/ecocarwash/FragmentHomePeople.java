@@ -1,16 +1,11 @@
 package com.giemper.ecocarwash;
 
-
 import android.os.Bundle;
-//import android.support.design.widget.FloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -22,12 +17,14 @@ import com.google.firebase.database.ValueEventListener;
 import static com.giemper.ecocarwash.CarMethods.*;
 import java.util.Calendar;
 import java.util.List;
+import androidx.fragment.app.Fragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHomePeople extends Fragment {
+public class FragmentHomePeople extends Fragment
+{
 
     private DatabaseReference ecoDatabase;
     private View rootView;

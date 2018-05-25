@@ -5,9 +5,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.SystemClock;
-import com.google.android.material.snackbar.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +12,9 @@ import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Calendar;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 
 public class Countdown extends CardView
 {
