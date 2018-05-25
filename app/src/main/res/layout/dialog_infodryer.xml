@@ -21,65 +21,65 @@
             android:textSize="24sp" />
     </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccentLight2"
-                android:textSize="16sp"
-                android:text="Nombre Completo"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorAccentLight2"
+            android:textSize="16sp"
+            android:text="Nombre Completo"/>
 
-            <TextView
-                android:id="@+id/Dialog_InfoDryer_Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:lineSpacingExtra="3sp"
-                android:text="Guillermo Magdaleno Perez"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/Dialog_InfoDryer_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:lineSpacingExtra="3sp"
+            android:text="Guillermo Magdaleno Perez"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccentLight2"
-                android:textSize="16sp"
-                android:text="Fecha de Ingreso"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorAccentLight2"
+            android:textSize="16sp"
+            android:text="Fecha de Ingreso"/>
 
-            <TextView
-                android:id="@+id/Dialog_InfoDryer_Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:lineSpacingExtra="3sp"
-                android:text="Septiembre 14, 1992"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/Dialog_InfoDryer_Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:lineSpacingExtra="3sp"
+            android:text="Septiembre 14, 1992"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccentLight2"
-                android:textSize="16sp"
-                android:text="Total de Automoviles Lavados"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorAccentLight2"
+            android:textSize="16sp"
+            android:text="Total de Automoviles Lavados"/>
 
-            <TextView
-                android:id="@+id/Dialog_InfoDryer_WasherCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="3sp"
-                android:text="5"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/Dialog_InfoDryer_WasherCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3sp"
+            android:text="5"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
     <View
         android:layout_height="1dp"
         android:layout_width="match_parent"

@@ -4,17 +4,25 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.text.Layout;
+import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.util.Calendar;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 
+import org.w3c.dom.Text;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Countdown extends CardView
 {
