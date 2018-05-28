@@ -37,18 +37,20 @@ public class FragmentHomeTimer extends Fragment
         // Required empty public constructor
     }
 
+    public void setFirebase(DatabaseReference db)
+    {
+        ecoDatabase = db;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home_timer, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
-        ecoDatabase = FirebaseDatabase.getInstance().getReference();
 
         setFloatingListener();
-
         setDatabaseSingleListener();
         setDatabaseListener();
-
 
         return rootView;
     }
@@ -72,7 +74,7 @@ public class FragmentHomeTimer extends Fragment
                         cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
                         cd.chrono2.start();
 
-                        cd.textName.setText(clock.getDryerName());
+                        cd.textName.setText(clock.getDryerShortName());
                         cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
                         cd.nextButton.setVisibility(View.GONE);
                         cd.stopButton.setVisibility(View.VISIBLE);
@@ -108,8 +110,6 @@ public class FragmentHomeTimer extends Fragment
 
                     if(!snapDate)
                     {
-//                        ecoDatabase.child("Clocks/Archive").child(snapKey).setValue(snap.getValue());
-//                        ecoDatabase.child("Clocks/Active").child(snapKey).removeValue();
                         for(DataSnapshot snap2: snap.getChildren())
                         {
                             ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).child("active").setValue(false);
@@ -146,7 +146,7 @@ public class FragmentHomeTimer extends Fragment
         cd.stopButton.setOnClickListener((View view) ->
         {
             cd.EndTime = Calendar.getInstance();
-            Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerName() + " fue terminado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerShortName() + " fue terminado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
 
 //            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();

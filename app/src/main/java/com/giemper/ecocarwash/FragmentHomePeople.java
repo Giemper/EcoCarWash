@@ -30,16 +30,19 @@ public class FragmentHomePeople extends Fragment {
 
     private DatabaseReference ecoDatabase;
     private View rootView;
-    private List<Dryer> DryerList;
     LinearLayout layout;
 
     public FragmentHomePeople() {
         // Required empty public constructor
     }
 
+    public void setFirebase(DatabaseReference db)
+    {
+        ecoDatabase = db;
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_home_people, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
         ecoDatabase = FirebaseDatabase.getInstance().getReference();
@@ -111,7 +114,7 @@ public class FragmentHomePeople extends Fragment {
             dryer.setFirstName(firstName.getText().toString());
             dryer.setLastNameFather(lastNameFather.getText().toString());
             dryer.setLastNameMother(lastNameMother.getText().toString());
-            dryer.setStartTime(getFullDate());
+            dryer.setStartTime("");
             dryer.setActive(true);
 
             dialogCreateDryer.dialog.dismiss();

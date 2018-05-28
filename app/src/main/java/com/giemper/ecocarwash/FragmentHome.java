@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by gmoma on 2/5/2018.
  */
@@ -19,10 +22,16 @@ public class FragmentHome extends FragmentPagerAdapter {
     public FragmentHome(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+        DatabaseReference ecoDatabase = FirebaseDatabase.getInstance().getReference();
 
         Home_Timer = new FragmentHomeTimer();
+        Home_Timer.setFirebase(ecoDatabase);
+
         Home_People = new FragmentHomePeople();
+        Home_People.setFirebase(ecoDatabase);
+
         Home_Registry = new FragmentHomeRegistry();
+        Home_Registry.setFirebase(ecoDatabase);
     }
 
     // This determines the fragment for each tab

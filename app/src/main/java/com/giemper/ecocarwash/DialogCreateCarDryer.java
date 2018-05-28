@@ -9,22 +9,17 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.giemper.ecocarwash.CarMethods.getFullDate;
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 
 public class DialogCreateCarDryer
 {
     public Dialog dialog;
-    public String DryerName;
+    public String FirstName;
+    public String LastName;
     public Calendar StartTime;
 
     public void AddDialog(Activity activity, View view)
@@ -37,7 +32,8 @@ public class DialogCreateCarDryer
         StartTime = Calendar.getInstance();
 
         TextView TextName = dialog.findViewById(R.id.Dryer_Name);
-        DryerName = TextName.getText().toString();
+        FirstName = TextName.getText().toString();
+        LastName = " ";
 
         Chronometer chrono = dialog.findViewById(R.id.Dialog_CreateCarDryer_Chronometer);
         chrono.start();
@@ -59,15 +55,16 @@ public class DialogCreateCarDryer
             Clocks clock = countdown.clock;
             countdown.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - countdown.MidTime.getTimeInMillis()));
             countdown.chrono2.start();
-            countdown.textName.setText(clock.getDryerName());
+            countdown.textName.setText(clock.getDryerShortName());
             countdown.textName.setTextColor(ContextCompat.getColor(dialog.getContext(), R.color.colorAccent3));
 
-            clock.setDryer(0, DryerName);
+            clock.setDryer(0, FirstName, LastName);
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
 
             Map hash = new HashMap<>();
             hash.put("dryerID", clock.getDryerID());
-            hash.put("dryerName", clock.getDryerName());
+            hash.put("dryerFirstName", clock.getDryerFirstName());
+            hash.put("dryerLastName", clock.getDryerLastName());
             hash.put("midTime", clock.getMidTime());
 
             ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(clock.getTransactionID()).updateChildren(hash);

@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <!--day break-->
     <LinearLayout
@@ -22,7 +22,6 @@
             android:textColor="@color/grayDark"
             android:textSize="16sp"
             android:text="@string/Card_DayReport_DatePlaceholder"/>
-
 
 
     </LinearLayout>

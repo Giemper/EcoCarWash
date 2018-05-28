@@ -22,6 +22,9 @@
 
     <!-- Card_DayReport -->
     <string name="Card_DayReport_DatePlaceholder">Lunes 1 de Enero 2018</string>
+    <string name="Card_DayReport_NamePlaceholder">Luis G.</string>
+    <string name="Card_DayReport_LicensePlaceholder">ABC-123</string>
+    <string name="Card_DayReport_TimePlaceholder">00:00:00</string>
 
     <!-- Dialog Create Car -->
     <string name="Dialog_CreateCar_Title">Agregar Auto</string>
@@ -42,27 +45,6 @@
         <item>Blanco</item>
         <item>Plateado</item>
         <item>Negro</item>
-    </string-array>
-    <string-array name="Recycler_Home_People">
-        <item>Robert D. Jr.</item>
-        <item>Chris H.</item>
-        <item>Mark R.</item>
-        <item>Chris E.</item>
-        <item>Scarlett J.</item>
-        <item>Benedict C.</item>
-        <item>Don C.</item>
-        <item>Tom H.</item>
-        <item>Chadwich B.</item>
-        <item>Paul B.</item>
-        <item>Elizabeth O.</item>
-        <item>Anthony M.</item>
-        <item>Sebastian S.</item>
-        <item>Danai G.</item>
-        <item>Latitia W.</item>
-        <item>Dave B.</item>
-        <item>Zoe S.</item>
-        <item>Josh B.</item>
-        <item>Chris P.</item>
     </string-array>
 
 </resources>
