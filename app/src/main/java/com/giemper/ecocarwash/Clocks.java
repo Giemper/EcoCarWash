@@ -17,11 +17,13 @@ public class Clocks
     private long StartTime;
     private long MidTime;
     private long EndTime;
+    private boolean Active;
 
     public Clocks()
     {
         Car = new CarValues();
         StartTime = 0;
+        Active = true;
     }
 
     public Clocks(String id)
@@ -29,6 +31,7 @@ public class Clocks
         TransactionID = id;
         Car = new CarValues();
         StartTime = 0;
+        setActive(true);
     }
 
     public void setCarValues(Dialog dialog)
@@ -122,9 +125,19 @@ public class Clocks
     public void setEndTime(long End)
     {
         EndTime = End;
+        setActive(false);
     }
     public long getEndTime()
     {
         return EndTime;
+    }
+
+    public void setActive(boolean act)
+    {
+        Active = act;
+    }
+    public boolean getActive()
+    {
+        return Active;
     }
 }

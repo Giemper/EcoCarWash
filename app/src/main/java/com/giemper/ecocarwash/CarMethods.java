@@ -1,5 +1,7 @@
 package com.giemper.ecocarwash;
 
+import android.content.Context;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -25,6 +27,12 @@ public class CarMethods
         return getYear() + "-" + getMonth() + "-" + getDay();
     }
 
+//    public static String getStringDate(long millis)
+//    {
+//        String date = "";
+//
+//    }
+
     public static long getTodayInMillis()
     {
         Calendar today = new GregorianCalendar();
@@ -34,5 +42,21 @@ public class CarMethods
         today.set(Calendar.MILLISECOND, 0);
 
         return today.getTimeInMillis();
+    }
+
+    public static String getTodayInMillisString()
+    {
+        return Long.toString(getTodayInMillis());
+    }
+
+    public static String getTodaySmallInString()
+    {
+        return Long.toString(Calendar.getInstance().getTimeInMillis() - getTodayInMillis());
+    }
+
+    private int pxToDp(int x, Context context)
+    {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) x * density);
     }
 }

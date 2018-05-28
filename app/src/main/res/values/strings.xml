@@ -14,6 +14,15 @@
     <string name="Home_Tab2">Activos</string>
     <string name="Home_Tab3">Registro</string>
 
+    <!-- Card_Chronometer -->
+    <string name="Card_Chronometer_Enter">Entrada</string>
+    <string name="Card_Chronometer_Dry">Secado</string>
+    <string name="Card_Chronometer_NamePlaceholder">Esperando Asignación</string>
+    <string name="Card_Chronometer_ItemPlaceholder"> </string>
+
+    <!-- Card_DayReport -->
+    <string name="Card_DayReport_DatePlaceholder">Lunes 1 de Enero 2018</string>
+
     <!-- Dialog Create Car -->
     <string name="Dialog_CreateCar_Title">Agregar Auto</string>
     <string name="Dialog_CreateCarDryer_Title">Asignar Secador</string>

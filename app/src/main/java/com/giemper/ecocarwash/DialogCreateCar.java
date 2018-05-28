@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.Calendar;
 
 import static com.giemper.ecocarwash.CarMethods.getFullDate;
+import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
+import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
 /**
  * Created by gmoma on 4/13/2018.
@@ -108,13 +110,13 @@ public class DialogCreateCar
         Button add = dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
         add.setOnClickListener((View view) ->
         {
-            Clocks clock = new Clocks(Long.toString(Calendar.getInstance().getTimeInMillis()));
+            Clocks clock = new Clocks(getTodaySmallInString());
             clock.setCarValues(dialog);
             clock.setStartTime(StartTime.getTimeInMillis());
 
             dialog.dismiss();
 
-            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(clock.getTransactionID()).setValue(clock);
+            ecoDatabase.child("Clocks/Active").child(Long.toString(getTodayInMillis())).child(clock.getTransactionID()).setValue(clock);
         });
     }
 

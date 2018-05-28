@@ -14,8 +14,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.giemper.ecocarwash.CarMethods.getFullDate;
+import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
+import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 
 public class DialogCreateCarDryer
 {
@@ -57,14 +61,16 @@ public class DialogCreateCarDryer
             countdown.chrono2.start();
             countdown.textName.setText(clock.getDryerName());
             countdown.textName.setTextColor(ContextCompat.getColor(dialog.getContext(), R.color.colorAccent3));
-            countdown.secondLayout2.removeView(countdown.nextButton);
-            countdown.secondLayout2.addView(countdown.stopButton);
 
             clock.setDryer(0, DryerName);
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
 
+            Map hash = new HashMap<>();
+            hash.put("dryerID", clock.getDryerID());
+            hash.put("dryerName", clock.getDryerName());
+            hash.put("midTime", clock.getMidTime());
 
-            ecoDatabase.child("Clocks/Active").child(getFullDate()).child(clock.getTransactionID()).setValue(clock);
+            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(clock.getTransactionID()).updateChildren(hash);
 
             dialog.dismiss();
         });

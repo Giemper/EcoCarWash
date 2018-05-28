@@ -31,7 +31,6 @@ public class FragmentHomePeople extends Fragment {
     private DatabaseReference ecoDatabase;
     private View rootView;
     private List<Dryer> DryerList;
-    private int QueueCount = 0;
     LinearLayout layout;
 
     public FragmentHomePeople() {
