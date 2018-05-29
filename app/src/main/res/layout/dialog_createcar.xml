@@ -7,40 +7,33 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:orientation="horizontal"
         android:background="@color/colorPrimary">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/Dialog_CreateCar_Title"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+            android:layout_weight="3"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/Dialog_CreateCar_Title"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
-            <Chronometer
-                android:id="@+id/Dialog_CreateCar_Chronometer"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginRight="15dp"
-                android:gravity="center_vertical|right"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                />
-        </LinearLayout>
-
-
-    </RelativeLayout>
+        <Chronometer
+            android:id="@+id/Dialog_CreateCar_Chronometer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_marginEnd="15dp"
+            android:gravity="center_vertical|end"
+            android:textColor="@color/white"
+            android:textSize="24sp"/>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -170,34 +163,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/Dialog_CreateCar_Button_Quit"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textAllCaps="true"
+            android:text="@string/Cancelar"
+            style="@style/BorderlessButton"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="right"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/Dialog_CreateCar_Button_Add"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textAllCaps="true"
+            android:text="@string/Agregar"
+            android:enabled="false"
+            style="@style/BorderlessButton"/>
 
-            <Button
-                android:id="@+id/Dialog_CreateCar_Button_Quit"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:textAllCaps="true"
-                android:text="@string/Cancelar"
-                style="@style/BorderlessButton"/>
-
-            <Button
-                android:id="@+id/Dialog_CreateCar_Button_Add"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:textAllCaps="true"
-                android:text="@string/Agregar"
-                android:enabled="false"
-                style="@style/BorderlessButton"/>
-        </LinearLayout>
     </LinearLayout>
 
 

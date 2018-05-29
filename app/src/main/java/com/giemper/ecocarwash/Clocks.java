@@ -12,7 +12,7 @@ public class Clocks
 {
     public CarValues Car;
     private String TransactionID;
-    private int DryerID;
+    private String DryerID;
     private String DryerFirstName;
     private String DryerLastName;
     private long StartTime;
@@ -80,11 +80,11 @@ public class Clocks
         return TransactionID;
     }
 
-    public void setDryerID(int id)
+    public void setDryerID(String id)
     {
         DryerID = id;
     }
-    public int getDryerID()
+    public String getDryerID()
     {
         return DryerID;
     }
@@ -144,14 +144,10 @@ public class Clocks
         return Active;
     }
 
-    public void setDryer(int ID, String firstName, String lastName)
+    public void setDryer(String ID, String firstName, String lastName)
     {
         setDryerID(ID);
         setDryerFirstName(firstName);
         setDryerLastName(lastName);
-    }
-    public String getDryerShortName()
-    {
-        return String.format("%1d %2d.", getDryerFirstName(), getDryerLastName().charAt(0));
     }
 }

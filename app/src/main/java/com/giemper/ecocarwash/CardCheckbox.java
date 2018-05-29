@@ -12,11 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
+import static com.giemper.ecocarwash.CarMethods.getTodaySmallInMillis;
 
 public class CardCheckbox extends LinearLayout
 {
     public CheckBox Box;
     public SquareButton InfoButton;
+    private String Tag;
 
     public CardCheckbox(Context context, Dryer dryer)
     {
@@ -34,19 +36,21 @@ public class CardCheckbox extends LinearLayout
     {
         Box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
         {
+            Map hash = new HashMap<>();
             if(isChecked)
             {
-                Map status = new HashMap();
-                status.put("Status", "Available");
-                status.put("Queue", (Calendar.getInstance().getTimeInMillis() - getTodayInMillis()));
+                hash.put("workStatus", "Available");
+                hash.put("queue", getTodaySmallInMillis());
 
-                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).updateChildren(status);
 
             }
             else
             {
-                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("Status").setValue("None");
+                hash.put("workStatus", "None");
+                hash.put("queue", 0);
             }
+
+            ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
         });
 
         InfoButton.setOnClickListener((View view) ->
@@ -60,9 +64,25 @@ public class CardCheckbox extends LinearLayout
 
             did.Delete.setOnClickListener((View v) ->
             {
-                ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).child("active").setValue(false);
+                dryer.setEndTime(Calendar.getInstance().getTimeInMillis());
+                Map hash = new HashMap<>();
+                hash.put("active", dryer.getActive());
+                hash.put("workStatus", dryer.getWorkStatus());
+                hash.put("endTime", dryer.getEndTime());
+
+                ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
+
                 did.dialog.dismiss();
             });
         });
+    }
+
+    public void setTag(String tag)
+    {
+        Tag = tag;
+    }
+    public String getTag()
+    {
+        return Tag;
     }
 }

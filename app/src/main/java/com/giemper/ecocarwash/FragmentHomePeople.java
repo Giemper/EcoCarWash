@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,35 +57,80 @@ public class FragmentHomePeople extends Fragment {
 
     private void setDatabaseListener()
     {
-        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
-        queryList.addValueEventListener(new ValueEventListener()
+        Query queryList = ecoDatabase.child("Dryers").orderByChild("active").equalTo(true);
+        queryList.addChildEventListener(new ChildEventListener()
         {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                layout.removeAllViews();
-                for(DataSnapshot snap : dataSnapshot.getChildren())
+                Dryer dryer = dataSnapshot.getValue(Dryer.class);
+                CardCheckbox cardCheckbox = new CardCheckbox(getActivity(), dryer);
+                cardCheckbox.setTag(dryer.getDryerID());
+                layout.addView(cardCheckbox);
+
+                if(dryer.getWorkStatus().equals("Available"))
                 {
-                    Dryer dryer = snap.getValue(Dryer.class);
-                    CardCheckbox dryerCheck = new CardCheckbox(getActivity(), dryer);
+                    if(!cardCheckbox.Box.isChecked())
+                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setEnabled(true);
+                }
+                else if(dryer.getWorkStatus().equals("Busy"))
+                {
+                    if(!cardCheckbox.Box.isChecked())
+                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setEnabled(false);
+                }
+                else if(dryer.getWorkStatus().equals("None"))
+                {
+                    if(cardCheckbox.Box.isChecked())
+                        cardCheckbox.Box.setChecked(false);
+                    cardCheckbox.Box.setEnabled(true);
+                }
 
-                    dryerCheck.setCheckBoxListener(dryer, ecoDatabase, getActivity());
+                cardCheckbox.setCheckBoxListener(dryer, ecoDatabase, getActivity());
+            }
 
-                    if(dryer.getWorkStatus() == "Available")
-                        dryerCheck.Box.setChecked(true);
-                    else
-                        dryerCheck.Box.setChecked(false);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                Dryer dryer = dataSnapshot.getValue(Dryer.class);
+                CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
 
-                    layout.addView(dryerCheck);
+                if(dryer.getWorkStatus().equals("Available"))
+                {
+                    if(!cardCheckbox.Box.isChecked())
+                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setEnabled(true);
+                }
+                else if(dryer.getWorkStatus().equals("Busy"))
+                {
+                    if(!cardCheckbox.Box.isChecked())
+                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setEnabled(false);
+                }
+                else if(dryer.getWorkStatus().equals("None"))
+                {
+                    if(cardCheckbox.Box.isChecked())
+                        cardCheckbox.Box.setChecked(false);
+                    cardCheckbox.Box.setEnabled(true);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError)
+            public void onChildRemoved(DataSnapshot dataSnapshot)
             {
-
+                Dryer dryer = dataSnapshot.getValue(Dryer.class);
+                CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
+                layout.removeView(cardCheckbox);
             }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
         });
+
     }
 
     private void setFloatingListener()
@@ -114,12 +161,24 @@ public class FragmentHomePeople extends Fragment {
             dryer.setFirstName(firstName.getText().toString());
             dryer.setLastNameFather(lastNameFather.getText().toString());
             dryer.setLastNameMother(lastNameMother.getText().toString());
-            dryer.setStartTime("");
+            dryer.setStartTime("12/12/12");
             dryer.setActive(true);
+            dryer.setWorkStatus("None");
+
+            ecoDatabase.child("Dryers").child(dryer.getDryerID()).setValue(dryer);
 
             dialogCreateDryer.dialog.dismiss();
-
-            ecoDatabase.child("Dryers").child("List").child(dryer.getDryerID()).setValue(dryer);
         });
+    }
+
+    private CardCheckbox findCardCheckbox(String tag)
+    {
+        for(int i = 0; i < layout.getChildCount(); i++)
+        {
+            CardCheckbox cardCheckbox = (CardCheckbox) layout.getChildAt(i);
+            if(tag.equals(cardCheckbox.getTag()))
+                return cardCheckbox;
+        }
+        return null;
     }
 }

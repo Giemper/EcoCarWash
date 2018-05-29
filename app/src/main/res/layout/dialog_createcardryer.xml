@@ -7,19 +7,33 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/colorPrimary">
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
-            android:text="@string/Dialog_CreateCarDryer_Title"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-    </RelativeLayout>
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/Dialog_CreateCarDryer_Title"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="24sp" />
+
+            <Chronometer
+                android:id="@+id/Dialog_CreateCarDryer_Chronometer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginEnd="15dp"
+                android:gravity="center_vertical|end"
+                android:textColor="@color/white"
+                android:textSize="24sp"/>
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +46,7 @@
             android:layout_marginBottom="5dp"
             android:textColor="@color/gray"
             android:textSize="16sp"
-            android:text="Secador"/>
+            android:text="@string/Dialog_CreateCarDryer_Dryer"/>
 
         <TextView
             android:id="@+id/Dryer_Name"
@@ -40,56 +54,40 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:textColor="@color/grayDark"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:text="Taco de Asada"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:text="Cronometro de Secado"/>
-
-        <Chronometer
-            android:id="@+id/Dialog_CreateCarDryer_Chronometer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/grayDark"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="left"/>
+            android:text="@string/Dialog_CreateCarDryer_Placeholder"/>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/grayLight"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="end"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="right"
-                android:orientation="horizontal">
+            <Button
+                android:id="@+id/Dialog_CreateCarDryer_Button_Quit"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textAllCaps="true"
+                android:text="@string/Cancelar"
+                style="@style/BorderlessButton"/>
 
-                <Button
-                    android:id="@+id/Dialog_CreateCarDryer_Button_Quit"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:textAllCaps="true"
-                    android:text="@string/Cancelar"
-                    style="@style/BorderlessButton"/>
+            <Button
+                android:id="@+id/Dialog_CreateCarDryer_Button_Add"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textAllCaps="true"
+                android:text="@string/Agregar"
+                style="@style/BorderlessButton"/>
 
-                <Button
-                    android:id="@+id/Dialog_CreateCarDryer_Button_Add"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:textAllCaps="true"
-                    android:text="@string/Agregar"
-                    style="@style/BorderlessButton"/>
-            </LinearLayout>
         </LinearLayout>
 
 

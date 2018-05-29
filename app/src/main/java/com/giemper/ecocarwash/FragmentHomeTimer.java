@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,48 +59,70 @@ public class FragmentHomeTimer extends Fragment
 
     private void setDatabaseListener()
     {
-        Query queryChronometers = ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).orderByChild("active").equalTo(true);
-        queryChronometers.addValueEventListener(new ValueEventListener()
+        Query queryChronometers = ecoDatabase.child("Clocks").child(getTodayInMillisString()).orderByChild("active").equalTo(true);
+        queryChronometers.addChildEventListener(new ChildEventListener()
         {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                layout.removeAllViews();
-                for(DataSnapshot snap : dataSnapshot.getChildren())
+                Clocks clock = dataSnapshot.getValue(Clocks.class);
+                Countdown cd = new Countdown(getActivity(), clock);
+                cd.setTag(clock.getTransactionID());
+
+                if(clock.getMidTime() > 0)
                 {
-                    Clocks clock = snap.getValue(Clocks.class);
-                    Countdown cd = new Countdown(getActivity(), clock);
+                    cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
+                    cd.chrono2.start();
 
-                    if(clock.getMidTime() > 0)
-                    {
-                        cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
-                        cd.chrono2.start();
+                    cd.textName.setText("");
+                    cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+                    cd.nextButton.setVisibility(View.GONE);
+                    cd.stopButton.setVisibility(View.VISIBLE);
+                }
 
-                        cd.textName.setText(clock.getDryerShortName());
-                        cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
-                        cd.nextButton.setVisibility(View.GONE);
-                        cd.stopButton.setVisibility(View.VISIBLE);
-                    }
+                setCountdownButtonListener(cd);
 
-                    setCountdownButtonListener(cd);
+                layout.addView(cd);
+            }
 
-                    layout.addView(cd);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                Clocks clock = dataSnapshot.getValue(Clocks.class);
+                Countdown cd = findCountdown(clock.getTransactionID());
+
+                if(clock.getMidTime() > 0)
+                {
+                    cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
+                    cd.chrono2.start();
+
+                    cd.textName.setText("");
+                    cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+                    cd.nextButton.setVisibility(View.GONE);
+                    cd.stopButton.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError)
+            public void onChildRemoved(DataSnapshot dataSnapshot)
             {
-
+                Clocks clock = dataSnapshot.getValue(Clocks.class);
+                Countdown cd = findCountdown(clock.getTransactionID());
+                layout.removeView(cd);
             }
-        });
 
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 
     private void setDatabaseSingleListener()
     {
-        Query temp = ecoDatabase.child("Clocks").child("Active");
-        temp.addListenerForSingleValueEvent(new ValueEventListener()
+        Query querySingle = ecoDatabase.child("Clocks");
+        querySingle.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
@@ -112,7 +136,7 @@ public class FragmentHomeTimer extends Fragment
                     {
                         for(DataSnapshot snap2: snap.getChildren())
                         {
-                            ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).child("active").setValue(false);
+                            ecoDatabase.child("Clocks").child(snapKey).child(snap2.getKey()).child("active").setValue(false);
                         }
                     }
                 }
@@ -138,24 +162,39 @@ public class FragmentHomeTimer extends Fragment
         cd.nextButton.setOnClickListener((View view) ->
         {
             cd.MidTime = Calendar.getInstance();
-            final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer();
+            final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer(ecoDatabase);
             dialogCarDryer.AddDialog(getActivity(), view);
-            dialogCarDryer.setDialogCreateDryerListener(cd, ecoDatabase);
+            dialogCarDryer.setDialogCreateCarDryerListener(cd);
         });
 
         cd.stopButton.setOnClickListener((View view) ->
         {
+            Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerFirstName() + " fue terminado.",
+                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
             cd.EndTime = Calendar.getInstance();
-            Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerShortName() + " fue terminado.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
 
-//            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();
-
+            String queryClock = getTodayInMillisString() + "/" + cd.clock.getTransactionID() + "/";
+            String queryDryer = cd.clock.getDryerID() + "/";
             Map hash = new HashMap<>();
-            hash.put("endTime", cd.clock.getEndTime());
-            hash.put("active", cd.clock.getActive());
+            hash.put("Clocks/" + queryClock + "endTime", cd.clock.getEndTime());
+            hash.put("Clocks/" + queryClock + "active", cd.clock.getActive());
+            hash.put("Dryers/" + queryDryer + "workStatus", "Available");
 
-            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).updateChildren(hash);
+//            ecoDatabase.child("Clocks").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).updateChildren(hash);
+            ecoDatabase.updateChildren(hash);
         });
+    }
+
+    private Countdown findCountdown(String tag)
+    {
+        for(int i = 0; i < layout.getChildCount(); i++)
+        {
+            Countdown cd = (Countdown) layout.getChildAt(i);
+            if(tag.equals(cd.getTag()))
+                return cd;
+        }
+        return null;
     }
 }

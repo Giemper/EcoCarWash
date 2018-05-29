@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+    android:id="@+id/Card_DayReport_Layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <!--day break-->
     <LinearLayout
-        android:id="@+id/Card_DayReport_Layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -22,8 +23,7 @@
             android:textColor="@color/grayDark"
             android:textSize="16sp"
             android:text="@string/Card_DayReport_DatePlaceholder"/>
-
-
     </LinearLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

@@ -14,14 +14,10 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.support.v7.widget.ToggleButton;
-
 import com.google.firebase.database.DatabaseReference;
-
 import java.util.Calendar;
-
-import static com.giemper.ecocarwash.CarMethods.getFullDate;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
+import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
 /**
@@ -53,12 +49,6 @@ public class DialogCreateCar
 
         Chronometer chrono = dialog.findViewById(R.id.Dialog_CreateCar_Chronometer);
         chrono.start();
-
-        Button quit = (Button) dialog.findViewById(R.id.Dialog_CreateCar_Button_Quit);
-        quit.setOnClickListener((View v) ->
-        {
-            dialog.dismiss();
-        });
 
         setListeners(view);
 
@@ -116,7 +106,13 @@ public class DialogCreateCar
 
             dialog.dismiss();
 
-            ecoDatabase.child("Clocks/Active").child(Long.toString(getTodayInMillis())).child(clock.getTransactionID()).setValue(clock);
+            ecoDatabase.child("Clocks").child(getTodayInMillisString()).child(clock.getTransactionID()).setValue(clock);
+        });
+
+        Button quit = dialog.findViewById(R.id.Dialog_CreateCar_Button_Quit);
+        quit.setOnClickListener((View v) ->
+        {
+            dialog.dismiss();
         });
     }
 

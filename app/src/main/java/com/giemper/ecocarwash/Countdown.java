@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 public class Countdown extends LinearLayout
 {
-    private Context mContext;
+    public Clocks clock;
     public SquareButton nextButton;
     public SquareButton stopButton;
     public Chronometer chrono1;
@@ -19,16 +19,8 @@ public class Countdown extends LinearLayout
     public TextView textSize;
     public TextView textColor;
     public TextView textLicense;
-
-
     public CarValues values;
-    public LinearLayout secondLayout2;
-
-
-    public String ClockID;
-
-    public Clocks clock;
-
+    public String Tag;
     private Calendar StartTime;
     public Calendar MidTime;
     public Calendar EndTime;
@@ -38,15 +30,20 @@ public class Countdown extends LinearLayout
     {
         super(context);
 
-        mContext = context;
         clock = _clock;
-
         StartTime = Calendar.getInstance();
         StartTime.setTimeInMillis(clock.getStartTime());
         values = clock.Car;
-        ClockID = clock.getTransactionID();
-
         FillCountdown();
+    }
+
+    public void setTag(String tag)
+    {
+        Tag = tag;
+    }
+    public String getTag()
+    {
+        return Tag;
     }
 
     private void FillCountdown()

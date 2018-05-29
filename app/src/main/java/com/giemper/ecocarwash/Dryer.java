@@ -16,9 +16,13 @@ public class Dryer
     private long EndTime;
     private boolean Active;
     private String WorkStatus;
-    public int CarWashed = 0;
+    private long Queue;
+    private int CarWashed = 0;
 
-    public Dryer() { }
+    public Dryer()
+    {
+        setActive(true);
+    }
 
     public String getDryerID()
     {
@@ -72,6 +76,12 @@ public class Dryer
     public void setEndTime(long end)
     {
         EndTime = end;
+
+        if(end > 0)
+        {
+            setActive(false);
+            setWorkStatus("None");
+        }
     }
 
     public boolean getActive()
@@ -81,6 +91,8 @@ public class Dryer
     public void setActive(boolean act)
     {
         Active = act;
+        if(act)
+            setEndTime(0);
     }
 
     public String getWorkStatus()
@@ -90,5 +102,14 @@ public class Dryer
     public void setWorkStatus(String status)
     {
         WorkStatus = status;
+    }
+
+    public long getQueue()
+    {
+        return Queue;
+    }
+    public void setQueue(long queue)
+    {
+        Queue = queue;
     }
 }

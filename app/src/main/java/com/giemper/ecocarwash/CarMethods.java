@@ -77,9 +77,14 @@ public class CarMethods
         return Long.toString(getTodayInMillis());
     }
 
+    public static long getTodaySmallInMillis()
+    {
+        return Calendar.getInstance().getTimeInMillis() - getTodayInMillis();
+    }
+
     public static String getTodaySmallInString()
     {
-        return Long.toString(Calendar.getInstance().getTimeInMillis() - getTodayInMillis());
+        return Long.toString(getTodaySmallInMillis());
     }
 
     public static String getMillisToString(long millis)

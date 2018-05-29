@@ -51,67 +51,58 @@ public class FragmentHomeRegistry extends Fragment
     private void setDatabaseListener()
     {
         Query queryReport = ecoDatabase.child("Clocks").limitToLast(14);
-//        queryReport.addChildEventListener(new ChildEventListener()
-//        {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s)
-//            {
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-//            {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot)
-//            {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s)
-//            {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError)
-//            {
-//
-//            }
-//        });
-
-
-        queryReport.addValueEventListener(new ValueEventListener()
+        queryReport.addChildEventListener(new ChildEventListener()
         {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                for(DataSnapshot snapDay : dataSnapshot.getChildren())
+                String date = getMillisToString(Long.parseLong(dataSnapshot.getKey()));
+                CardDayReport cardDayReport = new CardDayReport(getContext());
+                cardDayReport.setDayTitle(date);
+                cardDayReport.setTag(dataSnapshot.getKey());
+
+                for(DataSnapshot snapClock : dataSnapshot.getChildren())
                 {
-                    String date = getMillisToString(Long.parseLong(snapDay.getKey()));
-                    CardDayReport cardDayReport = new CardDayReport(getContext());
-                    cardDayReport.setDayTitle(date);
-
-                    for(DataSnapshot snapClock : snapDay.getChildren())
+                    boolean snapActive = snapClock.child("active").getValue(boolean.class);
+                    if(!snapActive)
                     {
-                        boolean snapActive = snapClock.child("active").equals(false);
-                        if(snapActive)
-                        {
-                            Clocks clock = snapClock.getValue(Clocks.class);
-                            cardDayReport.addClockLine(clock);
-                        }
+                        Clocks clock = snapClock.getValue(Clocks.class);
+                        cardDayReport.addClockLine(clock);
                     }
+                }
 
-                    layout.addView(cardDayReport);
+                layout.addView(cardDayReport);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                CardDayReport cardDayReport = findCardDayReport(dataSnapshot.getKey());
+//                cardDayReport.layout.removeAllViews();
+                cardDayReport.layout.removeViews(1, cardDayReport.layout.getChildCount() - 1);
+                for(DataSnapshot snapClock : dataSnapshot.getChildren())
+                {
+                    boolean snapActive = snapClock.child("active").getValue(boolean.class);
+                    if(!snapActive)
+                    {
+                        Clocks clock = snapClock.getValue(Clocks.class);
+                        cardDayReport.addClockLine(clock);
+                    }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                CardDayReport cardDayReport = findCardDayReport(dataSnapshot.getKey());
+                layout.removeView(cardDayReport);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
@@ -123,6 +114,17 @@ public class FragmentHomeRegistry extends Fragment
             final DialogSendReport dialog = new DialogSendReport();
             dialog.AddDialog(getActivity(), view);
         });
+    }
+
+    private CardDayReport findCardDayReport(String tag)
+    {
+        for(int i = 0; i < layout.getChildCount(); i++)
+        {
+            CardDayReport cardDayReport = (CardDayReport) layout.getChildAt(i);
+            if(tag.equals(cardDayReport.getTag()))
+                return cardDayReport;
+        }
+        return null;
     }
 
 }

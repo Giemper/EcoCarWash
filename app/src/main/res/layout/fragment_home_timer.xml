@@ -10,10 +10,15 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/Card_Layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/Card_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
 
             <Space
                 android:layout_width="match_parent"

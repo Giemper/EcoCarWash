@@ -9,6 +9,7 @@ public class CardDayReport extends LinearLayout
 {
     View rootView;
     LinearLayout layout;
+    String Tag;
 
     public CardDayReport(Context context)
     {
@@ -31,6 +32,15 @@ public class CardDayReport extends LinearLayout
         cardDayReportClock.setClockEnter(clock.getStartTime(), clock.getEndTime());
         cardDayReportClock.setClockDry(clock.getMidTime(), clock.getEndTime());
         layout.addView(cardDayReportClock);
+    }
+
+    public void setTag(String tag)
+    {
+        Tag = tag;
+    }
+    public String getTag()
+    {
+        return Tag;
     }
 }
 
