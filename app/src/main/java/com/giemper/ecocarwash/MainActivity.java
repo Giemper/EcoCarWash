@@ -1,5 +1,6 @@
 package com.giemper.ecocarwash;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity
         homeTab.getTabAt(2).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
 
         homeTab.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        startActivity(sendIntent);
 
         homeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {

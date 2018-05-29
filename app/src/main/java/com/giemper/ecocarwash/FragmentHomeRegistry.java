@@ -111,8 +111,9 @@ public class FragmentHomeRegistry extends Fragment
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setOnClickListener((View view) ->
         {
-            final DialogSendReport dialog = new DialogSendReport();
-            dialog.AddDialog(getActivity(), view);
+            final DialogSendReport dialogSendReport = new DialogSendReport();
+            dialogSendReport.AddDialog(getActivity());
+            dialogSendReport.setButtonListeners(ecoDatabase);
         });
     }
 
