@@ -115,16 +115,13 @@ public class DialogCreateCarDryer
             clock.setDryer(nextQueue.getDryerID(), nextQueue.getFirstName(), nextQueue.getLastNameFather());
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
 
-            countdown.textName.setText(clock.getDryerFirstName() + " " + clock.getDryerFirstName().charAt(0) + ".");
-            countdown.textName.setTextColor(ContextCompat.getColor(dialog.getContext(), R.color.colorAccent3));
-
             String queryClock = getTodayInMillisString() + "/" + clock.getTransactionID() + "/";
             String queryDryer = clock.getDryerID() + "/";
             Map hash = new HashMap<>();
-            hash.put("Clocks/" + queryClock + "dryerID", clock.getDryerID());
-            hash.put("Clocks/" + queryClock + "dryerFirstName", clock.getDryerFirstName());
-            hash.put("Clocks/" + queryClock + "dryerLastName", clock.getDryerLastName());
-            hash.put("Clocks/" + queryClock + "midTime", clock.getMidTime());
+            hash.put("Clocks/Active/" + queryClock + "dryerID", clock.getDryerID());
+            hash.put("Clocks/Active/" + queryClock + "dryerFirstName", clock.getDryerFirstName());
+            hash.put("Clocks/Active/" + queryClock + "dryerLastName", clock.getDryerLastName());
+            hash.put("Clocks/Active/" + queryClock + "midTime", clock.getMidTime());
             hash.put("Dryers/" + queryDryer + "workStatus", "Busy");
             hash.put("Dryers/" + queryDryer + "queue", 0);
 

@@ -10,8 +10,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,13 +43,70 @@ public class DialogSendReport
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_sendreport);
 
-        EditText dateStart = dialog.findViewById(R.id.Dialog_SendReport_DateStart);
-        setDatePickListeners(dateStart, 0);
+        RelativeLayout dateStart = dialog.findViewById(R.id.Dialog_SendReport_DateStart);
+        TextView textStart = dialog.findViewById(R.id.Dialog_SendReport_TextStart);
+        setDatePickListeners(dateStart, textStart, 0);
 
-        EditText dateEnd = dialog.findViewById(R.id.Dialog_SendReport_DateEnd);
-        setDatePickListeners(dateEnd, 1);
+        RelativeLayout dateEnd = dialog.findViewById(R.id.Dialog_SendReport_DateEnd);
+        TextView textEnd = dialog.findViewById(R.id.Dialog_SendReport_TextEnd);
+        setDatePickListeners(dateEnd, textEnd, 1);
+
 
         dialog.show();
+    }
+
+    private void setDatePickListeners(RelativeLayout relative, TextView textView, int check)
+    {
+        Calendar date = Calendar.getInstance();
+
+        DatePickerDialog.OnDateSetListener datePickerDialog = ((DatePicker datePicker, int year, int month, int day) ->
+        {
+            date.set(Calendar.YEAR, year);
+            date.set(Calendar.MONTH, month);
+            date.set(Calendar.DAY_OF_MONTH, day);
+            date.set(Calendar.HOUR_OF_DAY, 0);
+            date.set(Calendar.MINUTE, 0);
+            date.set(Calendar.SECOND, 0);
+            date.set(Calendar.MILLISECOND, 0);
+
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
+
+            textView.setText(simpleDateFormat.format(date.getTime()));
+            if(textView.getText().length() > 0)
+            {
+                if(check == 0)
+                {
+                    DateStart = date;
+                    CheckStart = true;
+                }
+                else
+                {
+                    DateEnd = date;
+                    CheckEnd = true;
+                }
+                CheckDialog();
+            }
+            else
+            {
+                if(check == 0)
+                    CheckStart = false;
+                else
+                    CheckEnd = false;
+            }
+        });
+
+        relative.setOnClickListener((View view) ->
+        {
+            DatePickerDialog picker = new DatePickerDialog(
+                    dialog.getContext(),
+                    datePickerDialog,
+                    date.get(Calendar.YEAR),
+                    date.get(Calendar.MONTH),
+                    date.get(Calendar.DAY_OF_MONTH)
+            );
+            picker.show();
+        });
     }
 
     public void setDatePickListeners(EditText editText, int check)
@@ -64,13 +125,13 @@ public class DialogSendReport
             date.set(Calendar.SECOND, 0);
             date.set(Calendar.MILLISECOND, 0);
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
-            editText.setText(simpleDateFormat.format(date.getTime()));
-
             if(check == 0)
                 DateStart = date;
             else
                 DateEnd = date;
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
+            editText.setText(simpleDateFormat.format(date.getTime()));
         });
 
         editText.setOnClickListener((View view) ->
@@ -114,7 +175,7 @@ public class DialogSendReport
 
     public void CheckDialog()
     {
-        Button add = dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
+        Button add = dialog.findViewById(R.id.Button_Add);
         if(CheckStart && CheckEnd)
         {
             if(DateEnd.getTimeInMillis() >= DateStart.getTimeInMillis())
@@ -132,6 +193,9 @@ public class DialogSendReport
         add.setOnClickListener((View view) ->
         {
             CsvExport CSV = new CsvExport(ecoDatabase, dialog.getContext());
+            CSV.getRange(DateStart, DateEnd);
+//            CSV.CreateFile();
+//            CSV.SendFile();
         });
 
 

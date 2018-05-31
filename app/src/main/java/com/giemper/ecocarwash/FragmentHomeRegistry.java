@@ -50,7 +50,7 @@ public class FragmentHomeRegistry extends Fragment
 
     private void setDatabaseListener()
     {
-        Query queryReport = ecoDatabase.child("Clocks").limitToLast(14);
+        Query queryReport = ecoDatabase.child("Clocks/Archive").limitToLast(14);
         queryReport.addChildEventListener(new ChildEventListener()
         {
             @Override
@@ -63,12 +63,8 @@ public class FragmentHomeRegistry extends Fragment
 
                 for(DataSnapshot snapClock : dataSnapshot.getChildren())
                 {
-                    boolean snapActive = snapClock.child("active").getValue(boolean.class);
-                    if(!snapActive)
-                    {
-                        Clocks clock = snapClock.getValue(Clocks.class);
-                        cardDayReport.addClockLine(clock);
-                    }
+                    Clocks clock = snapClock.getValue(Clocks.class);
+                    cardDayReport.addClockLine(clock);
                 }
 
                 layout.addView(cardDayReport);

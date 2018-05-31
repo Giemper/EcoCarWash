@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -36,14 +35,37 @@
             android:textSize="16sp"
             android:text="Fecha de Inicio"/>
 
-        <EditText
+        <RelativeLayout
             android:id="@+id/Dialog_SendReport_DateStart"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:hint="Escoge Fecha"
-            android:inputType="none"
-            android:textColorHint="@color/gray" />
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/Dialog_SendReport_TextStart"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true">
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_date"
+                    android:backgroundTint="@color/colorAccent3" />
+            </LinearLayout>
+
+            <View
+                android:layout_height="2dp"
+                android:layout_width="match_parent"
+                android:layout_alignBottom="@id/Dialog_SendReport_TextStart"
+                android:background="@color/gray"/>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,13 +75,37 @@
             android:textSize="16sp"
             android:text="Fecha de Termino"/>
 
-        <EditText
+        <RelativeLayout
             android:id="@+id/Dialog_SendReport_DateEnd"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Escoge Fecha"
-            android:inputType="none"
-            android:textColorHint="@color/gray"/>
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/Dialog_SendReport_TextEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true">
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_date"
+                    android:backgroundTint="@color/colorAccent3" />
+            </LinearLayout>
+
+            <View
+                android:layout_height="2dp"
+                android:layout_width="match_parent"
+                android:layout_alignBottom="@id/Dialog_SendReport_TextEnd"
+                android:background="@color/gray"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <View

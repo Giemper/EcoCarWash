@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity
 
         homeTab.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        startActivity(sendIntent);
-
         homeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
             @Override

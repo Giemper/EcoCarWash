@@ -106,7 +106,7 @@ public class DialogCreateCar
 
             dialog.dismiss();
 
-            ecoDatabase.child("Clocks").child(getTodayInMillisString()).child(clock.getTransactionID()).setValue(clock);
+            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(clock.getTransactionID()).setValue(clock);
         });
 
         Button quit = dialog.findViewById(R.id.Dialog_CreateCar_Button_Quit);

@@ -1,19 +1,11 @@
 package com.giemper.ecocarwash;
 
-import android.content.Context;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
-public class CarMethods
-{
-
-//    public static String getFullDate()
-//    {
-////        return getYear() + "-" + getMonth() + "-" + getDay();
-//        return "";
-//    }
+public class CarMethods {
 
     public static String getMonth(int month)
     {
@@ -100,16 +92,45 @@ public class CarMethods
         return String.format("%s %d de %s %d", getDayOfWeek(week), day, getMonth(month), year);
     }
 
-    public static String getHHMMSS(long start, long end)
+    public static String getHHMMSS(long time)
     {
         Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(end - start);
+        date.setTimeInMillis(time);
 
-        return new SimpleDateFormat("HH:mm:ss").format(date.getTime());
+        return new SimpleDateFormat("HH:mm:ss", Locale.US).format(date.getTime());
     }
-    private int pxToDp(int x, Context context)
+
+    public static String getHHMMSS(long start, long end)
     {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) x * density);
+        String date = "";
+        long difference = end - start;
+
+        long hours =   difference / (60 * 60 * 1000) % 24;
+        long minutes = difference / (60 * 1000) % 60;
+        long seconds = difference / 1000 % 60;
+
+        if(hours < 10)
+            date += "0" + hours + ":";
+        else
+            date += hours + ":";
+
+        if(minutes < 10)
+            date += "0" + minutes + ":";
+        else
+            date += minutes + ":";
+
+        if(seconds < 10)
+            date += "0" + seconds;
+        else
+            date += seconds;
+
+        return date;
+    }
+
+    public static String getDDMMYYYY(long time)
+    {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(time);
+        return new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(date.getTime());
     }
 }

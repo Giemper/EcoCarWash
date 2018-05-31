@@ -19,6 +19,7 @@ public class CardDayReportClock extends LinearLayout
     public void setName(String firstName, String lastName)
     {
         TextView column = rootView.findViewById(R.id.Card_DayReport_ColumnName);
+        column.setText(firstName);
     }
 
     public void setLicense(String license)

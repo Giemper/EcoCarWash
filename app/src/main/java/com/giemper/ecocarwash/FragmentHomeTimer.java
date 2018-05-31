@@ -59,7 +59,7 @@ public class FragmentHomeTimer extends Fragment
 
     private void setDatabaseListener()
     {
-        Query queryChronometers = ecoDatabase.child("Clocks").child(getTodayInMillisString()).orderByChild("active").equalTo(true);
+        Query queryChronometers = ecoDatabase.child("Clocks/Active").child(getTodayInMillisString());
         queryChronometers.addChildEventListener(new ChildEventListener()
         {
             @Override
@@ -96,8 +96,8 @@ public class FragmentHomeTimer extends Fragment
                     cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
                     cd.chrono2.start();
 
-                    cd.textName.setText("");
                     cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+                    cd.textName.setText(clock.getDryerFirstName() + " " + clock.getDryerLastName().charAt(0) + ".");
                     cd.nextButton.setVisibility(View.GONE);
                     cd.stopButton.setVisibility(View.VISIBLE);
                 }
@@ -121,12 +121,14 @@ public class FragmentHomeTimer extends Fragment
 
     private void setDatabaseSingleListener()
     {
-        Query querySingle = ecoDatabase.child("Clocks");
+        Query querySingle = ecoDatabase.child("Clocks/Active");
         querySingle.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                long l = dataSnapshot.getChildrenCount();
+
                 for(DataSnapshot snap: dataSnapshot.getChildren())
                 {
                     String snapKey = snap.getKey();
@@ -136,7 +138,15 @@ public class FragmentHomeTimer extends Fragment
                     {
                         for(DataSnapshot snap2: snap.getChildren())
                         {
-                            ecoDatabase.child("Clocks").child(snapKey).child(snap2.getKey()).child("active").setValue(false);
+                            long time = Calendar.getInstance().getTimeInMillis();
+                            Clocks clock = snap2.getValue(Clocks.class);
+                            if(clock.getMidTime() == 0)
+                                clock.setMidTime(time);
+                            clock.setEndTime(time);
+
+                            ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).removeValue();
+                            ecoDatabase.child("Clocks/Archive").child(snapKey).child(snap2.getKey()).setValue(clock);
+
                         }
                     }
                 }
@@ -177,13 +187,14 @@ public class FragmentHomeTimer extends Fragment
 
             String queryClock = getTodayInMillisString() + "/" + cd.clock.getTransactionID() + "/";
             String queryDryer = cd.clock.getDryerID() + "/";
-            Map hash = new HashMap<>();
-            hash.put("Clocks/" + queryClock + "endTime", cd.clock.getEndTime());
-            hash.put("Clocks/" + queryClock + "active", cd.clock.getActive());
-            hash.put("Dryers/" + queryDryer + "workStatus", "Available");
 
-//            ecoDatabase.child("Clocks").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).updateChildren(hash);
+            Map hash = new HashMap<>();
+            hash.put("Clocks/Archive/" + queryClock, cd.clock);
+            hash.put("Dryers/" + queryDryer + "workStatus", "Available");
+            hash.put("Dryers/" + queryDryer + "queue", getTodaySmallInMillis());
+
             ecoDatabase.updateChildren(hash);
+            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();
         });
     }
 

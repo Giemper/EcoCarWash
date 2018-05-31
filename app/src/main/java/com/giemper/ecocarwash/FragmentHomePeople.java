@@ -66,28 +66,19 @@ public class FragmentHomePeople extends Fragment {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = new CardCheckbox(getActivity(), dryer);
                 cardCheckbox.setTag(dryer.getDryerID());
-                layout.addView(cardCheckbox);
 
                 if(dryer.getWorkStatus().equals("Available"))
                 {
-                    if(!cardCheckbox.Box.isChecked())
-                        cardCheckbox.Box.setChecked(true);
-                    cardCheckbox.Box.setEnabled(true);
+                    cardCheckbox.Box.setChecked(true);
                 }
                 else if(dryer.getWorkStatus().equals("Busy"))
                 {
-                    if(!cardCheckbox.Box.isChecked())
-                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setChecked(true);
                     cardCheckbox.Box.setEnabled(false);
-                }
-                else if(dryer.getWorkStatus().equals("None"))
-                {
-                    if(cardCheckbox.Box.isChecked())
-                        cardCheckbox.Box.setChecked(false);
-                    cardCheckbox.Box.setEnabled(true);
                 }
 
                 cardCheckbox.setCheckBoxListener(dryer, ecoDatabase, getActivity());
+                layout.addView(cardCheckbox);
             }
 
             @Override
@@ -98,20 +89,17 @@ public class FragmentHomePeople extends Fragment {
 
                 if(dryer.getWorkStatus().equals("Available"))
                 {
-                    if(!cardCheckbox.Box.isChecked())
-                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setChecked(true);
                     cardCheckbox.Box.setEnabled(true);
                 }
                 else if(dryer.getWorkStatus().equals("Busy"))
                 {
-                    if(!cardCheckbox.Box.isChecked())
-                        cardCheckbox.Box.setChecked(true);
+                    cardCheckbox.Box.setChecked(true);
                     cardCheckbox.Box.setEnabled(false);
                 }
                 else if(dryer.getWorkStatus().equals("None"))
                 {
-                    if(cardCheckbox.Box.isChecked())
-                        cardCheckbox.Box.setChecked(false);
+                    cardCheckbox.Box.setChecked(false);
                     cardCheckbox.Box.setEnabled(true);
                 }
             }
