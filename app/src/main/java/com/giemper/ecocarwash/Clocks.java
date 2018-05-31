@@ -43,6 +43,7 @@ public class Clocks
         EditText Text_Licence = dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
 
         Car.setColor(Spinner_Color.getSelectedItem().toString());
+
         Car.setLicense(Text_Licence.getText().toString());
 
         for(int i = 0; i < Group_Pack.getChildCount(); i++)

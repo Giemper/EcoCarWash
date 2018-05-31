@@ -7,15 +7,17 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.giemper.ecocarwash.CarMethods.getMillisToStringSmall;
+
 public class DialogInfoDryer
 {
     public Dialog dialog;
-    public Button Accept;
-    public Button Delete;
-
-    public TextView Name;
-    public TextView Date;
-    public TextView Count;
 
     public void AddDialog(Activity activity, View view)
     {
@@ -23,19 +25,40 @@ public class DialogInfoDryer
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_infodryer);
+        dialog.show();
+    }
 
-        Accept = dialog.findViewById(R.id.Dialog_InfoDryer_Accept);
-        Delete = dialog.findViewById(R.id.Dialog_InfoDryer_Delete);
+    public void setValues(String Name, long Date, int CarWashed)
+    {
+        TextView textName = dialog.findViewById(R.id.Dialog_InfoDryer_Name);
+        textName.setText(Name);
 
-        Name = dialog.findViewById(R.id.Dialog_InfoDryer_Name);
-        Date = dialog.findViewById(R.id.Dialog_InfoDryer_Date);
-        Count = dialog.findViewById(R.id.Dialog_InfoDryer_WasherCount);
+        TextView textDate = dialog.findViewById(R.id.Dialog_InfoDryer_Date);
+        textDate.setText(getMillisToStringSmall(Date));
 
-        Accept.setOnClickListener((View v) ->
+        TextView textCount = dialog.findViewById(R.id.Dialog_InfoDryer_WasherCount);
+        textCount.setText(Integer.toString(CarWashed));
+    }
+
+    public void setListeners(DatabaseReference ecoDatabase, Dryer dryer)
+    {
+        Button accept = dialog.findViewById(R.id.Dialog_InfoDryer_Accept);
+        accept.setOnClickListener((View v) ->
         {
             dialog.dismiss();
         });
 
-        dialog.show();
+        Button delete = dialog.findViewById(R.id.Dialog_InfoDryer_Delete);
+        delete.setOnClickListener((View v) ->
+        {
+            dryer.setEndTime(Calendar.getInstance().getTimeInMillis());
+            Map hash = new HashMap<>();
+            hash.put("active", dryer.getActive());
+            hash.put("workStatus", dryer.getWorkStatus());
+            hash.put("endTime", dryer.getEndTime());
+
+            ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
+            dialog.dismiss();
+        });
     }
 }

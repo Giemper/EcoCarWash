@@ -40,7 +40,7 @@
         android:layout_height="300dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -50,14 +50,14 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:text="Placas"/>
+                android:text="@string/Dialog_CreateCar_Licence"/>
 
             <EditText
                 android:id="@+id/Dialog_CreateCar_Text_Licence"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
-                android:textColorHint="@color/gray"
+                android:textColorHint="@color/grayLight"
                 android:hint="Obligatorio"/>
 
             <TextView
@@ -66,10 +66,10 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:text="Color del Auto"/>
+                android:text="@string/Dialog_CreateCar_Color"/>
 
             <Spinner
-                android:id="@+id/Dialog_CreateCar_Spinner"
+                android:id="@+id/Dialog_CreateCar_SpinnerColor"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"/>
@@ -87,7 +87,7 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:text="Paquete"/>
+                android:text="@string/Dialog_CreateCar_Package"/>
 
             <android.support.v7.widget.ToggleGroup
                 android:id="@+id/Dialog_CreateCar_Toggle_Pack"
@@ -122,7 +122,7 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:text="Tamaño de Auto"/>
+                android:text="@string/Dialog_CreateCar_Size"/>
 
             <android.support.v7.widget.ToggleGroup
                 android:id="@+id/Dialog_CreateCar_Toggle_Size"
@@ -149,6 +149,28 @@
                     android:button="@drawable/ic_car_large"/>
 
             </android.support.v7.widget.ToggleGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:text="@string/Dialog_CreateCar_InitialDryer"/>
+
+            <Spinner
+                android:id="@+id/Dialog_CreateCar_SpinnerDryer"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="-22dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/gray"/>
 
         </LinearLayout>
     </ScrollView>

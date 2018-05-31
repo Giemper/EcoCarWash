@@ -12,16 +12,17 @@ public class Dryer
     private String FirstName;
     private String LastNameFather;
     private String LastNameMother;
-    private String StartTime;
+    private long StartTime;
     private long EndTime;
     private boolean Active;
     private String WorkStatus;
     private long Queue;
-    private int CarWashed = 0;
+    private int CarWashed;
 
     public Dryer()
     {
         setActive(true);
+        CarWashed = 0;
     }
 
     public String getDryerID()
@@ -60,11 +61,11 @@ public class Dryer
         LastNameMother = name;
     }
 
-    public String getStartTime()
+    public long getStartTime()
     {
         return StartTime;
     }
-    public void setStartTime(String start)
+    public void setStartTime(long start)
     {
         StartTime = start;
     }
@@ -111,5 +112,19 @@ public class Dryer
     public void setQueue(long queue)
     {
         Queue = queue;
+    }
+
+    public int getCarWashed()
+    {
+        return CarWashed;
+    }
+    public void setCarWashed()
+    {
+        CarWashed++;
+    }
+
+    public String fullName()
+    {
+        return FirstName + " " + LastNameFather + " " + LastNameMother;
     }
 }

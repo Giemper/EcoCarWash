@@ -124,25 +124,32 @@ public class FragmentHomeTimer extends Fragment
         Query querySingle = ecoDatabase.child("Clocks/Active");
         querySingle.addListenerForSingleValueEvent(new ValueEventListener()
         {
+            @Override public void onCancelled(DatabaseError databaseError){}
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 long l = dataSnapshot.getChildrenCount();
 
-                for(DataSnapshot snap: dataSnapshot.getChildren())
+                for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     String snapKey = snap.getKey();
                     boolean snapDate = (snapKey).equals(getTodayInMillisString());
 
-                    if(!snapDate)
+                    if (!snapDate)
                     {
-                        for(DataSnapshot snap2: snap.getChildren())
+                        for (DataSnapshot snap2 : snap.getChildren())
                         {
                             long time = Calendar.getInstance().getTimeInMillis();
                             Clocks clock = snap2.getValue(Clocks.class);
-                            if(clock.getMidTime() == 0)
+                            if (clock.getMidTime() == 0)
                                 clock.setMidTime(time);
                             clock.setEndTime(time);
+
+                            if(clock.getDryerFirstName().length() > 0)
+                            {
+                                clock.setDryerFirstName("Sin Asignación");
+                                clock.setDryerLastName(" ");
+                            }
 
                             ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).removeValue();
                             ecoDatabase.child("Clocks/Archive").child(snapKey).child(snap2.getKey()).setValue(clock);
@@ -151,8 +158,6 @@ public class FragmentHomeTimer extends Fragment
                     }
                 }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError){}
         });
     }
 
@@ -163,6 +168,7 @@ public class FragmentHomeTimer extends Fragment
         {
             final DialogCreateCar dcc = new DialogCreateCar();
             dcc.AddDialog(getActivity(), view);
+            dcc.setSpinners(ecoDatabase);
             dcc.setDialogCreateCarListener(ecoDatabase);
         });
     }

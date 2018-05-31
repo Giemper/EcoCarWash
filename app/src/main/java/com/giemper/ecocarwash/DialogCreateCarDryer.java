@@ -24,13 +24,11 @@ import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 
 public class DialogCreateCarDryer
 {
-    private DatabaseReference ecoDatabase;
-    private Dryer nextQueue;
     public Dialog dialog;
 
-    public String FirstName;
-    public String LastName;
-    public Calendar StartTime;
+    private DatabaseReference ecoDatabase;
+    private Dryer nextDryer;
+    private Calendar StartTime;
 
     public DialogCreateCarDryer(DatabaseReference eco)
     {
@@ -51,23 +49,22 @@ public class DialogCreateCarDryer
     private void getNextInQueue()
     {
         Query queryQueue = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
-
         queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                nextQueue = null;
+                nextDryer = null;
                 for(DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Dryer dryer = snap.getValue(Dryer.class);
                     if(dryer.getQueue() != 0)
                     {
-                        if (nextQueue == null || (nextQueue.getQueue() > dryer.getQueue()))
-                            nextQueue = dryer;
+                        if (nextDryer == null || (nextDryer.getQueue() > dryer.getQueue()))
+                            nextDryer = dryer;
                     }
                 }
-                if(nextQueue != null)
+                if(nextDryer != null)
                 {
                     goodAlert();
                 }
@@ -87,7 +84,7 @@ public class DialogCreateCarDryer
         chrono.start();
 
         TextView TextName = dialog.findViewById(R.id.Dryer_Name);
-        TextName.setText(nextQueue.getFirstName() + " " + nextQueue.getLastNameFather());
+        TextName.setText(nextDryer.fullName());
 
         dialog.show();
     }
@@ -111,8 +108,9 @@ public class DialogCreateCarDryer
             countdown.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - countdown.MidTime.getTimeInMillis()));
             countdown.chrono2.start();
 
+            nextDryer.setCarWashed();
             Clocks clock = countdown.clock;
-            clock.setDryer(nextQueue.getDryerID(), nextQueue.getFirstName(), nextQueue.getLastNameFather());
+            clock.setDryer(nextDryer.getDryerID(), nextDryer.getFirstName(), nextDryer.getLastNameFather() + " " + nextDryer.getLastNameMother());
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
 
             String queryClock = getTodayInMillisString() + "/" + clock.getTransactionID() + "/";
@@ -124,11 +122,9 @@ public class DialogCreateCarDryer
             hash.put("Clocks/Active/" + queryClock + "midTime", clock.getMidTime());
             hash.put("Dryers/" + queryDryer + "workStatus", "Busy");
             hash.put("Dryers/" + queryDryer + "queue", 0);
+            hash.put("Dryers/" + queryDryer + "carWashed", nextDryer.getCarWashed());
 
-//            ecoDatabase.child("Clocks").child(getTodayInMillisString()).child(clock.getTransactionID()).updateChildren(hash);
             ecoDatabase.updateChildren(hash);
-
-
             dialog.dismiss();
         });
 

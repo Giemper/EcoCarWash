@@ -29,7 +29,8 @@ public class CardDayReport extends LinearLayout
         CardDayReportClock cardDayReportClock = new CardDayReportClock(getContext());
         cardDayReportClock.setName(clock.getDryerFirstName(), clock.getDryerLastName());
         cardDayReportClock.setLicense(clock.Car.getLicense());
-        cardDayReportClock.setClockEnter(clock.getStartTime(), clock.getEndTime());
+        cardDayReportClock.setClockHour(clock.getStartTime());
+        cardDayReportClock.setClockTotal(clock.getStartTime(), clock.getEndTime());
         cardDayReportClock.setClockDry(clock.getMidTime(), clock.getEndTime());
         layout.addView(cardDayReportClock);
     }

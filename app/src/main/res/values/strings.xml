@@ -21,6 +21,11 @@
     <string name="Card_Chronometer_ItemPlaceholder"> </string>
 
     <!-- Card_DayReport -->
+    <string name="Card_DayReport_HeaderName">Empleado</string>
+    <string name="Card_DayReport_HeaderLicense">Placas</string>
+    <string name="Card_DayReport_HeaderHour">Hora</string>
+    <string name="Card_DayReport_HeaderTotal">Total</string>
+    <string name="Card_DayReport_HeaderDryTime">Secado</string>
     <string name="Card_DayReport_DatePlaceholder">Lunes 1 de Enero 2018</string>
     <string name="Card_DayReport_NamePlaceholder">Luis G.</string>
     <string name="Card_DayReport_LicensePlaceholder">ABC-123</string>
@@ -28,14 +33,32 @@
 
     <!-- Dialog Create Car -->
     <string name="Dialog_CreateCar_Title">Agregar Auto</string>
-
-    <string name="Dialog_CreateDryer_Title">Crear Secador</string>
-    <string name="Dialog_InfoDryer_Title">Información del Secador</string>
+    <string name="Dialog_CreateCar_Licence">Placas del Auto</string>
+    <string name="Dialog_CreateCar_Color">Color</string>
+    <string name="Dialog_CreateCar_Package">Paquete</string>
+    <string name="Dialog_CreateCar_Size">Tamaño</string>
+    <string name="Dialog_CreateCar_InitialDryer">Secador Asignado</string>
 
     <!-- Dialog Create CarDryer -->
     <string name="Dialog_CreateCarDryer_Title">Asignar Secador</string>
     <string name="Dialog_CreateCarDryer_Dryer">Secador</string>
-    <string name="Dialog_CreateCarDryer_Placeholder"> </string>
+    <string name="Dialog_CreateCarDryer_Placeholder">Nombre Apellido</string>
+
+    <!-- Dialog Create Dryer -->
+    <string name="Dialog_CreateDryer_Title">Crear Secador</string>
+    <string name="Dialog_CreateDryer_Name">Nombres</string>
+    <string name="Dialog_CreateDryer_LastNameFather">Apellido Paterno</string>
+    <string name="Dialog_CreateDryer_LastNameMother">Apellido Materno</string>
+    <string name="Dialog_CreateDryer_EntryDate">Fecha de Ingreso</string>
+
+    <!-- Dialog Info Dryer -->
+    <string name="Dialog_InfoDryer_Title">Información del Secador</string>
+    <string name="Dialog_InfoDryer_Name">Nombre Completo</string>
+    <string name="Dialog_InfoDryer_EntryDate">Fecha de Ingreso</string>
+    <string name="Dialog_InfoDryer_CarWashed">Automoviles Lavados</string>
+    <string name="Dialog_InfoDryer_PlaceholderName">Nombre Apellido</string>
+    <string name="Dialog_InfoDryer_PlaceholderEntryDate">Enero 1, 2018</string>
+    <string name="Dialog_InfoDryer_PlaceholderCarWashed">0</string>
 
     <!-- Dialog Send Report -->
     <string name="Dialog_SendReport_Title">Generar Reporte</string>
@@ -47,11 +70,15 @@
         <item>3</item>
     </string-array>
     <string-array name="Dialog_CreateCar_SpinnerArray">
+        <item>Amarillo</item>
         <item>Azul</item>
-        <item>Verde</item>
         <item>Blanco</item>
-        <item>Plateado</item>
+        <item>Cafe</item>
+        <item>Gris</item>
         <item>Negro</item>
+        <item>Plateado</item>
+        <item>Rojo</item>
+        <item>Verde</item>
+        <item>Otro</item>
     </string-array>
-
 </resources>

@@ -28,16 +28,23 @@ public class CardDayReportClock extends LinearLayout
         column.setText(license);
     }
 
-    public void setClockEnter(long starttime, long endtime)
+    public void setClockHour(long starttime)
     {
-        TextView column = rootView.findViewById(R.id.Card_DayReport_ColumnClock1);
+        TextView column  = rootView.findViewById(R.id.Card_DayReport_ColumnClockHour);
+        String hhmmss = getHHMMSS(starttime);
+        column.setText(hhmmss);
+    }
+
+    public void setClockTotal(long starttime, long endtime)
+    {
+        TextView column = rootView.findViewById(R.id.Card_DayReport_ColumnClockTotal);
         String hhmmss = getHHMMSS(starttime, endtime);
         column.setText(hhmmss);
     }
 
     public void setClockDry(long midtime, long endtime)
     {
-        TextView column = rootView.findViewById(R.id.Card_DayReport_ColumnClock2);
+        TextView column = rootView.findViewById(R.id.Card_DayReport_ColumnClockDryTime);
         String hhmmss = getHHMMSS(midtime, endtime);
         column.setText(hhmmss);
     }

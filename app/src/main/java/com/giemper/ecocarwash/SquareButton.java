@@ -5,10 +5,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by gmoma on 2/6/2018.
- */
-
 public class SquareButton extends AppCompatButton
 {
     public SquareButton(Context context)

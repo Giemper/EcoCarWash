@@ -56,8 +56,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:textSize="16sp"
-            android:text="@string/Card_DayReport_TimePlaceholder"
-            android:visibility="gone"/>
+            android:text="@string/Card_DayReport_TimePlaceholder"/>
 
     </LinearLayout>
 

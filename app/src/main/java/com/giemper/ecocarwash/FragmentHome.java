@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,8 +19,10 @@ public class FragmentHome extends FragmentPagerAdapter {
     public FragmentHomeTimer Home_Timer;
     public FragmentHomePeople Home_People;
     public FragmentHomeRegistry Home_Registry;
+    private Toolbar toolbar;
 
-    public FragmentHome(Context context, FragmentManager fm) {
+    public FragmentHome(Context context, FragmentManager fm, Toolbar tool)
+    {
         super(fm);
         mContext = context;
         DatabaseReference ecoDatabase = FirebaseDatabase.getInstance().getReference();
@@ -32,6 +35,8 @@ public class FragmentHome extends FragmentPagerAdapter {
 
         Home_Registry = new FragmentHomeRegistry();
         Home_Registry.setFirebase(ecoDatabase);
+
+        toolbar = tool;
     }
 
     // This determines the fragment for each tab
@@ -39,10 +44,13 @@ public class FragmentHome extends FragmentPagerAdapter {
     public Fragment getItem(int position)
     {
         if (position == 0) {
+            toolbar.setTitle("Cronometros");
             return Home_Timer;
         } else if (position == 1){
+            toolbar.setTitle("Secadores");
             return Home_People;
         } else {
+            toolbar.setTitle("Reportes");
             return Home_Registry;
         }
     }

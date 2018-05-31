@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.giemper.ecocarwash.CarMethods.getMillisToStringSmall;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInMillis;
 
@@ -41,8 +42,6 @@ public class CardCheckbox extends LinearLayout
             {
                 hash.put("workStatus", "Available");
                 hash.put("queue", getTodaySmallInMillis());
-
-
             }
             else
             {
@@ -57,23 +56,8 @@ public class CardCheckbox extends LinearLayout
         {
             final DialogInfoDryer did = new DialogInfoDryer();
             did.AddDialog(activity, view);
-
-            did.Name.setText(dryer.getFirstName() + " " + dryer.getLastNameFather() + " " + dryer.getLastNameMother());
-            did.Date.setText(dryer.getStartTime());
-//            did.Count.setText("" + dryer.CarWashed);
-
-            did.Delete.setOnClickListener((View v) ->
-            {
-                dryer.setEndTime(Calendar.getInstance().getTimeInMillis());
-                Map hash = new HashMap<>();
-                hash.put("active", dryer.getActive());
-                hash.put("workStatus", dryer.getWorkStatus());
-                hash.put("endTime", dryer.getEndTime());
-
-                ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
-
-                did.dialog.dismiss();
-            });
+            did.setValues(dryer.fullName(), dryer.getStartTime(), dryer.getCarWashed());
+            did.setListeners(ecoDatabase, dryer);
         });
     }
 

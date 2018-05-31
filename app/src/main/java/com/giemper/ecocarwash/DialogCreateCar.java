@@ -14,8 +14,17 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
@@ -26,9 +35,9 @@ import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
 public class DialogCreateCar
 {
-    public Dialog dialog;
     public Button add;
-    public Calendar StartTime;
+    private Dialog dialog;
+    private Calendar StartTime;
     private Boolean CheckPack = false;
     private Boolean CheckSize = false;
     private Boolean CheckLicence = false;
@@ -42,22 +51,15 @@ public class DialogCreateCar
 
         StartTime = Calendar.getInstance();
 
-        Spinner spinner = dialog.findViewById(R.id.Dialog_CreateCar_Spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.Dialog_CreateCar_SpinnerArray, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
         Chronometer chrono = dialog.findViewById(R.id.Dialog_CreateCar_Chronometer);
         chrono.start();
 
-        setListeners(view);
-
+        setCheckers();
         dialog.show();
     }
 
-    private void setListeners(View _view)
+    private void setCheckers()
     {
-        final View view = _view;
         ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
         Group_Pack.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
         {
@@ -75,6 +77,8 @@ public class DialogCreateCar
         EditText License = dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
         License.addTextChangedListener(new TextWatcher()
         {
+            @Override public void afterTextChanged(Editable s){}
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after){}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
@@ -86,13 +90,44 @@ public class DialogCreateCar
                 else
                     CheckLicence = false;
             }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-
-            @Override
-            public void afterTextChanged(Editable s){}
         });
+    }
+
+    public void setSpinners(DatabaseReference ecoDatabase)
+    {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(dialog.getOwnerActivity(), R.array.Dialog_CreateCar_SpinnerArray, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinnerColor = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerColor);
+        spinnerColor.setAdapter(adapter);
+
+
+        Spinner spinnerDryer = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryer);
+        spinnerDryer.setOnClickListener((View view) ->
+        {
+            Query queryDryers = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
+            queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
+            {
+                @Override public void onCancelled(DatabaseError databaseError){}
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot)
+                {
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item);
+
+                    for(DataSnapshot snap : dataSnapshot.getChildren())
+                    {
+                        Dryer dryer = snap.getValue(Dryer.class);
+                        arrayAdapter.add(dryer.fullName());
+                    }
+
+
+                    // reference https://stackoverflow.com/questions/5241660/how-can-i-add-items-to-a-spinner-in-android
+                    // reference for tag https://stackoverflow.com/questions/20902102/androidhow-to-set-tag-with-spinner-item
+
+                }
+            });
+            spinnerDryer.setOnClickListener(null);
+        });
+
     }
 
     public void setDialogCreateCarListener(DatabaseReference ecoDatabase)

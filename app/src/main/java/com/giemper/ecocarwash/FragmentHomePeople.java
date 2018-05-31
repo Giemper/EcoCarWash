@@ -128,34 +128,7 @@ public class FragmentHomePeople extends Fragment {
         {
             final DialogCreateDryer dcd = new DialogCreateDryer();
             dcd.AddDialog(getActivity(), view);
-
-            setDialogCreateDryerListener(dcd);
-        });
-    }
-
-    private void setDialogCreateDryerListener(DialogCreateDryer dcd)
-    {
-        final DialogCreateDryer dialogCreateDryer = dcd;
-        Button add = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
-        add.setOnClickListener((View view) ->
-        {
-            EditText firstName = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_Name);
-            EditText lastNameFather = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_LastNameFather);
-            EditText lastNameMother = dialogCreateDryer.dialog.findViewById(R.id.Dialog_CreateDryer_LastNameMother);
-            long dryerID = Calendar.getInstance().getTimeInMillis();
-
-            Dryer dryer = new Dryer();
-            dryer.setDryerID(Long.toString(dryerID));
-            dryer.setFirstName(firstName.getText().toString());
-            dryer.setLastNameFather(lastNameFather.getText().toString());
-            dryer.setLastNameMother(lastNameMother.getText().toString());
-            dryer.setStartTime("12/12/12");
-            dryer.setActive(true);
-            dryer.setWorkStatus("None");
-
-            ecoDatabase.child("Dryers").child(dryer.getDryerID()).setValue(dryer);
-
-            dialogCreateDryer.dialog.dismiss();
+            dcd.setListeners(ecoDatabase);
         });
     }
 

@@ -51,7 +51,6 @@ public class DialogSendReport
         TextView textEnd = dialog.findViewById(R.id.Dialog_SendReport_TextEnd);
         setDatePickListeners(dateEnd, textEnd, 1);
 
-
         dialog.show();
     }
 
@@ -69,8 +68,7 @@ public class DialogSendReport
             date.set(Calendar.SECOND, 0);
             date.set(Calendar.MILLISECOND, 0);
 
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
 
             textView.setText(simpleDateFormat.format(date.getTime()));
             if(textView.getText().length() > 0)
@@ -106,70 +104,6 @@ public class DialogSendReport
                     date.get(Calendar.DAY_OF_MONTH)
             );
             picker.show();
-        });
-    }
-
-    public void setDatePickListeners(EditText editText, int check)
-    {
-        //Source https://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
-
-        Calendar date = Calendar.getInstance();
-
-        DatePickerDialog.OnDateSetListener datePickerDialog = ((DatePicker datePicker, int year, int month, int day) ->
-        {
-            date.set(Calendar.YEAR, year);
-            date.set(Calendar.MONTH, month);
-            date.set(Calendar.DAY_OF_MONTH, day);
-            date.set(Calendar.HOUR_OF_DAY, 0);
-            date.set(Calendar.MINUTE, 0);
-            date.set(Calendar.SECOND, 0);
-            date.set(Calendar.MILLISECOND, 0);
-
-            if(check == 0)
-                DateStart = date;
-            else
-                DateEnd = date;
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
-            editText.setText(simpleDateFormat.format(date.getTime()));
-        });
-
-        editText.setOnClickListener((View view) ->
-        {
-            DatePickerDialog picker = new DatePickerDialog(
-                    dialog.getContext(),
-                    datePickerDialog,
-                    date.get(Calendar.YEAR),
-                    date.get(Calendar.MONTH),
-                    date.get(Calendar.DAY_OF_MONTH)
-            );
-            picker.show();
-        });
-
-        editText.addTextChangedListener(new TextWatcher()
-        {
-            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override public void afterTextChanged(Editable editable) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
-                if(charSequence.length() > 0)
-                {
-                    if(check == 0)
-                        CheckStart = true;
-                    else
-                        CheckEnd = true;
-                    CheckDialog();
-                }
-                else
-                {
-                    if(check == 0)
-                        CheckStart = false;
-                    else
-                        CheckEnd = false;
-                }
-            }
-
         });
     }
 

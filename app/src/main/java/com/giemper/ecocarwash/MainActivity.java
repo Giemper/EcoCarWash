@@ -1,6 +1,5 @@
 package com.giemper.ecocarwash;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity
 {
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -22,8 +22,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         ViewPager viewHome = findViewById(R.id.view_home);
-        final FragmentHome fragmentHome = new FragmentHome(this, getSupportFragmentManager());
+        final FragmentHome fragmentHome = new FragmentHome(this, getSupportFragmentManager(), toolbar);
         viewHome.setAdapter(fragmentHome);
         viewHome.setOffscreenPageLimit(fragmentHome.getCount());
 

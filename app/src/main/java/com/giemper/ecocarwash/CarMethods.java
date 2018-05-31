@@ -92,6 +92,18 @@ public class CarMethods {
         return String.format("%s %d de %s %d", getDayOfWeek(week), day, getMonth(month), year);
     }
 
+    public static String getMillisToStringSmall(long millis)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(millis);
+
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        return String.format("%s %d %d", getMonth(month), day, year);
+    }
+
     public static String getHHMMSS(long time)
     {
         Calendar date = Calendar.getInstance();
@@ -104,10 +116,21 @@ public class CarMethods {
     {
         String date = "";
         long difference = end - start;
+        String ampm = " AM";
 
         long hours =   difference / (60 * 60 * 1000) % 24;
         long minutes = difference / (60 * 1000) % 60;
         long seconds = difference / 1000 % 60;
+
+        if(hours == 0)
+            hours = 12;
+        else if(hours == 12)
+            ampm = " PM";
+        else if(hours > 12)
+        {
+            hours -= 12;
+            ampm = " PM";
+        }
 
         if(hours < 10)
             date += "0" + hours + ":";
@@ -124,7 +147,7 @@ public class CarMethods {
         else
             date += seconds;
 
-        return date;
+        return date + ampm;
     }
 
     public static String getDDMMYYYY(long time)
