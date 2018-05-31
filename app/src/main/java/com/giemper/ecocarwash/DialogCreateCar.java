@@ -111,18 +111,20 @@ public class DialogCreateCar
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
                 {
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item);
+                    ArrayAdapter<DrySpinner> arrayAdapter = new ArrayAdapter<>(dialog.getContext(), android.R.layout.simple_spinner_item);
+                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                     for(DataSnapshot snap : dataSnapshot.getChildren())
                     {
                         Dryer dryer = snap.getValue(Dryer.class);
-                        arrayAdapter.add(dryer.fullName());
+                        arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.fullName()));
                     }
+                    spinnerDryer.setAdapter(arrayAdapter);
 
 
                     // reference https://stackoverflow.com/questions/5241660/how-can-i-add-items-to-a-spinner-in-android
                     // reference for tag https://stackoverflow.com/questions/20902102/androidhow-to-set-tag-with-spinner-item
-
+                    // reference for DrySpinner https://stackoverflow.com/questions/33021038/android-get-item-tag-name-value-of-a-spinner-component
                 }
             });
             spinnerDryer.setOnClickListener(null);
@@ -158,5 +160,28 @@ public class DialogCreateCar
             add.setEnabled(true);
         else
             add.setEnabled(false);
+    }
+
+    class DrySpinner
+    {
+        private String ID;
+        private String Name;
+
+
+        public DrySpinner(String id, String name)
+        {
+            ID = id;
+            Name = name;
+        }
+
+        public String toString()
+        {
+            return Name;
+        }
+
+        public String getTag()
+        {
+            return ID;
+        }
     }
 }

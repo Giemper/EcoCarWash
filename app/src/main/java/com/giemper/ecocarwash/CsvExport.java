@@ -25,10 +25,6 @@ import static com.giemper.ecocarwash.CarMethods.*;
 
 public class CsvExport
 {
-    // Reference https://developer.android.com/reference/android/os/Environment
-    // Reference https://stackoverflow.com/questions/5401104/android-exporting-to-csv-and-sending-as-email-attachment
-    // Reference https://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file-and-read-load-that-file-to-the
-
     private DatabaseReference ecoDatabase;
     private Context mContext;
     private List<String> csvColumns;
