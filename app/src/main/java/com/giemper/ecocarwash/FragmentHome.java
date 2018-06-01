@@ -43,16 +43,12 @@ public class FragmentHome extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position)
     {
-        if (position == 0) {
-            toolbar.setTitle("Cronometros");
+        if (position == 0)
             return Home_Timer;
-        } else if (position == 1){
-            toolbar.setTitle("Secadores");
+        else if (position == 1)
             return Home_People;
-        } else {
-            toolbar.setTitle("Reportes");
+        else
             return Home_Registry;
-        }
     }
 
     // This determines the number of tabs

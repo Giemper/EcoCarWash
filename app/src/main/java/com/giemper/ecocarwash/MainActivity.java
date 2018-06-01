@@ -1,5 +1,7 @@
 package com.giemper.ecocarwash;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         setSupportActionBar(toolbar);
 
 
@@ -27,6 +30,44 @@ public class MainActivity extends AppCompatActivity
         final FragmentHome fragmentHome = new FragmentHome(this, getSupportFragmentManager(), toolbar);
         viewHome.setAdapter(fragmentHome);
         viewHome.setOffscreenPageLimit(fragmentHome.getCount());
+        viewHome.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){}
+            @Override public void onPageScrollStateChanged(int state){}
+            @Override
+            public void onPageSelected(int position)
+            {
+                int oldColor = toolbar.getSolidColor();
+                int newColor;
+                switch (position)
+                {
+                    case 0:
+                        toolbar.setTitle("Cronometros");
+                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+                        break;
+                    case 1:
+                        toolbar.setTitle("Secadores");
+                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorAccent2);
+                        break;
+                    case 2:
+                        toolbar.setTitle("Reportes");
+                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorAccent3);
+                        break;
+                    default:
+                        toolbar.setTitle("Eco Car Wash");
+                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+                        break;
+                }
+
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), oldColor, newColor);
+                colorAnimation.setDuration(250);
+                colorAnimation.addUpdateListener((ValueAnimator animator) ->
+                {
+                    toolbar.setBackgroundColor((int) animator.getAnimatedValue());
+                });
+                colorAnimation.start();
+            }
+        });
 
         TabLayout homeTab = findViewById(R.id.tab_home);
         homeTab.setupWithViewPager(viewHome);
@@ -36,9 +77,7 @@ public class MainActivity extends AppCompatActivity
         homeTab.getTabAt(1).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
         homeTab.getTabAt(2).setIcon(R.drawable.ic_format_list);
         homeTab.getTabAt(2).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
-
         homeTab.setTabGravity(TabLayout.GRAVITY_FILL);
-
         homeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
             @Override
@@ -56,5 +95,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabReselected(TabLayout.Tab tab){}
         });
+
+
     }
 }

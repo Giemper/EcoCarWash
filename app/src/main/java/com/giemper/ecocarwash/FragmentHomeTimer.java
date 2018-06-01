@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +51,7 @@ public class FragmentHomeTimer extends Fragment
         rootView = inflater.inflate(R.layout.fragment_home_timer, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
 
+        setLayoutInfoListener();
         setFloatingListener();
         setDatabaseSingleListener();
         setDatabaseListener();
@@ -210,6 +212,18 @@ public class FragmentHomeTimer extends Fragment
 
             ecoDatabase.updateChildren(hash);
             ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();
+        });
+    }
+
+    private void setLayoutInfoListener()
+    {
+        RelativeLayout info = rootView.findViewById(R.id.Fragment_Home_Timer_InfoLayout);
+        layout.addOnLayoutChangeListener((View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) ->
+        {
+            if(((LinearLayout)view).getChildCount() > 0)
+                info.setVisibility(View.GONE);
+            else
+                info.setVisibility(View.VISIBLE);
         });
     }
 

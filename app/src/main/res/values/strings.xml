@@ -14,6 +14,9 @@
     <string name="Home_Tab2">Activos</string>
     <string name="Home_Tab3">Registro</string>
 
+    <!-- Fragment Home -->
+    <string name="Fragment_Home_Timer_InfoText">Para crear un cronometro, selecciona el botón en la esquina inferior derecha. \n \n La lista se resetea todos los días a media noche.</string>
+
     <!-- Card_Chronometer -->
     <string name="Card_Chronometer_Enter">Entrada</string>
     <string name="Card_Chronometer_Dry">Secado</string>
