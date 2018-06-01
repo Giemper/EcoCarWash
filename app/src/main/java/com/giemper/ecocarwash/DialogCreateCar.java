@@ -9,10 +9,12 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
@@ -35,12 +39,12 @@ import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
 public class DialogCreateCar
 {
-    public Button add;
     private Dialog dialog;
     private Calendar StartTime;
-    private Boolean CheckPack = false;
-    private Boolean CheckSize = false;
-    private Boolean CheckLicence = false;
+    private boolean CheckPack = false;
+    private boolean CheckSize = false;
+    private boolean CheckLicence = false;
+    private boolean optionalDryer = false;
 
     public void AddDialog(Activity activity, View view)
     {
@@ -95,15 +99,16 @@ public class DialogCreateCar
 
     public void setSpinners(DatabaseReference ecoDatabase)
     {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(dialog.getOwnerActivity(), R.array.Dialog_CreateCar_SpinnerArray, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(dialog.getContext(), R.array.Dialog_CreateCar_SpinnerArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinnerColor = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerColor);
         spinnerColor.setAdapter(adapter);
 
-
         Spinner spinnerDryer = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryer);
-        spinnerDryer.setOnClickListener((View view) ->
+        Button pre = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryerPre);
+        pre.setOnClickListener((View view) ->
         {
+            optionalDryer = true;
             Query queryDryers = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
             queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
             {
@@ -117,19 +122,13 @@ public class DialogCreateCar
                     for(DataSnapshot snap : dataSnapshot.getChildren())
                     {
                         Dryer dryer = snap.getValue(Dryer.class);
-                        arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.fullName()));
+                        arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.fullLastName()));
                     }
                     spinnerDryer.setAdapter(arrayAdapter);
-
-
-                    // reference https://stackoverflow.com/questions/5241660/how-can-i-add-items-to-a-spinner-in-android
-                    // reference for tag https://stackoverflow.com/questions/20902102/androidhow-to-set-tag-with-spinner-item
-                    // reference for DrySpinner https://stackoverflow.com/questions/33021038/android-get-item-tag-name-value-of-a-spinner-component
                 }
             });
-            spinnerDryer.setOnClickListener(null);
+            pre.setVisibility(View.GONE);
         });
-
     }
 
     public void setDialogCreateCarListener(DatabaseReference ecoDatabase)
@@ -137,13 +136,28 @@ public class DialogCreateCar
         Button add = dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
         add.setOnClickListener((View view) ->
         {
+            Map hash = new HashMap<>();
+
             Clocks clock = new Clocks(getTodaySmallInString());
             clock.setCarValues(dialog);
             clock.setStartTime(StartTime.getTimeInMillis());
+            if(optionalDryer)
+            {
+                Spinner spinner = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryer);
+                DrySpinner selectedDryer = (DrySpinner) spinner.getSelectedItem();
+                clock.setDryerID(selectedDryer.getTag());
+                clock.setDryerFirstName(selectedDryer.getFirstName());
+                clock.setDryerLastName(selectedDryer.getLastName());
 
+                hash.put("Dryers/" + clock.getDryerID() + "/workStatus", "Busy");
+                hash.put("Dryers/" + clock.getDryerID() + "/queue", 0);
+            }
+            hash.put("Clocks/Active/" + getTodayInMillisString() + "/" + clock.getTransactionID(), clock);
+
+
+//            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(clock.getTransactionID()).setValue(clock);
+            ecoDatabase.updateChildren(hash);
             dialog.dismiss();
-
-            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(clock.getTransactionID()).setValue(clock);
         });
 
         Button quit = dialog.findViewById(R.id.Dialog_CreateCar_Button_Quit);
@@ -160,28 +174,5 @@ public class DialogCreateCar
             add.setEnabled(true);
         else
             add.setEnabled(false);
-    }
-
-    class DrySpinner
-    {
-        private String ID;
-        private String Name;
-
-
-        public DrySpinner(String id, String name)
-        {
-            ID = id;
-            Name = name;
-        }
-
-        public String toString()
-        {
-            return Name;
-        }
-
-        public String getTag()
-        {
-            return ID;
-        }
     }
 }

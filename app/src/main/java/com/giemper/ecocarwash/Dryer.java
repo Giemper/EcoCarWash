@@ -127,4 +127,8 @@ public class Dryer
     {
         return FirstName + " " + LastNameFather + " " + LastNameMother;
     }
+    public String fullLastName()
+    {
+        return LastNameFather + " " + LastNameMother;
+    }
 }

@@ -159,11 +159,24 @@
                 android:textSize="16sp"
                 android:text="@string/Dialog_CreateCar_InitialDryer"/>
 
-            <Spinner
-                android:id="@+id/Dialog_CreateCar_SpinnerDryer"
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/Dialog_CreateCar_SpinnerDryer"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="20dp" />
+                <Button
+                    android:id="@+id/Dialog_CreateCar_SpinnerDryerPre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@style/BorderlessButton"/>
+            </RelativeLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
@@ -171,6 +184,7 @@
                 android:layout_marginTop="-22dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/gray"/>
+
 
         </LinearLayout>
     </ScrollView>

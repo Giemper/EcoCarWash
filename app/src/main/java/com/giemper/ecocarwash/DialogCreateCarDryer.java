@@ -35,10 +35,8 @@ public class DialogCreateCarDryer
         ecoDatabase = eco;
     }
 
-    public void AddDialog(Activity activity, View view)
+    public void AddDialog(Activity activity)
     {
-        getNextInQueue();
-
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -46,11 +44,12 @@ public class DialogCreateCarDryer
 
     }
 
-    private void getNextInQueue()
+    public void getNextInQueue()
     {
         Query queryQueue = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
         queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
         {
+            @Override public void onCancelled(DatabaseError databaseError) {}
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
@@ -71,9 +70,21 @@ public class DialogCreateCarDryer
                 else
                     badAlert();
             }
+        });
+    }
 
+    public void getDryerInQueue(Clocks clock)
+    {
+        Query queryQueue = ecoDatabase.child("Dryers").orderByKey().equalTo(clock.getDryerID()).limitToFirst(1);
+        queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override public void onCancelled(DatabaseError databaseError){}
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                nextDryer = dataSnapshot.child(clock.getDryerID()).getValue(Dryer.class);
+                goodAlert();
+            }
         });
     }
 
@@ -110,8 +121,9 @@ public class DialogCreateCarDryer
 
             nextDryer.setCarWashed();
             Clocks clock = countdown.clock;
-            clock.setDryer(nextDryer.getDryerID(), nextDryer.getFirstName(), nextDryer.getLastNameFather() + " " + nextDryer.getLastNameMother());
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
+            if(clock.getDryerID() == null)
+                clock.setDryer(nextDryer.getDryerID(), nextDryer.getFirstName(), nextDryer.getLastNameFather() + " " + nextDryer.getLastNameMother());
 
             String queryClock = getTodayInMillisString() + "/" + clock.getTransactionID() + "/";
             String queryDryer = clock.getDryerID() + "/";

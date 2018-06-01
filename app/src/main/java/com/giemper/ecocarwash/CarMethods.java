@@ -9,27 +9,27 @@ public class CarMethods {
 
     public static String getMonth(int month)
     {
-        if(month == 1)
+        if(month == 0)
             return "Enero";
-        else if(month == 2)
+        else if(month == 1)
             return "Febrero";
-        else if(month == 3)
+        else if(month == 2)
             return "Marzo";
-        else if(month == 4)
+        else if(month == 3)
             return "Abril";
-        else if(month == 5)
+        else if(month == 4)
             return "Mayo";
-        else if(month == 6)
+        else if(month == 5)
             return "Junio";
-        else if(month == 7)
+        else if(month == 6)
             return "Julio";
-        else if(month == 8)
+        else if(month == 7)
             return "Agosto";
-        else if(month == 9)
+        else if(month == 8)
             return "Septiembre";
-        else if(month == 10)
+        else if(month == 9)
             return "Octubre";
-        else if(month == 11)
+        else if(month == 10)
             return "Noviembre";
         else
             return "Diciembre";
@@ -101,7 +101,7 @@ public class CarMethods {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-        return String.format("%s %d %d", getMonth(month), day, year);
+        return String.format("%s %d, %d", getMonth(month), day, year);
     }
 
     public static String getHHMMSS(long time)
@@ -109,28 +109,17 @@ public class CarMethods {
         Calendar date = Calendar.getInstance();
         date.setTimeInMillis(time);
 
-        return new SimpleDateFormat("HH:mm:ss", Locale.US).format(date.getTime());
+        return new SimpleDateFormat("hh:mm:ss a", Locale.US).format(date.getTime());
     }
 
     public static String getHHMMSS(long start, long end)
     {
         String date = "";
         long difference = end - start;
-        String ampm = " AM";
 
         long hours =   difference / (60 * 60 * 1000) % 24;
         long minutes = difference / (60 * 1000) % 60;
         long seconds = difference / 1000 % 60;
-
-        if(hours == 0)
-            hours = 12;
-        else if(hours == 12)
-            ampm = " PM";
-        else if(hours > 12)
-        {
-            hours -= 12;
-            ampm = " PM";
-        }
 
         if(hours < 10)
             date += "0" + hours + ":";
@@ -147,7 +136,7 @@ public class CarMethods {
         else
             date += seconds;
 
-        return date + ampm;
+        return date;
     }
 
     public static String getDDMMYYYY(long time)

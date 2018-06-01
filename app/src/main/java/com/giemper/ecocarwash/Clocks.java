@@ -6,8 +6,6 @@ import android.support.v7.widget.ToggleGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.util.Calendar;
-
 public class Clocks
 {
     public CarValues Car;
@@ -39,11 +37,10 @@ public class Clocks
     {
         ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
         ToggleGroup Group_Size = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Size);
-        Spinner Spinner_Color = dialog.findViewById(R.id.Dialog_CreateCar_Spinner);
+        Spinner Spinner_Color = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerColor);
         EditText Text_Licence = dialog.findViewById(R.id.Dialog_CreateCar_Text_Licence);
 
         Car.setColor(Spinner_Color.getSelectedItem().toString());
-
         Car.setLicense(Text_Licence.getText().toString());
 
         for(int i = 0; i < Group_Pack.getChildCount(); i++)

@@ -69,12 +69,15 @@ public class FragmentHomeTimer extends Fragment
                 Countdown cd = new Countdown(getActivity(), clock);
                 cd.setTag(clock.getTransactionID());
 
+                if(clock.getDryerID() != null)
+                {
+                    cd.textName.setText(clock.getDryerFirstName() + " " + clock.getDryerLastName().charAt(0) + ".");
+                }
                 if(clock.getMidTime() > 0)
                 {
                     cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
                     cd.chrono2.start();
 
-                    cd.textName.setText("");
                     cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
                     cd.nextButton.setVisibility(View.GONE);
                     cd.stopButton.setVisibility(View.VISIBLE);
@@ -179,7 +182,13 @@ public class FragmentHomeTimer extends Fragment
         {
             cd.MidTime = Calendar.getInstance();
             final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer(ecoDatabase);
-            dialogCarDryer.AddDialog(getActivity(), view);
+
+            if(cd.clock.getDryerID() == null)
+                dialogCarDryer.getNextInQueue();
+            else
+                dialogCarDryer.getDryerInQueue(cd.clock);
+
+            dialogCarDryer.AddDialog(getActivity());
             dialogCarDryer.setDialogCreateCarDryerListener(cd);
         });
 
