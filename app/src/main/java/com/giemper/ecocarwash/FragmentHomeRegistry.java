@@ -67,7 +67,7 @@ public class FragmentHomeRegistry extends Fragment
                     cardDayReport.addClockLine(clock);
                 }
 
-                layout.addView(cardDayReport);
+                layout.addView(cardDayReport, 0);
             }
 
             @Override

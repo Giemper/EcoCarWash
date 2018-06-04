@@ -108,7 +108,6 @@ public class DialogCreateCar
         Button pre = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryerPre);
         pre.setOnClickListener((View view) ->
         {
-            optionalDryer = true;
             Query queryDryers = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
             queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
             {
@@ -117,14 +116,24 @@ public class DialogCreateCar
                 public void onDataChange(DataSnapshot dataSnapshot)
                 {
                     ArrayAdapter<DrySpinner> arrayAdapter = new ArrayAdapter<>(dialog.getContext(), android.R.layout.simple_spinner_item);
-                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                    for(DataSnapshot snap : dataSnapshot.getChildren())
+                    if(dataSnapshot.getChildrenCount() > 0)
                     {
-                        Dryer dryer = snap.getValue(Dryer.class);
-                        arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.fullLastName()));
+                        optionalDryer = true;
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                        for (DataSnapshot snap : dataSnapshot.getChildren())
+                        {
+                            Dryer dryer = snap.getValue(Dryer.class);
+                            arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.fullLastName()));
+                        }
+                        spinnerDryer.setAdapter(arrayAdapter);
                     }
-                    spinnerDryer.setAdapter(arrayAdapter);
+                    else
+                    {
+                        arrayAdapter.add(new DrySpinner("", "No hay secadores disponibles.", ""));
+                        spinnerDryer.setAdapter(arrayAdapter);
+                        spinnerDryer.setEnabled(false);
+                    }
                 }
             });
             pre.setVisibility(View.GONE);

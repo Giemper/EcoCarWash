@@ -26,10 +26,6 @@ import java.util.Map;
 
 import static com.giemper.ecocarwash.CarMethods.*;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentHomeTimer extends Fragment
 {
     private DatabaseReference ecoDatabase;
@@ -46,8 +42,8 @@ public class FragmentHomeTimer extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         rootView = inflater.inflate(R.layout.fragment_home_timer, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
 
@@ -133,8 +129,6 @@ public class FragmentHomeTimer extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                long l = dataSnapshot.getChildrenCount();
-
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     String snapKey = snap.getKey();

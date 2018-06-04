@@ -1,18 +1,13 @@
 package com.giemper.ecocarwash;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Window;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -28,7 +23,6 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         setSupportActionBar(toolbar);
 
-
         ViewPager viewHome = findViewById(R.id.view_home);
         final FragmentHome fragmentHome = new FragmentHome(this, getSupportFragmentManager(), toolbar);
         viewHome.setAdapter(fragmentHome);
@@ -40,52 +34,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int position)
             {
-                int oldColor = ((ColorDrawable) toolbar.getBackground()).getColor();
-                int oldStatus = getWindow().getStatusBarColor();
-                int newColor, newStatus;
-                switch (position)
-                {
-                    case 0:
-                        toolbar.setTitle("Cronometros");
-                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-//                        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-                        newStatus = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
-                        break;
-                    case 1:
-                        toolbar.setTitle("Secadores");
-                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorAccent2);
-//                        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark2));
-                        newStatus = ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark2);
-                        break;
-                    case 2:
-                        toolbar.setTitle("Reportes");
-                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorAccent3);
-//                        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark3));
-                        newStatus = ContextCompat.getColor(getApplicationContext(), R.color.colorAccentDark3);
-                        break;
-                    default:
-                        toolbar.setTitle("Eco Car Wash");
-                        newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-//                        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-                        newStatus = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
-                        break;
-                }
-
-                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), oldColor, newColor);
-                colorAnimation.setDuration(250);
-                colorAnimation.addUpdateListener((ValueAnimator animator) ->
-                {
-                    toolbar.setBackgroundColor((int) animator.getAnimatedValue());
-                });
-                colorAnimation.start();
-
-                ValueAnimator statusAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), getWindow().getStatusBarColor(), newStatus);
-                statusAnimation.setDuration(250);
-                statusAnimation.addUpdateListener((ValueAnimator animator) ->
-                {
-                    getWindow().setStatusBarColor((int) animator.getAnimatedValue());
-                });
-                statusAnimation.start();
+                if(position == 0)
+                    toolbar.setTitle("Cronometros");
+                else if(position == 1)
+                    toolbar.setTitle("Secadores");
+                else if(position == 2)
+                    toolbar.setTitle("Reportes");
+                else
+                    toolbar.setTitle("Eco Car Wash");
             }
         });
 
@@ -100,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         homeTab.setTabGravity(TabLayout.GRAVITY_FILL);
         homeTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
+            @Override public void onTabReselected(TabLayout.Tab tab){}
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
@@ -111,9 +68,6 @@ public class MainActivity extends AppCompatActivity
             {
                 tab.getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
             }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab){}
         });
 
 

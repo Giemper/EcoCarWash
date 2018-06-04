@@ -40,7 +40,7 @@
     <string name="Dialog_CreateCar_Color">Color</string>
     <string name="Dialog_CreateCar_Package">Paquete</string>
     <string name="Dialog_CreateCar_Size">Tamaño</string>
-    <string name="Dialog_CreateCar_InitialDryer">Secador Asignado</string>
+    <string name="Dialog_CreateCar_InitialDryer">Pre-Asignar Secador (Opcional)</string>
 
     <!-- Dialog Create CarDryer -->
     <string name="Dialog_CreateCarDryer_Title">Asignar Secador</string>
