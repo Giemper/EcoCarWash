@@ -7,8 +7,10 @@
     <color name="colorAccentDark">#c60055</color>
     <color name="colorAccentLight">#ff79b0</color>
     <color name="colorAccent2">#4090ff</color>
+    <color name="colorAccentDark2">#0063cb</color>
     <color name="colorAccentLight2">#79b1ff</color>
     <color name="colorAccent3">#ffaf40</color>
+    <color name="colorAccentDark3">#c78000</color>
     <color name="colorPaper">#FAFAFA</color>
     <color name="colorAlert">#ff5d5d</color>
 
