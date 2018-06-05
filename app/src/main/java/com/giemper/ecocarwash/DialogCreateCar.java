@@ -2,34 +2,24 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.ToggleGroup;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
@@ -163,8 +153,6 @@ public class DialogCreateCar
             }
             hash.put("Clocks/Active/" + getTodayInMillisString() + "/" + clock.getTransactionID(), clock);
 
-
-//            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(clock.getTransactionID()).setValue(clock);
             ecoDatabase.updateChildren(hash);
             dialog.dismiss();
         });

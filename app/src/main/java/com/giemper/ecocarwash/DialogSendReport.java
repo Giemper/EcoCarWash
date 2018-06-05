@@ -3,20 +3,13 @@ package com.giemper.ecocarwash;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.firebase.database.DatabaseReference;
-
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;

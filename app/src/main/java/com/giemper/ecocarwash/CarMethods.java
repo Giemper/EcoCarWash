@@ -5,8 +5,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CarMethods {
-
+public class CarMethods
+{
     public static String getMonth(int month)
     {
         if(month == 0)

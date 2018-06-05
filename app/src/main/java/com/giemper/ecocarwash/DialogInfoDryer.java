@@ -6,13 +6,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.firebase.database.DatabaseReference;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.giemper.ecocarwash.CarMethods.getMillisToStringSmall;
 
 public class DialogInfoDryer

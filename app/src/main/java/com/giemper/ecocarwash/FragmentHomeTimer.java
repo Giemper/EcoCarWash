@@ -9,15 +9,12 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
@@ -32,9 +29,7 @@ public class FragmentHomeTimer extends Fragment
     private View rootView;
     LinearLayout layout;
 
-    public FragmentHomeTimer() {
-        // Required empty public constructor
-    }
+    public FragmentHomeTimer() {}
 
     public void setFirebase(DatabaseReference db)
     {
@@ -144,15 +139,15 @@ public class FragmentHomeTimer extends Fragment
                                 clock.setMidTime(time);
                             clock.setEndTime(time);
 
-                            if(clock.getDryerFirstName().length() > 0)
+                            if(clock.getDryerFirstName() == null)
                             {
                                 clock.setDryerFirstName("Sin Asignación");
                                 clock.setDryerLastName(" ");
+                                clock.setDryerID("0");
                             }
 
                             ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).removeValue();
                             ecoDatabase.child("Clocks/Archive").child(snapKey).child(snap2.getKey()).setValue(clock);
-
                         }
                     }
                 }

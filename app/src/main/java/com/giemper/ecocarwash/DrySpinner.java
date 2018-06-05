@@ -6,7 +6,6 @@ public class DrySpinner
     private String FirstName;
     private String LastName;
 
-
     public DrySpinner(String id, String first, String last)
     {
         ID = id;

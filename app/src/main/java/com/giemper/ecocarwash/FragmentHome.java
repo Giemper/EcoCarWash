@@ -5,13 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.Toolbar;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-/**
- * Created by gmoma on 2/5/2018.
- */
 
 public class FragmentHome extends FragmentPagerAdapter {
 
@@ -39,7 +34,6 @@ public class FragmentHome extends FragmentPagerAdapter {
         toolbar = tool;
     }
 
-    // This determines the fragment for each tab
     @Override
     public Fragment getItem(int position)
     {
@@ -51,7 +45,6 @@ public class FragmentHome extends FragmentPagerAdapter {
             return Home_Registry;
     }
 
-    // This determines the number of tabs
     @Override
     public int getCount()
     {

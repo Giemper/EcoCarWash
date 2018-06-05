@@ -1,6 +1,5 @@
 package com.giemper.ecocarwash;
 
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -8,18 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import static com.giemper.ecocarwash.CarMethods.getMillisToString;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentHomeRegistry extends Fragment
 {
 
@@ -27,9 +21,7 @@ public class FragmentHomeRegistry extends Fragment
     private View rootView;
     private LinearLayout layout;
 
-    public FragmentHomeRegistry() {
-        // Required empty public constructor
-    }
+    public FragmentHomeRegistry() {}
 
     public void setFirebase(DatabaseReference db)
     {
@@ -53,6 +45,8 @@ public class FragmentHomeRegistry extends Fragment
         Query queryReport = ecoDatabase.child("Clocks/Archive").limitToLast(14);
         queryReport.addChildEventListener(new ChildEventListener()
         {
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(DatabaseError databaseError){}
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -93,12 +87,6 @@ public class FragmentHomeRegistry extends Fragment
                 CardDayReport cardDayReport = findCardDayReport(dataSnapshot.getKey());
                 layout.removeView(cardDayReport);
             }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 

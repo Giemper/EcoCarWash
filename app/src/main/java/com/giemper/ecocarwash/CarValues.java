@@ -1,9 +1,5 @@
 package com.giemper.ecocarwash;
 
-/**
- * Created by guillermo.magdaleno on 4/25/2018.
- */
-
 public class CarValues
 {
     private int Package;

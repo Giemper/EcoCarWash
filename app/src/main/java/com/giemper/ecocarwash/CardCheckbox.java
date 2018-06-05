@@ -7,12 +7,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import com.google.firebase.database.DatabaseReference;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.giemper.ecocarwash.CarMethods.getMillisToStringSmall;
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInMillis;
 
 public class CardCheckbox extends LinearLayout

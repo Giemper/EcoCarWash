@@ -3,19 +3,16 @@ package com.giemper.ecocarwash;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.SystemClock;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;

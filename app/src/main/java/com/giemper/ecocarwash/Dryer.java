@@ -1,11 +1,5 @@
 package com.giemper.ecocarwash;
 
-import java.util.Calendar;
-
-/**
- * Created by guillermo.magdaleno on 4/27/2018.
- */
-
 public class Dryer
 {
     private String DryerID;

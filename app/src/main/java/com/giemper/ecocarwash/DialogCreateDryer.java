@@ -12,16 +12,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.firebase.database.DatabaseReference;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
-/**
- * Created by guillermo.magdaleno on 4/20/2018.
- */
 
 public class DialogCreateDryer
 {
