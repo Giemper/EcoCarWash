@@ -112,7 +112,11 @@ public class Dryer
     {
         return CarWashed;
     }
-    public void setCarWashed()
+    public void setCarWashed(int washed)
+    {
+        CarWashed = washed;
+    }
+    public void addCarWashed()
     {
         CarWashed++;
     }

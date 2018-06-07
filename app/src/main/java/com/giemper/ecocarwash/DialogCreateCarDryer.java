@@ -116,7 +116,7 @@ public class DialogCreateCarDryer
             countdown.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - countdown.MidTime.getTimeInMillis()));
             countdown.chrono2.start();
 
-            nextDryer.setCarWashed();
+            nextDryer.addCarWashed();
             Clocks clock = countdown.clock;
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
             if(clock.getDryerID() == null)
