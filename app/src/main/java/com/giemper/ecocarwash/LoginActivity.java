@@ -116,14 +116,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (shouldShowRequestPermissionRationale(READ_CONTACTS))
         {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener()
+                    .setAction(android.R.string.ok, (View v) ->
                     {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v)
-                        {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
+                        requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
                     });
         } else
         {

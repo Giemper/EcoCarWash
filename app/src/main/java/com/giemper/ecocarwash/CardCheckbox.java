@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.google.firebase.database.DatabaseReference;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import static com.giemper.ecocarwash.CarMethods.getTodaySmallInMillis;
 public class CardCheckbox extends LinearLayout
 {
     public CheckBox Box;
-    public SquareButton InfoButton;
+    public ImageButton InfoButton;
     private String Tag;
 
     public CardCheckbox(Context context, Dryer dryer)
