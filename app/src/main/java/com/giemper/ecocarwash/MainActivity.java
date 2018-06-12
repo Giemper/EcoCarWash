@@ -1,5 +1,6 @@
 package com.giemper.ecocarwash;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
 {
+
+    private TabLayout homeTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        TabLayout homeTab = findViewById(R.id.tab_home);
+        homeTab = findViewById(R.id.tab_home);
         homeTab.setupWithViewPager(viewHome);
         homeTab.getTabAt(0).setIcon(R.drawable.ic_timer);
         homeTab.getTabAt(0).getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
@@ -73,8 +76,15 @@ public class MainActivity extends AppCompatActivity
                 tab.getIcon().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight), PorterDuff.Mode.SRC_IN);
             }
         });
+    }
 
-
+    @Override
+    public void onBackPressed()
+    {
+        if(homeTab.getSelectedTabPosition() != 0)
+        {
+            ((TabLayout.Tab) homeTab.getTabAt(0)).select();
+        }
     }
 
     @Override
@@ -85,15 +95,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
 
         if (id == R.id.action_logout)
         {
             FirebaseAuth.getInstance().signOut();
+
+            startActivity(new Intent(this, LoginTest.class));
+            finish();
             return true;
         }
 

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="LoginAppThem" parent="AppTheme">
+    <style name="LoginAppTheme" parent="AppTheme">
         <item name="colorAccent">@color/white</item>
     </style>
 

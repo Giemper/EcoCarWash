@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,14 +28,19 @@ import static com.giemper.ecocarwash.CarMethods.*;
 public class FragmentHomeTimer extends Fragment
 {
     private DatabaseReference ecoDatabase;
+    private FirebaseUser ecoUser;
+    private String ecoUserType;
+
     private View rootView;
     LinearLayout layout;
 
     public FragmentHomeTimer() {}
 
-    public void setFirebase(DatabaseReference db)
+    public void setFirebase(DatabaseReference db, FirebaseUser user, String userType)
     {
         ecoDatabase = db;
+        ecoUser = user;
+        ecoUserType = userType;
     }
 
     @Override
@@ -165,6 +172,7 @@ public class FragmentHomeTimer extends Fragment
             dcc.setSpinners(ecoDatabase);
             dcc.setDialogCreateCarListener(ecoDatabase);
         });
+
     }
 
     private void setCountdownButtonListener(Countdown cd)

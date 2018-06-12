@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,21 +20,27 @@ import com.google.firebase.database.Query;
 public class FragmentHomePeople extends Fragment
 {
     private DatabaseReference ecoDatabase;
+    private FirebaseUser ecoUser;
+    private String ecoUserType;
     private View rootView;
     LinearLayout layout;
 
     public FragmentHomePeople() {}
 
-    public void setFirebase(DatabaseReference db)
+    public void setFirebase(DatabaseReference db, FirebaseUser user, String userType)
     {
         ecoDatabase = db;
+        ecoUser = user;
+        ecoUserType = userType;
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         rootView =  inflater.inflate(R.layout.fragment_home_people, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
-        ecoDatabase = FirebaseDatabase.getInstance().getReference();
 
         setDatabaseListener();
         setFloatingListener();
