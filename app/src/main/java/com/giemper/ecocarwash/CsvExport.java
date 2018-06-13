@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +47,7 @@ public class CsvExport
         csvRows.add("");
     }
 
-    public void getRange(Calendar startDate, Calendar endDate)
+    public void getRange(Calendar startDate, Calendar endDate, View view)
     {
         String start = Long.toString(startDate.getTimeInMillis());
         String end = Long.toString(endDate.getTimeInMillis());
@@ -55,33 +58,41 @@ public class CsvExport
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                long i = dataSnapshot.getChildrenCount();
-                for(DataSnapshot snapGroup : dataSnapshot.getChildren())
+                if(dataSnapshot.getChildrenCount() > 0)
                 {
-                    long snapDay = Long.parseLong(snapGroup.getKey());
-
-                    for(DataSnapshot snapClock : snapGroup.getChildren())
+                    for (DataSnapshot snapGroup : dataSnapshot.getChildren())
                     {
-                        Clocks clock = snapClock.getValue(Clocks.class);
+                        long snapDay = Long.parseLong(snapGroup.getKey());
 
-                        AddData("ID", clock.getTransactionID());
-                        AddData("Fecha", getDDMMYYYY(snapDay));
-                        AddData("Secador Asignado", clock.getDryerLastName() +", " + clock.getDryerFirstName());
-                        AddData("Placa del Auto", clock.Car.getLicense());
-                        AddData("Color del Auto", clock.Car.getColor());
-                        AddData("Paquete", Integer.toString(clock.Car.getPackage()));
-                        AddData("Tamaño", clock.Car.getSize());
-                        AddData("Entrada", getHHMMSS(clock.getStartTime()));
-                        AddData("Inicio de Secado", getHHMMSS(clock.getMidTime()));
-                        AddData("Salida", getHHMMSS(clock.getEndTime()));
-                        AddData("Tiempo Transcurrido Total", getHHMMSS(clock.getStartTime(), clock.getEndTime()));
-                        AddData("Tiempo Transcurrido de Espera", getHHMMSS(clock.getStartTime(), clock.getMidTime()));
-                        AddData("Tiempo Transcurrido de Secado", getHHMMSS(clock.getMidTime(), clock.getEndTime()));
-                        AddRow();
+                        for (DataSnapshot snapClock : snapGroup.getChildren())
+                        {
+                            Clocks clock = snapClock.getValue(Clocks.class);
+
+                            AddData("ID", clock.getTransactionID());
+                            AddData("Fecha", getDDMMYYYY(snapDay));
+                            AddData("Secador Asignado", clock.getDryerLastName() + ", " + clock.getDryerFirstName());
+                            AddData("Placa del Auto", clock.Car.getLicense());
+                            AddData("Color del Auto", clock.Car.getColor());
+                            AddData("Paquete", Integer.toString(clock.Car.getPackage()));
+                            AddData("Tamaño", clock.Car.getSize());
+                            AddData("Entrada", getHHMMSS(clock.getStartTime()));
+                            AddData("Inicio de Secado", getHHMMSS(clock.getMidTime()));
+                            AddData("Salida", getHHMMSS(clock.getEndTime()));
+                            AddData("Tiempo Transcurrido Total", getHHMMSS(clock.getStartTime(), clock.getEndTime()));
+                            AddData("Tiempo Transcurrido de Espera", getHHMMSS(clock.getStartTime(), clock.getMidTime()));
+                            AddData("Tiempo Transcurrido de Secado", getHHMMSS(clock.getMidTime(), clock.getEndTime()));
+                            AddRow();
+                        }
                     }
+                    CreateFile();
+                    SendFile();
                 }
-                CreateFile();
-                SendFile();
+                else
+                {
+                    // Say that no info is available here
+
+                    Snackbar.make(view, "No hay fechas disponibles (Placeholder error)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
 
             @Override

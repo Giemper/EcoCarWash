@@ -1,21 +1,14 @@
 package com.giemper.ecocarwash;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +17,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginTest extends AppCompatActivity
 {
@@ -39,6 +33,8 @@ public class LoginTest extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         ecoAuth = FirebaseAuth.getInstance();
         emailView = findViewById(R.id.email);
         passwordView = findViewById(R.id.password);
@@ -53,7 +49,7 @@ public class LoginTest extends AppCompatActivity
         });
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+//        mProgressView = findViewById(R.id.login_progress);
 
         Button signInButton = findViewById(R.id.email_sign_in_button);
         signInButton.setOnClickListener((View view) ->

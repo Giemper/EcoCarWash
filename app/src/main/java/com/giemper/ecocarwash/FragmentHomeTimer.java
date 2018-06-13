@@ -17,6 +17,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
@@ -131,31 +132,38 @@ public class FragmentHomeTimer extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                for (DataSnapshot snap : dataSnapshot.getChildren())
+                if(dataSnapshot.getChildrenCount() > 0)
                 {
-                    String snapKey = snap.getKey();
-                    boolean snapDate = (snapKey).equals(getTodayInMillisString());
-
-                    if (!snapDate)
+                    for (DataSnapshot snap : dataSnapshot.getChildren())
                     {
-                        for (DataSnapshot snap2 : snap.getChildren())
+                        try
                         {
-                            long time = Calendar.getInstance().getTimeInMillis();
-                            Clocks clock = snap2.getValue(Clocks.class);
-                            if (clock.getMidTime() == 0)
-                                clock.setMidTime(time);
-                            clock.setEndTime(time);
+                            String snapKey = snap.getKey();
+                            boolean snapDate = (snapKey).equals(getTodayInMillisString());
 
-                            if(clock.getDryerFirstName() == null)
+                            if (!snapDate)
                             {
-                                clock.setDryerFirstName("Sin Asignación");
-                                clock.setDryerLastName(" ");
-                                clock.setDryerID("0");
-                            }
+                                for (DataSnapshot snap2 : snap.getChildren())
+                                {
+                                    long time = Calendar.getInstance().getTimeInMillis();
+                                    Clocks clock = snap2.getValue(Clocks.class);
+                                    if (clock.getMidTime() == 0)
+                                        clock.setMidTime(time);
+                                    clock.setEndTime(time);
 
-                            ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).removeValue();
-                            ecoDatabase.child("Clocks/Archive").child(snapKey).child(snap2.getKey()).setValue(clock);
+                                    if (clock.getDryerFirstName() == null)
+                                    {
+                                        clock.setDryerFirstName("Sin Asignación");
+                                        clock.setDryerLastName(" ");
+                                        clock.setDryerID("0");
+                                    }
+
+                                    ecoDatabase.child("Clocks/Active").child(snapKey).child(snap2.getKey()).removeValue();
+                                    ecoDatabase.child("Clocks/Archive").child(snapKey).child(snap2.getKey()).setValue(clock);
+                                }
+                            }
                         }
+                        catch (Exception e) {}
                     }
                 }
             }

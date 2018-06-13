@@ -9,7 +9,7 @@
     </style>
 
     <style name="LoginAppTheme" parent="AppTheme">
-        <item name="colorAccent">@color/white</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

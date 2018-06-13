@@ -28,6 +28,7 @@ public class DialogSendReport
 
     private Calendar DateStart;
     private Calendar DateEnd;
+    private Activity mActivity;
 
     public void AddDialog(Activity activity)
     {
@@ -35,6 +36,8 @@ public class DialogSendReport
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_sendreport);
+
+        mActivity = activity;
 
         RelativeLayout dateStart = dialog.findViewById(R.id.Dialog_SendReport_DateStart);
         TextView textStart = dialog.findViewById(R.id.Dialog_SendReport_TextStart);
@@ -120,7 +123,8 @@ public class DialogSendReport
         add.setOnClickListener((View view) ->
         {
             CsvExport CSV = new CsvExport(ecoDatabase, dialog.getContext());
-            CSV.getRange(DateStart, DateEnd);
+            CSV.getRange(DateStart, DateEnd, mActivity.findViewById(android.R.id.content));
+
 //            CSV.CreateFile();
 //            CSV.SendFile();
         });
