@@ -1,6 +1,5 @@
 package com.giemper.ecocarwash;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -83,13 +80,19 @@ public class MainActivity extends AppCompatActivity
     {
         if(homeTab.getSelectedTabPosition() != 0)
         {
-            ((TabLayout.Tab) homeTab.getTabAt(0)).select();
+            homeTab.getTabAt(0).select();
+        }
+        else
+        {
+            DialogLogout dialogLogout = new DialogLogout();
+            dialogLogout.AddDialog(this);
+            dialogLogout.setListeners();
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -101,10 +104,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_logout)
         {
-            FirebaseAuth.getInstance().signOut();
-
-            startActivity(new Intent(this, LoginTest.class));
-            finish();
+            DialogLogout dialogLogout = new DialogLogout();
+            dialogLogout.AddDialog(this);
+            dialogLogout.setListeners();
             return true;
         }
 

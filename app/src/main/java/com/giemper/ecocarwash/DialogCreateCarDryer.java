@@ -36,7 +36,8 @@ public class DialogCreateCarDryer
     {
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(R.layout.dialog_createcardryer);
 
     }
@@ -108,7 +109,7 @@ public class DialogCreateCarDryer
         dialog.show();
     }
 
-    public void setDialogCreateCarDryerListener(Countdown countdown)
+    public void setDialogCreateCarDryerListener(CardChronometer countdown)
     {
         Button add = dialog.findViewById(R.id.Dialog_CreateCarDryer_Button_Add);
         add.setOnClickListener((View view) ->

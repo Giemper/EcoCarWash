@@ -47,7 +47,7 @@ public class CsvExport
         csvRows.add("");
     }
 
-    public void getRange(Calendar startDate, Calendar endDate, View view)
+    public void sendClocksReport(Calendar startDate, Calendar endDate, View view)
     {
         String start = Long.toString(startDate.getTimeInMillis());
         String end = Long.toString(endDate.getTimeInMillis());
@@ -101,6 +101,11 @@ public class CsvExport
                 throw databaseError.toException();
             }
         });
+    }
+
+    public void sendDryersReport(Calendar startDate, Calendar endDate, View view)
+    {
+
     }
 
     public void CreateFile()

@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:gravity="center_vertical"
-            android:text="@string/Dialog_SendReport_Title"
+            android:text="@string/Dialog_SendReportDryers_Title"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="24sp" />
@@ -33,7 +33,7 @@
             android:layout_marginBottom="5dp"
             android:textColor="@color/colorAccent3"
             android:textSize="16sp"
-            android:text="Fecha de Inicio"/>
+            android:text="@string/Dialog_SendReportDryers_StartDate"/>
 
         <RelativeLayout
             android:id="@+id/Dialog_SendReport_DateStart"
@@ -73,7 +73,7 @@
             android:layout_marginBottom="5dp"
             android:textColor="@color/colorAccent3"
             android:textSize="16sp"
-            android:text="Fecha de Termino"/>
+            android:text="@string/Dialog_SendReportDryers_EndDate"/>
 
         <RelativeLayout
             android:id="@+id/Dialog_SendReport_DateEnd"

@@ -40,7 +40,8 @@ public class DialogCreateCar
     {
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(R.layout.dialog_createcar);
 
         StartTime = Calendar.getInstance();

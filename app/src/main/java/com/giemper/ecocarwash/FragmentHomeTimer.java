@@ -17,7 +17,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
@@ -67,7 +66,7 @@ public class FragmentHomeTimer extends Fragment
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
                 Clocks clock = dataSnapshot.getValue(Clocks.class);
-                Countdown cd = new Countdown(getActivity(), clock);
+                CardChronometer cd = new CardChronometer(getActivity(), clock);
                 cd.setTag(clock.getTransactionID());
 
                 if(clock.getDryerID() != null)
@@ -93,7 +92,7 @@ public class FragmentHomeTimer extends Fragment
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
             {
                 Clocks clock = dataSnapshot.getValue(Clocks.class);
-                Countdown cd = findCountdown(clock.getTransactionID());
+                CardChronometer cd = findCountdown(clock.getTransactionID());
 
                 if(clock.getMidTime() > 0)
                 {
@@ -111,7 +110,7 @@ public class FragmentHomeTimer extends Fragment
             public void onChildRemoved(DataSnapshot dataSnapshot)
             {
                 Clocks clock = dataSnapshot.getValue(Clocks.class);
-                Countdown cd = findCountdown(clock.getTransactionID());
+                CardChronometer cd = findCountdown(clock.getTransactionID());
                 layout.removeView(cd);
             }
 
@@ -183,7 +182,7 @@ public class FragmentHomeTimer extends Fragment
 
     }
 
-    private void setCountdownButtonListener(Countdown cd)
+    private void setCountdownButtonListener(CardChronometer cd)
     {
         cd.nextButton.setOnClickListener((View view) ->
         {
@@ -232,11 +231,11 @@ public class FragmentHomeTimer extends Fragment
         });
     }
 
-    private Countdown findCountdown(String tag)
+    private CardChronometer findCountdown(String tag)
     {
         for(int i = 0; i < layout.getChildCount(); i++)
         {
-            Countdown cd = (Countdown) layout.getChildAt(i);
+            CardChronometer cd = (CardChronometer) layout.getChildAt(i);
             if(tag.equals(cd.getTag()))
                 return cd;
         }

@@ -1,8 +1,8 @@
 package com.giemper.ecocarwash;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
+
 import static com.giemper.ecocarwash.CarMethods.getMillisToString;
 
 public class FragmentHomeRegistry extends Fragment
@@ -32,8 +35,6 @@ public class FragmentHomeRegistry extends Fragment
         ecoDatabase = db;
         ecoUser = user;
         ecoUserType = userType;
-
-
     }
 
     @Override
@@ -100,12 +101,45 @@ public class FragmentHomeRegistry extends Fragment
 
     private void setFloatingListener()
     {
-        FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        fab.setOnClickListener((View view) ->
+//        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+//        fab.setOnClickListener((View view) ->
+//        {
+//            final DialogSendReportClocks dialogSendReport = new DialogSendReportClocks();
+//            dialogSendReport.AddDialog(getActivity());
+//            dialogSendReport.setButtonListeners(ecoDatabase);
+//        });
+
+        // Reference: https://github.com/leinardi/FloatingActionButtonSpeedDial
+
+        SpeedDialActionItem.Builder fabClocks = new SpeedDialActionItem.Builder(R.id.fab_reportClocks, R.drawable.ic_timer)
+                .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentDark3))
+                .setLabel("Reporte de Levados");
+
+        SpeedDialActionItem.Builder fabDryers = new SpeedDialActionItem.Builder(R.id.fab_reportDryers, R.drawable.ic_people)
+                .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentDark3))
+                .setLabel("Reporte de Secadores");
+
+        SpeedDialView speedFab = rootView.findViewById(R.id.speed_fab);
+        speedFab.addActionItem(fabClocks.create());
+        speedFab.addActionItem(fabDryers.create());
+        speedFab.setOnActionSelectedListener((SpeedDialActionItem actionItem) ->
         {
-            final DialogSendReport dialogSendReport = new DialogSendReport();
-            dialogSendReport.AddDialog(getActivity());
-            dialogSendReport.setButtonListeners(ecoDatabase);
+            if(actionItem.getId() == R.id.fab_reportClocks)
+            {
+                final DialogSendReportClocks dialogSendReportClocks = new DialogSendReportClocks();
+                dialogSendReportClocks.AddDialog(getActivity());
+                dialogSendReportClocks.setButtonListeners(ecoDatabase);
+                return false;
+            }
+            else if(actionItem.getId() == R.id.fab_reportDryers)
+            {
+                DialogSendReportDryers dialogSendReportDryers = new DialogSendReportDryers();
+                dialogSendReportDryers.AddDialog(getActivity());
+                dialogSendReportDryers.setButtonListeners(ecoDatabase);
+                return false;
+            }
+            else
+                return false;
         });
     }
 

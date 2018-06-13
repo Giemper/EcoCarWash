@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Calendar;
 
-public class Countdown extends LinearLayout
+public class CardChronometer extends LinearLayout
 {
     public Clocks clock;
     public SquareButton nextButton;
@@ -26,7 +26,7 @@ public class Countdown extends LinearLayout
     public Calendar EndTime;
 
 
-    public Countdown(Context context, Clocks _clock)
+    public CardChronometer(Context context, Clocks _clock)
     {
         super(context);
 

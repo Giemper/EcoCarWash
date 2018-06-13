@@ -6,6 +6,7 @@
     <string name="Agregar">Agregar</string>
     <string name="Cancelar">Cancelar</string>
     <string name="Enviar">Enviar</string>
+    <string name="Cerrar">Cerrar Sesión</string>
     <string name="Ok">OK</string>
     <string name="Borrar">Borrar</string>
 
@@ -63,8 +64,19 @@
     <string name="Dialog_InfoDryer_PlaceholderEntryDate">Enero 1, 2018</string>
     <string name="Dialog_InfoDryer_PlaceholderCarWashed">0</string>
 
-    <!-- Dialog Send Report -->
-    <string name="Dialog_SendReport_Title">Generar Reporte</string>
+    <!-- Dialog Send Report Clocks -->
+    <string name="Dialog_SendReportClocks_Title">Reporte de Lavados</string>
+    <string name="Dialog_SendReportClocks_StartDate">Fecha de Inicio</string>
+    <string name="Dialog_SendReportClocks_EndDate">Fecha de Termino</string>
+
+    <!-- Dialog Send Report Dryers -->
+    <string name="Dialog_SendReportDryers_Title">Reporte de Secadores</string>
+    <string name="Dialog_SendReportDryers_StartDate">Fecha de Inicio</string>
+    <string name="Dialog_SendReportDryers_EndDate">Fecha de Termino</string>
+
+    <!-- Dialog Logout -->
+    <string name="Dialog_Logout_Title">Cierre de Sesión</string>
+    <string name="Dialog_Logout_Message">¿Deseas cerrar sesión?</string>
 
     <!-- Arrays -->
     <string-array name="Dialog_CreateCar_ToggleArray">
