@@ -62,6 +62,8 @@ public class FragmentHomeTimer extends Fragment
         Query queryChronometers = ecoDatabase.child("Clocks/Active").child(getTodayInMillisString());
         queryChronometers.addChildEventListener(new ChildEventListener()
         {
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(DatabaseError databaseError){}
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -113,12 +115,6 @@ public class FragmentHomeTimer extends Fragment
                 CardChronometer cd = findCountdown(clock.getTransactionID());
                 layout.removeView(cd);
             }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
         });
     }
 
@@ -135,8 +131,7 @@ public class FragmentHomeTimer extends Fragment
                 {
                     for (DataSnapshot snap : dataSnapshot.getChildren())
                     {
-                        try
-                        {
+
                             String snapKey = snap.getKey();
                             boolean snapDate = (snapKey).equals(getTodayInMillisString());
 
@@ -161,8 +156,6 @@ public class FragmentHomeTimer extends Fragment
                                     ecoDatabase.child("Clocks/Archive").child(snapKey).child(snap2.getKey()).setValue(clock);
                                 }
                             }
-                        }
-                        catch (Exception e) {}
                     }
                 }
             }

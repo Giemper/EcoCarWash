@@ -53,6 +53,8 @@ public class FragmentHomePeople extends Fragment
         Query queryList = ecoDatabase.child("Dryers").orderByChild("active").equalTo(true);
         queryList.addChildEventListener(new ChildEventListener()
         {
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(DatabaseError databaseError){}
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -60,11 +62,11 @@ public class FragmentHomePeople extends Fragment
                 CardCheckbox cardCheckbox = new CardCheckbox(getActivity(), dryer);
                 cardCheckbox.setTag(dryer.getDryerID());
 
-                if(dryer.getWorkStatus().equals("Available"))
+                if(dryer.getWorkStatus().equals("available"))
                 {
                     cardCheckbox.Box.setChecked(true);
                 }
-                else if(dryer.getWorkStatus().equals("Busy"))
+                else if(dryer.getWorkStatus().equals("busy"))
                 {
                     cardCheckbox.Box.setChecked(true);
                     cardCheckbox.Box.setEnabled(false);
@@ -80,17 +82,17 @@ public class FragmentHomePeople extends Fragment
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
 
-                if(dryer.getWorkStatus().equals("Available"))
+                if(dryer.getWorkStatus().equals("available"))
                 {
                     cardCheckbox.Box.setChecked(true);
                     cardCheckbox.Box.setEnabled(true);
                 }
-                else if(dryer.getWorkStatus().equals("Busy"))
+                else if(dryer.getWorkStatus().equals("busy"))
                 {
                     cardCheckbox.Box.setChecked(true);
                     cardCheckbox.Box.setEnabled(false);
                 }
-                else if(dryer.getWorkStatus().equals("None"))
+                else if(dryer.getWorkStatus().equals("none"))
                 {
                     cardCheckbox.Box.setChecked(false);
                     cardCheckbox.Box.setEnabled(true);
@@ -105,11 +107,7 @@ public class FragmentHomePeople extends Fragment
                 layout.removeView(cardCheckbox);
             }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
         });
 
     }

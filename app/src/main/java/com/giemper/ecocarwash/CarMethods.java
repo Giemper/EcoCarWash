@@ -1,5 +1,7 @@
 package com.giemper.ecocarwash;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -7,6 +9,15 @@ import java.util.Locale;
 
 public class CarMethods
 {
+    public static void checkFirebase()
+    {
+        try
+        {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
+        catch (Exception e) {}
+    }
+
     public static String getMonth(int month)
     {
         if(month == 0)

@@ -44,7 +44,8 @@ public class DialogCreateCarDryer
 
     public void getNextInQueue()
     {
-        Query queryQueue = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
+        Query queryQueue = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("available");
+        queryQueue.keepSynced(true);
         queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override public void onCancelled(DatabaseError databaseError) {}
@@ -52,6 +53,7 @@ public class DialogCreateCarDryer
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 nextDryer = null;
+                long i = dataSnapshot.getChildrenCount();
                 for(DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Dryer dryer = snap.getValue(Dryer.class);
@@ -66,9 +68,12 @@ public class DialogCreateCarDryer
                     goodAlert();
                 }
                 else
+                {
                     badAlert();
+                }
             }
         });
+
     }
 
     public void getDryerInQueue(Clocks clock)
@@ -118,6 +123,7 @@ public class DialogCreateCarDryer
             countdown.chrono2.start();
 
             nextDryer.addCarWashed();
+            nextDryer.setWorkStatus("busy");
             Clocks clock = countdown.clock;
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
             if(clock.getDryerID() == null)
@@ -130,7 +136,7 @@ public class DialogCreateCarDryer
             hash.put("Clocks/Active/" + queryClock + "dryerFirstName", clock.getDryerFirstName());
             hash.put("Clocks/Active/" + queryClock + "dryerLastName", clock.getDryerLastName());
             hash.put("Clocks/Active/" + queryClock + "midTime", clock.getMidTime());
-            hash.put("Dryers/" + queryDryer + "workStatus", "Busy");
+            hash.put("Dryers/" + queryDryer + "workStatus", nextDryer.getWorkStatus());
             hash.put("Dryers/" + queryDryer + "queue", 0);
             hash.put("Dryers/" + queryDryer + "carWashed", nextDryer.getCarWashed());
 

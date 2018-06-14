@@ -37,12 +37,12 @@ public class CardCheckbox extends LinearLayout
             Map hash = new HashMap<>();
             if(isChecked)
             {
-                hash.put("workStatus", "Available");
+                hash.put("workStatus", "available");
                 hash.put("queue", getTodaySmallInMillis());
             }
             else
             {
-                hash.put("workStatus", "None");
+                hash.put("workStatus", "none");
                 hash.put("queue", 0);
             }
 

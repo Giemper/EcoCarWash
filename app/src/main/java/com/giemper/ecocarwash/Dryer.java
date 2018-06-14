@@ -75,7 +75,7 @@ public class Dryer
         if(end > 0)
         {
             setActive(false);
-            setWorkStatus("None");
+            setWorkStatus("none");
         }
     }
 

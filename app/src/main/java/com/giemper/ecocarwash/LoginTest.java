@@ -19,6 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.giemper.ecocarwash.CarMethods.checkFirebase;
+
 public class LoginTest extends AppCompatActivity
 {
     private FirebaseAuth ecoAuth;
@@ -33,7 +35,7 @@ public class LoginTest extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        checkFirebase();
 
         ecoAuth = FirebaseAuth.getInstance();
         emailView = findViewById(R.id.email);
@@ -48,7 +50,7 @@ public class LoginTest extends AppCompatActivity
             return false;
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
+//        mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
 
         Button signInButton = findViewById(R.id.email_sign_in_button);

@@ -54,6 +54,7 @@ public class DialogInfoDryer
             hash.put("active", dryer.getActive());
             hash.put("workStatus", dryer.getWorkStatus());
             hash.put("endTime", dryer.getEndTime());
+            hash.put("queue", 0);
 
             ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
             dialog.dismiss();
