@@ -2,15 +2,22 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.content.Context;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.google.firebase.database.DatabaseReference;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
+import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInMillis;
+import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
 public class CardCheckbox extends LinearLayout
 {
@@ -35,18 +42,29 @@ public class CardCheckbox extends LinearLayout
         Box.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->
         {
             Map hash = new HashMap<>();
+            DryerAttendance atten = new DryerAttendance();
+            atten.setDryerID(dryer.getDryerID());
+            atten.setDryerName(dryer.fullName());
+            atten.setDate(Calendar.getInstance().getTimeInMillis());
+
             if(isChecked)
             {
-                hash.put("workStatus", "available");
-                hash.put("queue", getTodaySmallInMillis());
+                atten.setAction("Enter");
+
+                hash.put(dryer.getDryerID() + "/workStatus", "available");
+                hash.put(dryer.getDryerID() + "/queue", getTodaySmallInMillis());
+                hash.put("Attendance/" + getTodayInMillisString() + "/" + getTodaySmallInString(), atten);
             }
             else
             {
-                hash.put("workStatus", "none");
-                hash.put("queue", 0);
+                atten.setAction("Exit");
+
+                hash.put(dryer.getDryerID() + "/workStatus", "none");
+                hash.put(dryer.getDryerID() + "/queue", 0);
+                hash.put("Attendance/" + getTodayInMillisString() + "/" + getTodaySmallInString(), atten);
             }
 
-            ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
+            ecoDatabase.child("Dryers").updateChildren(hash);
         });
 
         InfoButton.setOnClickListener((View view) ->

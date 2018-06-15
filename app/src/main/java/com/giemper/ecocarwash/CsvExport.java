@@ -52,7 +52,6 @@ public class CsvExport
         String start = Long.toString(startDate.getTimeInMillis());
         String end = Long.toString(endDate.getTimeInMillis());
         Query queryClocks = ecoDatabase.child("Clocks/Archive").orderByKey().startAt(start).endAt(end);
-
         queryClocks.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -105,7 +104,9 @@ public class CsvExport
 
     public void sendDryersReport(Calendar startDate, Calendar endDate, View view)
     {
-
+        String start = Long.toString(startDate.getTimeInMillis());
+        String end = Long.toString(endDate.getTimeInMillis());
+//        Query queryClocks = ecoDatabase.child("Clocks/Archive").orderByKey().startAt(start).endAt(end);
     }
 
     public void CreateFile()

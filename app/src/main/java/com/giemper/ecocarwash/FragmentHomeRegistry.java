@@ -101,14 +101,6 @@ public class FragmentHomeRegistry extends Fragment
 
     private void setFloatingListener()
     {
-//        FloatingActionButton fab = rootView.findViewById(R.id.fab);
-//        fab.setOnClickListener((View view) ->
-//        {
-//            final DialogSendReportClocks dialogSendReport = new DialogSendReportClocks();
-//            dialogSendReport.AddDialog(getActivity());
-//            dialogSendReport.setButtonListeners(ecoDatabase);
-//        });
-
         // Reference: https://github.com/leinardi/FloatingActionButtonSpeedDial
 
         SpeedDialActionItem.Builder fabClocks = new SpeedDialActionItem.Builder(R.id.fab_reportClocks, R.drawable.ic_timer)

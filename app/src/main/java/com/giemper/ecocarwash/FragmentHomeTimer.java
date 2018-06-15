@@ -204,7 +204,7 @@ public class FragmentHomeTimer extends Fragment
 
             Map hash = new HashMap<>();
             hash.put("Clocks/Archive/" + queryClock, cd.clock);
-            hash.put("Dryers/" + queryDryer + "workStatus", "Available");
+            hash.put("Dryers/" + queryDryer + "workStatus", "available");
             hash.put("Dryers/" + queryDryer + "queue", getTodaySmallInMillis());
 
             ecoDatabase.updateChildren(hash);
