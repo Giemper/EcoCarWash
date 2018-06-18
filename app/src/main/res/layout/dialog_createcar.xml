@@ -90,14 +90,15 @@
                 android:text="@string/Dialog_CreateCar_Package"/>
 
             <android.support.v7.widget.ToggleGroup
-                android:id="@+id/Dialog_CreateCar_Toggle_Pack"
+                android:id="@+id/Dialog_CreateCar_Toggle_PackTop"
                 style="@style/ContrastToggle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:exclusive="true"
                 app:orientation="horizontal"
-                android:layout_margin="5dp">
-
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
                 <android.support.v7.widget.ToggleButton
                     android:layout_weight="1"
                     style="@style/ContrastToggle"
@@ -112,7 +113,32 @@
                     android:layout_weight="1"
                     style="@style/ContrastToggle"
                     android:button="@drawable/ic_pack_three"/>
+            </android.support.v7.widget.ToggleGroup>
 
+            <android.support.v7.widget.ToggleGroup
+                android:id="@+id/Dialog_CreateCar_Toggle_PackBottom"
+                style="@style/ContrastToggle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:exclusive="true"
+                app:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:text="@string/Dialog_CreateCar_Title"/>
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_pack_two"/>
+
+                <android.support.v7.widget.ToggleButton
+                    android:layout_weight="1"
+                    style="@style/ContrastToggle"
+                    android:button="@drawable/ic_pack_three"/>
             </android.support.v7.widget.ToggleGroup>
 
             <TextView

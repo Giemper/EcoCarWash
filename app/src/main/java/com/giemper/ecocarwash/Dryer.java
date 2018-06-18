@@ -5,7 +5,6 @@ public class Dryer
     private String DryerID;
     private String FirstName;
     private String LastNameFather;
-    private String LastNameMother;
     private long StartTime;
     private long EndTime;
     private boolean Active;
@@ -44,15 +43,6 @@ public class Dryer
     public void setLastNameFather(String name)
     {
         LastNameFather = name;
-    }
-
-    public String getLastNameMother()
-    {
-        return LastNameMother;
-    }
-    public void setLastNameMother(String name)
-    {
-        LastNameMother = name;
     }
 
     public long getStartTime()
@@ -123,10 +113,6 @@ public class Dryer
 
     public String fullName()
     {
-        return FirstName + " " + LastNameFather + " " + LastNameMother;
-    }
-    public String fullLastName()
-    {
-        return LastNameFather + " " + LastNameMother;
+        return FirstName + " " + LastNameFather;
     }
 }

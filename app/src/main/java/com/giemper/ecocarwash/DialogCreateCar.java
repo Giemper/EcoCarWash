@@ -55,9 +55,18 @@ public class DialogCreateCar
 
     private void setCheckers()
     {
-        ToggleGroup Group_Pack = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Pack);
-        Group_Pack.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
+        ToggleGroup Group_Pack_Top = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_PackTop);
+        ToggleGroup Group_Pack_Bottom = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_PackBottom);
+        Group_Pack_Top.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
         {
+            Group_Pack_Bottom.clearChecked();
+            CheckPack = true;
+            CheckDialog();
+        });
+
+        Group_Pack_Bottom.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
+        {
+            Group_Pack_Top.clearChecked();
             CheckPack = true;
             CheckDialog();
         });
@@ -99,7 +108,7 @@ public class DialogCreateCar
         Button pre = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryerPre);
         pre.setOnClickListener((View view) ->
         {
-            Query queryDryers = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("Available");
+            Query queryDryers = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("available");
             queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override public void onCancelled(DatabaseError databaseError){}
@@ -115,7 +124,7 @@ public class DialogCreateCar
                         for (DataSnapshot snap : dataSnapshot.getChildren())
                         {
                             Dryer dryer = snap.getValue(Dryer.class);
-                            arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.fullLastName()));
+                            arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.fullName()));
                         }
                         spinnerDryer.setAdapter(arrayAdapter);
                     }
@@ -149,7 +158,7 @@ public class DialogCreateCar
                 clock.setDryerFirstName(selectedDryer.getFirstName());
                 clock.setDryerLastName(selectedDryer.getLastName());
 
-                hash.put("Dryers/" + clock.getDryerID() + "/workStatus", "Busy");
+                hash.put("Dryers/" + clock.getDryerID() + "/workStatus", "busy");
                 hash.put("Dryers/" + clock.getDryerID() + "/queue", 0);
             }
             hash.put("Clocks/Active/" + getTodayInMillisString() + "/" + clock.getTransactionID(), clock);

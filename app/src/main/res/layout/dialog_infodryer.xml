@@ -51,24 +51,6 @@
             android:layout_marginBottom="5dp"
             android:textColor="@color/colorAccentLight2"
             android:textSize="16sp"
-            android:text="@string/Dialog_InfoDryer_EntryDate"/>
-
-        <TextView
-            android:id="@+id/Dialog_InfoDryer_Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:lineSpacingExtra="3sp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:text="@string/Dialog_InfoDryer_PlaceholderEntryDate"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/colorAccentLight2"
-            android:textSize="16sp"
             android:text="@string/Dialog_InfoDryer_CarWashed"/>
 
         <TextView

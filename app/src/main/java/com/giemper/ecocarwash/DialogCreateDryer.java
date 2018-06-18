@@ -23,9 +23,6 @@ public class DialogCreateDryer
 
     private boolean CheckName;
     private boolean CheckFather;
-    private boolean CheckMother;
-    private boolean CheckDate;
-    private Calendar EntryDate;
 
     public void AddDialog(Activity activity, View view)
     {
@@ -77,62 +74,6 @@ public class DialogCreateDryer
                     CheckFather = false;
             }
         });
-
-        EditText lastNameMother = dialog.findViewById(R.id.Dialog_CreateDryer_LastNameMother);
-        lastNameMother.addTextChangedListener(new TextWatcher()
-        {
-            @Override public void afterTextChanged(Editable editable){}
-            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
-                if(charSequence.length() > 0)
-                {
-                    CheckMother = true;
-                    CheckDialog();
-                }
-                else
-                    CheckMother = false;
-            }
-        });
-
-        Calendar date = Calendar.getInstance();
-        TextView dateText = dialog.findViewById(R.id.Dialog_CreateDryer_TextDate);
-        RelativeLayout dateEntry = dialog.findViewById(R.id.Dialog_CreateDryer_Date);
-        DatePickerDialog.OnDateSetListener datePickerDialog = ((DatePicker datePicker, int year, int month, int day) ->
-        {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
-
-            date.set(Calendar.YEAR, year);
-            date.set(Calendar.MONTH, month);
-            date.set(Calendar.DAY_OF_MONTH, day);
-            date.set(Calendar.HOUR_OF_DAY, 0);
-            date.set(Calendar.MINUTE, 0);
-            date.set(Calendar.SECOND, 0);
-            date.set(Calendar.MILLISECOND, 0);
-
-            dateText.setText(simpleDateFormat.format(date.getTime()));
-            if(dateText.getText().length() > 0)
-            {
-                EntryDate = date;
-                CheckDate = true;
-                CheckDialog();
-            }
-            else
-                CheckDate = false;
-        });
-
-        dateEntry.setOnClickListener((View view) ->
-        {
-            DatePickerDialog picker = new DatePickerDialog(
-                    dialog.getContext(),
-                    datePickerDialog,
-                    date.get(Calendar.YEAR),
-                    date.get(Calendar.MONTH),
-                    date.get(Calendar.DAY_OF_MONTH)
-            );
-            picker.show();
-        });
     }
 
     public void setListeners(DatabaseReference ecoDatabase)
@@ -142,17 +83,15 @@ public class DialogCreateDryer
         {
             EditText firstName = dialog.findViewById(R.id.Dialog_CreateDryer_Name);
             EditText lastNameFather = dialog.findViewById(R.id.Dialog_CreateDryer_LastNameFather);
-            EditText lastNameMother = dialog.findViewById(R.id.Dialog_CreateDryer_LastNameMother);
             long dryerID = Calendar.getInstance().getTimeInMillis();
 
             Dryer dryer = new Dryer();
             dryer.setDryerID(Long.toString(dryerID));
             dryer.setFirstName(firstName.getText().toString());
             dryer.setLastNameFather(lastNameFather.getText().toString());
-            dryer.setLastNameMother(lastNameMother.getText().toString());
-            dryer.setStartTime(EntryDate.getTimeInMillis());
+            dryer.setStartTime(Calendar.getInstance().getTimeInMillis());
             dryer.setActive(true);
-            dryer.setWorkStatus("None");
+            dryer.setWorkStatus("none");
 
             ecoDatabase.child("Dryers").child(dryer.getDryerID()).setValue(dryer);
 
@@ -169,7 +108,7 @@ public class DialogCreateDryer
     private void CheckDialog()
     {
         Button add = dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
-        if(CheckName && CheckFather && CheckMother && CheckDate)
+        if(CheckName && CheckFather)
             add.setEnabled(true);
         else
             add.setEnabled(false);

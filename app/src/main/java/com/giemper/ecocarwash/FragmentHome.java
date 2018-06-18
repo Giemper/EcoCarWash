@@ -34,21 +34,19 @@ public class FragmentHome extends FragmentPagerAdapter {
         FirebaseAuth ecoAuth = FirebaseAuth.getInstance();
         FirebaseUser ecoUser = ecoAuth.getCurrentUser();
 
+        ecoUser.getDisplayName();
 
         Query q = ecoDatabase.child("Users").child(ecoUser.getUid());
+        q.keepSynced(true);
         q.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override public void onCancelled(@NonNull DatabaseError databaseError) {}
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-
-                    ecoUserType = dataSnapshot.getValue(String.class);
-
+                ecoUserType = dataSnapshot.getValue(String.class);
             }
         });
-
-
 
         Home_Timer = new FragmentHomeTimer();
         Home_Timer.setFirebase(ecoDatabase, ecoUser, "Supervisor");

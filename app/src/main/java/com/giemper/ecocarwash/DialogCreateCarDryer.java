@@ -127,7 +127,7 @@ public class DialogCreateCarDryer
             Clocks clock = countdown.clock;
             clock.setMidTime(countdown.MidTime.getTimeInMillis());
             if(clock.getDryerID() == null)
-                clock.setDryer(nextDryer.getDryerID(), nextDryer.getFirstName(), nextDryer.getLastNameFather() + " " + nextDryer.getLastNameMother());
+                clock.setDryer(nextDryer.getDryerID(), nextDryer.getFirstName(), nextDryer.getLastNameFather());
 
             String queryClock = getTodayInMillisString() + "/" + clock.getTransactionID() + "/";
             String queryDryer = clock.getDryerID() + "/";

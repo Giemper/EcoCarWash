@@ -2,16 +2,16 @@ package com.giemper.ecocarwash;
 
 public class CarValues
 {
-    private int Package;
+    private String Package;
     private String Size;
     private String Color;
     private String License;
 
-    public void setPackage(int _package)
+    public void setPackage(String _package)
     {
         Package = _package;
     }
-    public int getPackage()
+    public String getPackage()
     {
         return Package;
     }

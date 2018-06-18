@@ -121,6 +121,7 @@ public class FragmentHomeTimer extends Fragment
     private void setDatabaseSingleListener()
     {
         Query querySingle = ecoDatabase.child("Clocks/Active");
+        querySingle.keepSynced(true);
         querySingle.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override public void onCancelled(DatabaseError databaseError){}

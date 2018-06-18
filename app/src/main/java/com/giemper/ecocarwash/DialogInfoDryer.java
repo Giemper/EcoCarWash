@@ -31,9 +31,6 @@ public class DialogInfoDryer
         TextView textName = dialog.findViewById(R.id.Dialog_InfoDryer_Name);
         textName.setText(Name);
 
-        TextView textDate = dialog.findViewById(R.id.Dialog_InfoDryer_Date);
-        textDate.setText(getMillisToStringSmall(Date));
-
         TextView textCount = dialog.findViewById(R.id.Dialog_InfoDryer_WasherCount);
         textCount.setText(Integer.toString(CarWashed));
     }

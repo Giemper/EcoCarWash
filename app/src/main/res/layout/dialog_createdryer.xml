@@ -27,7 +27,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -69,55 +69,7 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorAccent2"
                 android:textSize="16sp"
-                android:text="@string/Dialog_CreateDryer_LastNameMother"/>
-
-            <EditText
-                android:id="@+id/Dialog_CreateDryer_LastNameMother"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:textColorHint="@color/grayLight"
-                android:hint="Obligatorio"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccent2"
-                android:textSize="16sp"
                 android:text="@string/Dialog_CreateDryer_EntryDate"/>
-
-            <RelativeLayout
-                android:id="@+id/Dialog_CreateDryer_Date"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <TextView
-                    android:id="@+id/Dialog_CreateDryer_TextDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:textSize="18sp"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true">
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_date"
-                        android:backgroundTint="@color/colorAccent2" />
-                </LinearLayout>
-
-                <View
-                    android:layout_height="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_alignBottom="@id/Dialog_CreateDryer_TextDate"
-                    android:background="@color/gray"/>
-            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

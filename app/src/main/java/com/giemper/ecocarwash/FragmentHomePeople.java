@@ -106,8 +106,6 @@ public class FragmentHomePeople extends Fragment
                 CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
                 layout.removeView(cardCheckbox);
             }
-
-
         });
 
     }
