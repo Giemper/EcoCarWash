@@ -32,8 +32,6 @@ public class FragmentHomePeople extends Fragment
         ecoDatabase = db;
         ecoUser = user;
         ecoUserType = userType;
-
-
     }
 
     @Override
@@ -50,7 +48,7 @@ public class FragmentHomePeople extends Fragment
 
     private void setDatabaseListener()
     {
-        Query queryList = ecoDatabase.child("Dryers").orderByChild("active").equalTo(true);
+        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
         queryList.addChildEventListener(new ChildEventListener()
         {
             @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}

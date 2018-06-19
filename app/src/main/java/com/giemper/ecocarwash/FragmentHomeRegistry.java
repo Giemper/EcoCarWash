@@ -51,7 +51,7 @@ public class FragmentHomeRegistry extends Fragment
 
     private void setDatabaseListener()
     {
-        Query queryReport = ecoDatabase.child("Clocks/Archive").limitToLast(14);
+        Query queryReport = ecoDatabase.child("Clocks/Archive").limitToLast(7);
         queryReport.addChildEventListener(new ChildEventListener()
         {
             @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}

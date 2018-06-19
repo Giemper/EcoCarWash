@@ -20,16 +20,6 @@ import java.util.Locale;
 
 public class DialogSendReportClocks extends DialogSendReport
 {
-//    public Dialog dialog;
-//    public Button add;
-//
-//    private boolean CheckStart;
-//    private boolean CheckEnd;
-//
-//    private Calendar DateStart;
-//    private Calendar DateEnd;
-//    private Activity mActivity;
-
     @Override
     public void AddDialog(Activity activity)
     {
@@ -69,72 +59,4 @@ public class DialogSendReportClocks extends DialogSendReport
             dialog.dismiss();
         });
     }
-
-//    private void setDatePickListeners(RelativeLayout relative, TextView textView, int check)
-//    {
-//        Calendar date = Calendar.getInstance();
-//
-//        DatePickerDialog.OnDateSetListener datePickerDialog = ((DatePicker datePicker, int year, int month, int day) ->
-//        {
-//            date.set(Calendar.YEAR, year);
-//            date.set(Calendar.MONTH, month);
-//            date.set(Calendar.DAY_OF_MONTH, day);
-//            date.set(Calendar.HOUR_OF_DAY, 0);
-//            date.set(Calendar.MINUTE, 0);
-//            date.set(Calendar.SECOND, 0);
-//            date.set(Calendar.MILLISECOND, 0);
-//
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
-//
-//            textView.setText(simpleDateFormat.format(date.getTime()));
-//            if(textView.getText().length() > 0)
-//            {
-//                if(check == 0)
-//                {
-//                    DateStart = date;
-//                    CheckStart = true;
-//                }
-//                else
-//                {
-//                    DateEnd = date;
-//                    CheckEnd = true;
-//                }
-//                CheckDialog();
-//            }
-//            else
-//            {
-//                if(check == 0)
-//                    CheckStart = false;
-//                else
-//                    CheckEnd = false;
-//            }
-//        });
-//
-//        relative.setOnClickListener((View view) ->
-//        {
-//            DatePickerDialog picker = new DatePickerDialog(
-//                    dialog.getContext(),
-//                    datePickerDialog,
-//                    date.get(Calendar.YEAR),
-//                    date.get(Calendar.MONTH),
-//                    date.get(Calendar.DAY_OF_MONTH)
-//            );
-//            picker.show();
-//        });
-//    }
-
-//    public void CheckDialog()
-//    {
-//        Button add = dialog.findViewById(R.id.Button_Add);
-//        if(CheckStart && CheckEnd)
-//        {
-//            if(DateEnd.getTimeInMillis() >= DateStart.getTimeInMillis())
-//                add.setEnabled(true);
-//            else
-//                add.setEnabled(false);
-//        }
-//        else
-//            add.setEnabled(false);
-//    }
-
 }

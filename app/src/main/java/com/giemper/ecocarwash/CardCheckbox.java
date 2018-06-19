@@ -51,16 +51,16 @@ public class CardCheckbox extends LinearLayout
             {
                 atten.setAction("Enter");
 
-                hash.put(dryer.getDryerID() + "/workStatus", "available");
-                hash.put(dryer.getDryerID() + "/queue", getTodaySmallInMillis());
+                hash.put("List/" + dryer.getDryerID() + "/workStatus", "available");
+                hash.put("List/" + dryer.getDryerID() + "/queue", getTodaySmallInMillis());
                 hash.put("Attendance/" + getTodayInMillisString() + "/" + getTodaySmallInString(), atten);
             }
             else
             {
                 atten.setAction("Exit");
 
-                hash.put(dryer.getDryerID() + "/workStatus", "none");
-                hash.put(dryer.getDryerID() + "/queue", 0);
+                hash.put("List/" + dryer.getDryerID() + "/workStatus", "none");
+                hash.put("List/" + dryer.getDryerID() + "/queue", 0);
                 hash.put("Attendance/" + getTodayInMillisString() + "/" + getTodaySmallInString(), atten);
             }
 

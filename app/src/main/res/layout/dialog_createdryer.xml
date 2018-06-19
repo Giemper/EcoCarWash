@@ -21,11 +21,7 @@
             android:textSize="24sp" />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -63,16 +59,8 @@
                 android:textColorHint="@color/grayLight"
                 android:hint="Obligatorio"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorAccent2"
-                android:textSize="16sp"
-                android:text="@string/Dialog_CreateDryer_EntryDate"/>
 
         </LinearLayout>
-    </ScrollView>
 
     <View
         android:layout_height="1dp"

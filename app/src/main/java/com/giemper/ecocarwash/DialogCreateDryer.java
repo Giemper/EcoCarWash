@@ -93,7 +93,7 @@ public class DialogCreateDryer
             dryer.setActive(true);
             dryer.setWorkStatus("none");
 
-            ecoDatabase.child("Dryers").child(dryer.getDryerID()).setValue(dryer);
+            ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).setValue(dryer);
 
             dialog.dismiss();
         });

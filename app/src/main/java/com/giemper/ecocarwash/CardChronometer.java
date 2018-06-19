@@ -62,7 +62,7 @@ public class CardChronometer extends LinearLayout
         textSize.setText(values.getSize());
 
         textPackage = card.findViewById(R.id.Card_Chronometer_Slot2);
-        textPackage.setText(Integer.toString(values.getPackage()));
+        textPackage.setText(values.getPackage());
 
         textColor = card.findViewById(R.id.Card_Chronometer_Slot3);
         textColor.setText(values.getColor());

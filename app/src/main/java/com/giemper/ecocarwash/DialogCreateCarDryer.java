@@ -44,7 +44,7 @@ public class DialogCreateCarDryer
 
     public void getNextInQueue()
     {
-        Query queryQueue = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("available");
+        Query queryQueue = ecoDatabase.child("Dryers/List").orderByChild("workStatus").equalTo("available");
         queryQueue.keepSynced(true);
         queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
         {
@@ -78,7 +78,7 @@ public class DialogCreateCarDryer
 
     public void getDryerInQueue(Clocks clock)
     {
-        Query queryQueue = ecoDatabase.child("Dryers").orderByKey().equalTo(clock.getDryerID()).limitToFirst(1);
+        Query queryQueue = ecoDatabase.child("Dryers/List").orderByKey().equalTo(clock.getDryerID()).limitToFirst(1);
         queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override public void onCancelled(DatabaseError databaseError){}
@@ -136,9 +136,9 @@ public class DialogCreateCarDryer
             hash.put("Clocks/Active/" + queryClock + "dryerFirstName", clock.getDryerFirstName());
             hash.put("Clocks/Active/" + queryClock + "dryerLastName", clock.getDryerLastName());
             hash.put("Clocks/Active/" + queryClock + "midTime", clock.getMidTime());
-            hash.put("Dryers/" + queryDryer + "workStatus", nextDryer.getWorkStatus());
-            hash.put("Dryers/" + queryDryer + "queue", 0);
-            hash.put("Dryers/" + queryDryer + "carWashed", nextDryer.getCarWashed());
+            hash.put("Dryers/List/" + queryDryer + "workStatus", nextDryer.getWorkStatus());
+            hash.put("Dryers/List/" + queryDryer + "queue", 0);
+            hash.put("Dryers/List/" + queryDryer + "carWashed", nextDryer.getCarWashed());
 
             ecoDatabase.updateChildren(hash);
             dialog.dismiss();

@@ -128,17 +128,20 @@
                 <android.support.v7.widget.ToggleButton
                     android:layout_weight="1"
                     style="@style/ContrastToggle"
-                    android:text="@string/Dialog_CreateCar_Title"/>
+                    android:textStyle="bold"
+                    android:text="Manual"/>
 
                 <android.support.v7.widget.ToggleButton
                     android:layout_weight="1"
                     style="@style/ContrastToggle"
-                    android:button="@drawable/ic_pack_two"/>
+                    android:textStyle="bold"
+                    android:text="Detallado"/>
 
                 <android.support.v7.widget.ToggleButton
                     android:layout_weight="1"
                     style="@style/ContrastToggle"
-                    android:button="@drawable/ic_pack_three"/>
+                    android:textStyle="bold"
+                    android:text="Otro"/>
             </android.support.v7.widget.ToggleGroup>
 
             <TextView
@@ -184,7 +187,6 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 android:text="@string/Dialog_CreateCar_InitialDryer"/>
-
 
 
             <RelativeLayout

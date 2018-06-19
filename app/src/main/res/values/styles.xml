@@ -24,10 +24,15 @@
     <style name="ContrastToggle" parent="Widget.Material.ToggleButton">
         <item name="android:background">@drawable/toggle_background</item>
         <item name="buttonTint">@drawable/toggle_buttontint</item>
+        <item name="android:textColor">@drawable/toggle_buttontint</item>
     </style>
 
     <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@drawable/button_borderless</item>
+    </style>
+
+    <style name="FabCreateCar" parent="Widget.Design.FloatingActionButton">
+        <item name="android:backgroundTint">@drawable/fab_createcar</item>
     </style>
 
 </resources>

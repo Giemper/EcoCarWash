@@ -72,7 +72,7 @@ public class CsvExport
                             AddData("Secador Asignado", clock.getDryerLastName() + ", " + clock.getDryerFirstName());
                             AddData("Placa del Auto", clock.Car.getLicense());
                             AddData("Color del Auto", clock.Car.getColor());
-                            AddData("Paquete", Integer.toString(clock.Car.getPackage()));
+                            AddData("Paquete", clock.Car.getPackage());
                             AddData("Tamaño", clock.Car.getSize());
                             AddData("Entrada", getHHMMSS(clock.getStartTime()));
                             AddData("Inicio de Secado", getHHMMSS(clock.getMidTime()));

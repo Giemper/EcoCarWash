@@ -50,7 +50,10 @@ public class FragmentHomeTimer extends Fragment
         layout = rootView.findViewById(R.id.Card_Layout);
 
         setLayoutInfoListener();
-        setFloatingListener();
+//        setFloatingListener();
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setEnabled(false);
+
         setDatabaseSingleListener();
         setDatabaseListener();
 
@@ -163,9 +166,10 @@ public class FragmentHomeTimer extends Fragment
         });
     }
 
-    private void setFloatingListener()
+    public void setFloatingListener()
     {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setEnabled(true);
         fab.setOnClickListener((View view) ->
         {
             final DialogCreateCar dcc = new DialogCreateCar();
@@ -205,8 +209,8 @@ public class FragmentHomeTimer extends Fragment
 
             Map hash = new HashMap<>();
             hash.put("Clocks/Archive/" + queryClock, cd.clock);
-            hash.put("Dryers/" + queryDryer + "workStatus", "available");
-            hash.put("Dryers/" + queryDryer + "queue", getTodaySmallInMillis());
+            hash.put("Dryers/List/" + queryDryer + "workStatus", "available");
+            hash.put("Dryers/List/" + queryDryer + "queue", getTodaySmallInMillis());
 
             ecoDatabase.updateChildren(hash);
             ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();

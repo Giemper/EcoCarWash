@@ -53,7 +53,7 @@ public class DialogInfoDryer
             hash.put("endTime", dryer.getEndTime());
             hash.put("queue", 0);
 
-            ecoDatabase.child("Dryers").child(dryer.getDryerID()).updateChildren(hash);
+            ecoDatabase.child("Dryers/List").child(dryer.getDryerID()).updateChildren(hash);
             dialog.dismiss();
         });
     }

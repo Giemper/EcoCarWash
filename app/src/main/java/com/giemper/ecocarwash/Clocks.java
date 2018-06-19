@@ -6,8 +6,6 @@ import android.support.v7.widget.ToggleGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.security.acl.Group;
-
 public class Clocks
 {
     public CarValues Car;
@@ -48,43 +46,38 @@ public class Clocks
 
         if(Group_Pack_Top.getCheckedId() != -1)
         {
-            switch (Group_Pack_Top.getCheckedId())
+            for(int i = 0; i < Group_Pack_Top.getChildCount(); i++)
             {
-                case 0:
-                    Car.setPackage("Paquete 1");
+                ToggleButton temp = (ToggleButton)Group_Pack_Top.getChildAt(i);
+                if(temp.isChecked())
+                {
+                    if(i == 0)
+                        Car.setPackage("Paquete 1");
+                    else if(i == 1)
+                        Car.setPackage("Paquete 2");
+                    else
+                        Car.setPackage("Paquete 3");
                     break;
-                case 1:
-                    Car.setPackage("Paquete 2");
-                    break;
-                case 2:
-                    Car.setPackage("Paquete 3");
-                    break;
+                }
             }
         }
         else
         {
-            switch (Group_Pack_Bottom.getCheckedId())
+            for(int i = 0; i < Group_Pack_Bottom.getChildCount(); i++)
             {
-                case 0:
-                    Car.setPackage("Manual");
+                ToggleButton temp = (ToggleButton)Group_Pack_Bottom.getChildAt(i);
+                if(temp.isChecked())
+                {
+                    if(i == 0)
+                        Car.setPackage("Manual");
+                    else if(i == 1)
+                        Car.setPackage("Detallado");
+                    else
+                        Car.setPackage("Otro");
                     break;
-                case 1:
-                    Car.setPackage("Detallado");
-                    break;
-                case 2:
-                    Car.setPackage("Otro");
-                    break;
+                }
             }
         }
-//        for(int i = 0; i < Group_Pack_Top.getChildCount(); i++)
-//        {
-//            ToggleButton temp = (ToggleButton)Group_Pack_Top.getChildAt(i);
-//            if(temp.isChecked())
-//            {
-//                Car.setPackage(i + 1);
-//                break;
-//            }
-//        }
 
         for(int i = 0; i < Group_Size.getChildCount(); i++)
         {

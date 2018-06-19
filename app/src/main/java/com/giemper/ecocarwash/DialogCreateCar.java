@@ -23,10 +23,6 @@ import java.util.Map;
 import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
 import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
 
-/**
- * Created by gmoma on 4/13/2018.
- */
-
 public class DialogCreateCar
 {
     private Dialog dialog;
@@ -59,16 +55,22 @@ public class DialogCreateCar
         ToggleGroup Group_Pack_Bottom = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_PackBottom);
         Group_Pack_Top.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
         {
-            Group_Pack_Bottom.clearChecked();
-            CheckPack = true;
-            CheckDialog();
+            if(Group_Pack_Top.getCheckedId() != -1)
+            {
+                Group_Pack_Bottom.clearChecked();
+                CheckPack = true;
+                CheckDialog();
+            }
         });
 
         Group_Pack_Bottom.setOnCheckedChangeListener((ToggleGroup group, int[] checkedId) ->
         {
-            Group_Pack_Top.clearChecked();
-            CheckPack = true;
-            CheckDialog();
+            if(Group_Pack_Bottom.getCheckedId() != -1)
+            {
+                Group_Pack_Top.clearChecked();
+                CheckPack = true;
+                CheckDialog();
+            }
         });
 
         ToggleGroup Group_Size = dialog.findViewById(R.id.Dialog_CreateCar_Toggle_Size);
@@ -108,7 +110,7 @@ public class DialogCreateCar
         Button pre = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryerPre);
         pre.setOnClickListener((View view) ->
         {
-            Query queryDryers = ecoDatabase.child("Dryers").orderByChild("workStatus").equalTo("available");
+            Query queryDryers = ecoDatabase.child("Dryers/List").orderByChild("workStatus").equalTo("available");
             queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
             {
                 @Override public void onCancelled(DatabaseError databaseError){}
@@ -158,8 +160,8 @@ public class DialogCreateCar
                 clock.setDryerFirstName(selectedDryer.getFirstName());
                 clock.setDryerLastName(selectedDryer.getLastName());
 
-                hash.put("Dryers/" + clock.getDryerID() + "/workStatus", "busy");
-                hash.put("Dryers/" + clock.getDryerID() + "/queue", 0);
+                hash.put("Dryers/List/" + clock.getDryerID() + "/workStatus", "busy");
+                hash.put("Dryers/List/" + clock.getDryerID() + "/queue", 0);
             }
             hash.put("Clocks/Active/" + getTodayInMillisString() + "/" + clock.getTransactionID(), clock);
 
