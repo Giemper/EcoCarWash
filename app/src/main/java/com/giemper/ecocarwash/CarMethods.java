@@ -1,5 +1,11 @@
 package com.giemper.ecocarwash;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
@@ -9,11 +15,16 @@ import java.util.Locale;
 
 public class CarMethods
 {
-    public static void checkFirebase()
+    public static void checkFirebase(Activity activity)
     {
         try
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+            if(ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            }
         }
         catch (Exception e) {}
     }

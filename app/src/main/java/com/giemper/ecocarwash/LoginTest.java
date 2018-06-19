@@ -35,7 +35,7 @@ public class LoginTest extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        checkFirebase();
+        checkFirebase(this);
 
         ecoAuth = FirebaseAuth.getInstance();
         emailView = findViewById(R.id.email);
