@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
@@ -52,6 +53,7 @@ public class CsvExport
         String start = Long.toString(startDate.getTimeInMillis());
         String end = Long.toString(endDate.getTimeInMillis());
         Query queryClocks = ecoDatabase.child("Clocks/Archive").orderByKey().startAt(start).endAt(end);
+        queryClocks.keepSynced(true);
         queryClocks.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -106,7 +108,41 @@ public class CsvExport
     {
         String start = Long.toString(startDate.getTimeInMillis());
         String end = Long.toString(endDate.getTimeInMillis());
-//        Query queryClocks = ecoDatabase.child("Clocks/Archive").orderByKey().startAt(start).endAt(end);
+        Query queryDryers = ecoDatabase.child("Dryers/Attendance").orderByKey().startAt(start).endAt(end);
+        queryDryers.keepSynced(true);
+        queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.getChildrenCount() > 0)
+                {
+                    for(DataSnapshot snap : dataSnapshot.getChildren())
+                    {
+                        long snapDay = Long.parseLong(snap.getKey());
+
+                        for (DataSnapshot snapClock : snap.getChildren())
+                        {
+                            Clocks clock = snapClock.getValue(Clocks.class);
+
+                            AddData("ID", clock.getTransactionID());
+                            AddRow();
+                        }
+                    }
+                }
+                else
+                {
+                    Snackbar.make(view, "No hay casos dentro de esas fechas.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+                throw databaseError.toException();
+            }
+        });
+
     }
 
     public void CreateFile()

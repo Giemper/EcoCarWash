@@ -30,6 +30,7 @@ public class FragmentHomeTimer extends Fragment
     private DatabaseReference ecoDatabase;
     private FirebaseUser ecoUser;
     private String ecoUserType;
+    private boolean CountdownAccess = false;
 
     private View rootView;
     LinearLayout layout;
@@ -49,13 +50,13 @@ public class FragmentHomeTimer extends Fragment
         rootView = inflater.inflate(R.layout.fragment_home_timer, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
 
-        setLayoutInfoListener();
-//        setFloatingListener();
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setEnabled(false);
 
+        setLayoutInfoListener();
         setDatabaseSingleListener();
         setDatabaseListener();
+//        setFloatingListener();
 
         return rootView;
     }
@@ -182,39 +183,42 @@ public class FragmentHomeTimer extends Fragment
 
     private void setCountdownButtonListener(CardChronometer cd)
     {
-        cd.nextButton.setOnClickListener((View view) ->
+        if(CountdownAccess)
         {
-            cd.MidTime = Calendar.getInstance();
-            final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer(ecoDatabase);
+            cd.nextButton.setOnClickListener((View view) ->
+            {
+                cd.MidTime = Calendar.getInstance();
+                final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer(ecoDatabase);
 
-            if(cd.clock.getDryerID() == null)
-                dialogCarDryer.getNextInQueue();
-            else
-                dialogCarDryer.getDryerInQueue(cd.clock);
+                if (cd.clock.getDryerID() == null)
+                    dialogCarDryer.getNextInQueue();
+                else
+                    dialogCarDryer.getDryerInQueue(cd.clock);
 
-            dialogCarDryer.AddDialog(getActivity());
-            dialogCarDryer.setDialogCreateCarDryerListener(cd);
-        });
+                dialogCarDryer.AddDialog(getActivity());
+                dialogCarDryer.setDialogCreateCarDryerListener(cd);
+            });
 
-        cd.stopButton.setOnClickListener((View view) ->
-        {
-            Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerFirstName() + " fue terminado.",
-                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            cd.stopButton.setOnClickListener((View view) ->
+            {
+                Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerFirstName() + " fue terminado.",
+                        Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-            cd.EndTime = Calendar.getInstance();
-            cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
+                cd.EndTime = Calendar.getInstance();
+                cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
 
-            String queryClock = getTodayInMillisString() + "/" + cd.clock.getTransactionID() + "/";
-            String queryDryer = cd.clock.getDryerID() + "/";
+                String queryClock = getTodayInMillisString() + "/" + cd.clock.getTransactionID() + "/";
+                String queryDryer = cd.clock.getDryerID() + "/";
 
-            Map hash = new HashMap<>();
-            hash.put("Clocks/Archive/" + queryClock, cd.clock);
-            hash.put("Dryers/List/" + queryDryer + "workStatus", "available");
-            hash.put("Dryers/List/" + queryDryer + "queue", getTodaySmallInMillis());
+                Map hash = new HashMap<>();
+                hash.put("Clocks/Archive/" + queryClock, cd.clock);
+                hash.put("Dryers/List/" + queryDryer + "workStatus", "available");
+                hash.put("Dryers/List/" + queryDryer + "queue", getTodaySmallInMillis());
 
-            ecoDatabase.updateChildren(hash);
-            ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();
-        });
+                ecoDatabase.updateChildren(hash);
+                ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();
+            });
+        }
     }
 
     private void setLayoutInfoListener()
@@ -227,6 +231,11 @@ public class FragmentHomeTimer extends Fragment
             else
                 info.setVisibility(View.VISIBLE);
         });
+    }
+
+    public void setCountdownAccess()
+    {
+        CountdownAccess = true;
     }
 
     private CardChronometer findCountdown(String tag)

@@ -41,7 +41,7 @@ public class FragmentHomePeople extends Fragment
         layout = rootView.findViewById(R.id.Card_Layout);
 
         setDatabaseListener();
-        setFloatingListener();
+//        setFloatingListener();
 
         return rootView;
     }
@@ -108,7 +108,7 @@ public class FragmentHomePeople extends Fragment
 
     }
 
-    private void setFloatingListener()
+    public void setFloatingListener()
     {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setOnClickListener((View view) ->

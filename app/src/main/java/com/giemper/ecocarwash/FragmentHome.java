@@ -66,6 +66,17 @@ public class FragmentHome extends FragmentPagerAdapter {
                 if(ecoUserType.equals("admin"))
                 {
                     Home_Timer.setFloatingListener();
+                    Home_Timer.setCountdownAccess();
+                }
+                else if(ecoUserType.equals("cashier"))
+                {
+                    Home_Timer.setFloatingListener();
+
+                    Home_People.setFloatingListener();
+                }
+                else if(ecoUserType.equals("supervisor"))
+                {
+                    Home_Timer.setCountdownAccess();
                 }
             }
         });

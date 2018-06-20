@@ -35,4 +35,8 @@
         <item name="android:backgroundTint">@drawable/fab_createcar</item>
     </style>
 
+    <style name="FabCreateDryer" parent="Widget.Design.FloatingActionButton">
+        <item name="android:backgroundTint">@drawable/fab_createdryer</item>
+    </style>
+
 </resources>
