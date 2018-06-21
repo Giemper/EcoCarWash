@@ -1,5 +1,6 @@
 package com.giemper.ecocarwash;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -27,8 +28,16 @@ public class FragmentHomeRegistry extends Fragment
     private String ecoUserType;
     private View rootView;
     private LinearLayout layout;
+    private Context mContext;
 
     public FragmentHomeRegistry() {}
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public void setFirebase(DatabaseReference db, FirebaseUser user, String userType)
     {
@@ -60,7 +69,7 @@ public class FragmentHomeRegistry extends Fragment
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
                 String date = getMillisToString(Long.parseLong(dataSnapshot.getKey()));
-                CardDayReport cardDayReport = new CardDayReport(getContext());
+                CardDayReport cardDayReport = new CardDayReport(mContext);
                 cardDayReport.setDayTitle(date);
                 cardDayReport.setTag(dataSnapshot.getKey());
 
@@ -104,11 +113,11 @@ public class FragmentHomeRegistry extends Fragment
         // Reference: https://github.com/leinardi/FloatingActionButtonSpeedDial
 
         SpeedDialActionItem.Builder fabClocks = new SpeedDialActionItem.Builder(R.id.fab_reportClocks, R.drawable.ic_timer)
-                .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent3))
+                .setFabBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent3))
                 .setLabel("Reporte de Lavados");
 
         SpeedDialActionItem.Builder fabDryers = new SpeedDialActionItem.Builder(R.id.fab_reportDryers, R.drawable.ic_people)
-                .setFabBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent3))
+                .setFabBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent3))
                 .setLabel("Reporte de Secadores");
 
         SpeedDialView speedFab = rootView.findViewById(R.id.speed_fab);

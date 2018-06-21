@@ -1,7 +1,9 @@
 package com.giemper.ecocarwash;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -31,11 +33,18 @@ public class FragmentHomeTimer extends Fragment
     private FirebaseUser ecoUser;
     private String ecoUserType;
     private boolean CountdownAccess = false;
-
+    private Context mContext;
     private View rootView;
-    LinearLayout layout;
+    private LinearLayout layout;
 
     public FragmentHomeTimer() {}
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public void setFirebase(DatabaseReference db, FirebaseUser user, String userType)
     {
@@ -66,13 +75,13 @@ public class FragmentHomeTimer extends Fragment
         Query queryChronometers = ecoDatabase.child("Clocks/Active").child(getTodayInMillisString());
         queryChronometers.addChildEventListener(new ChildEventListener()
         {
-            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
-            @Override public void onCancelled(DatabaseError databaseError){}
+            @Override public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(@NonNull DatabaseError databaseError){}
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s)
             {
                 Clocks clock = dataSnapshot.getValue(Clocks.class);
-                CardChronometer cd = new CardChronometer(getActivity(), clock);
+                CardChronometer cd = new CardChronometer(mContext, clock);
                 cd.setTag(clock.getTransactionID());
 
                 if(clock.getDryerID() != null)
@@ -84,7 +93,7 @@ public class FragmentHomeTimer extends Fragment
                     cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
                     cd.chrono2.start();
 
-                    cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+                    cd.textName.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent3));
                     cd.nextButton.setVisibility(View.GONE);
                     cd.stopButton.setVisibility(View.VISIBLE);
                 }
@@ -105,7 +114,7 @@ public class FragmentHomeTimer extends Fragment
                     cd.chrono2.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - clock.getMidTime()));
                     cd.chrono2.start();
 
-                    cd.textName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent3));
+                    cd.textName.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent3));
                     cd.textName.setText(clock.getDryerFirstName() + " " + clock.getDryerLastName().charAt(0) + ".");
                     cd.nextButton.setVisibility(View.GONE);
                     cd.stopButton.setVisibility(View.VISIBLE);

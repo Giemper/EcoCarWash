@@ -1,9 +1,11 @@
 package com.giemper.ecocarwash;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,11 @@ public class FragmentHomePeople extends Fragment
     private FirebaseUser ecoUser;
     private String ecoUserType;
     private View rootView;
-    LinearLayout layout;
+    private LinearLayout layoutRegistry;
+    private LinearLayout layoutActive;
+    private CardView CardRegistry;
+    private CardView CardActive;
+    private Context mContext;
 
     public FragmentHomePeople() {}
 
@@ -35,19 +41,33 @@ public class FragmentHomePeople extends Fragment
     }
 
     @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootView =  inflater.inflate(R.layout.fragment_home_people, container, false);
-        layout = rootView.findViewById(R.id.Card_Layout);
+        layoutRegistry = rootView.findViewById(R.id.Card_Layout);
+        layoutActive = rootView.findViewById(R.id.Card_Layout_Active);
+        CardRegistry = rootView.findViewById(R.id.Card_Regitry);
+        CardActive = rootView.findViewById(R.id.Card_Active);
 
-        setDatabaseListener();
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setEnabled(false);
+
+//        setDatabaseListener();
 //        setFloatingListener();
 
         return rootView;
     }
 
-    private void setDatabaseListener()
+    public void setCheckboxes()
     {
+        CardRegistry.setVisibility(View.VISIBLE);
         Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
         queryList.addChildEventListener(new ChildEventListener()
         {
@@ -57,8 +77,9 @@ public class FragmentHomePeople extends Fragment
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
-                CardCheckbox cardCheckbox = new CardCheckbox(getActivity(), dryer);
+                CardCheckbox cardCheckbox = new CardCheckbox(mContext, dryer);
                 cardCheckbox.setTag(dryer.getDryerID());
+                cardCheckbox.Box.setOnCheckedChangeListener(null);
 
                 if(dryer.getWorkStatus().equals("available"))
                 {
@@ -71,7 +92,7 @@ public class FragmentHomePeople extends Fragment
                 }
 
                 cardCheckbox.setCheckBoxListener(dryer, ecoDatabase, getActivity());
-                layout.addView(cardCheckbox);
+                layoutRegistry.addView(cardCheckbox);
             }
 
             @Override
@@ -79,6 +100,7 @@ public class FragmentHomePeople extends Fragment
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
+                cardCheckbox.Box.setOnCheckedChangeListener(null);
 
                 if(dryer.getWorkStatus().equals("available"))
                 {
@@ -95,6 +117,8 @@ public class FragmentHomePeople extends Fragment
                     cardCheckbox.Box.setChecked(false);
                     cardCheckbox.Box.setEnabled(true);
                 }
+
+                cardCheckbox.setCheckBoxListener(dryer, ecoDatabase, getActivity());
             }
 
             @Override
@@ -102,7 +126,36 @@ public class FragmentHomePeople extends Fragment
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
-                layout.removeView(cardCheckbox);
+                layoutRegistry.removeView(cardCheckbox);
+            }
+        });
+
+    }
+
+    public void setActiveList()
+    {
+        CardActive.setVisibility(View.VISIBLE);
+        Query queryList = ecoDatabase.child("Dryers/List").orderByChild("queue").startAt(1);
+        queryList.addChildEventListener(new ChildEventListener()
+        {
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(DatabaseError databaseError){}
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s){}
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                Dryer dryer = dataSnapshot.getValue(Dryer.class);
+                CardActiveList cardActiveList = new CardActiveList(mContext, dryer);
+                cardActiveList.setTag(dryer.getDryerID());
+                layoutActive.addView(cardActiveList);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                Dryer dryer = dataSnapshot.getValue(Dryer.class);
+                CardActiveList cardActiveList = findCardActiveList(dryer.getDryerID());
+                layoutActive.removeView(cardActiveList);
             }
         });
 
@@ -111,6 +164,7 @@ public class FragmentHomePeople extends Fragment
     public void setFloatingListener()
     {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setEnabled(true);
         fab.setOnClickListener((View view) ->
         {
             final DialogCreateDryer dcd = new DialogCreateDryer();
@@ -121,11 +175,22 @@ public class FragmentHomePeople extends Fragment
 
     private CardCheckbox findCardCheckbox(String tag)
     {
-        for(int i = 0; i < layout.getChildCount(); i++)
+        for(int i = 0; i < layoutRegistry.getChildCount(); i++)
         {
-            CardCheckbox cardCheckbox = (CardCheckbox) layout.getChildAt(i);
+            CardCheckbox cardCheckbox = (CardCheckbox) layoutRegistry.getChildAt(i);
             if(tag.equals(cardCheckbox.getTag()))
                 return cardCheckbox;
+        }
+        return null;
+    }
+
+    private CardActiveList findCardActiveList(String tag)
+    {
+        for(int i = 0; i < layoutActive.getChildCount(); i++)
+        {
+            CardActiveList cardActiveList = (CardActiveList) layoutActive.getChildAt(i);
+            if(tag.equals(cardActiveList.getTag()))
+                return cardActiveList;
         }
         return null;
     }

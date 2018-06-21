@@ -67,16 +67,23 @@ public class FragmentHome extends FragmentPagerAdapter {
                 {
                     Home_Timer.setFloatingListener();
                     Home_Timer.setCountdownAccess();
+
+                    Home_People.setFloatingListener();
+                    Home_People.setCheckboxes();
+                    Home_People.setActiveList();
                 }
                 else if(ecoUserType.equals("cashier"))
                 {
                     Home_Timer.setFloatingListener();
 
                     Home_People.setFloatingListener();
+                    Home_People.setCheckboxes();
                 }
                 else if(ecoUserType.equals("supervisor"))
                 {
                     Home_Timer.setCountdownAccess();
+
+                    Home_People.setActiveList();
                 }
             }
         });

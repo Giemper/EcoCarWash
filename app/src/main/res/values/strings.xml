@@ -18,6 +18,10 @@
     <!-- Fragment Home -->
     <string name="Fragment_Home_Timer_InfoText">Para crear un cronometro, selecciona el botón en la esquina inferior derecha. \n \n La lista se resetea todos los días a media noche.</string>
 
+    <!-- Fragment People -->
+    <string name="Fragment_Home_People_Card1">Registro de Secadores</string>
+    <string name="Fragment_Home_People_Card2">Secadores Activos</string>
+
     <!-- Card_Chronometer -->
     <string name="Card_Chronometer_Enter">Entrada</string>
     <string name="Card_Chronometer_Dry">Secado</string>

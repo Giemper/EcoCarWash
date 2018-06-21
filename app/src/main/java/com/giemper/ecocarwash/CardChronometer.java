@@ -1,5 +1,6 @@
 package com.giemper.ecocarwash;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.SystemClock;
 import android.widget.Chronometer;
@@ -24,7 +25,6 @@ public class CardChronometer extends LinearLayout
     private Calendar StartTime;
     public Calendar MidTime;
     public Calendar EndTime;
-
 
     public CardChronometer(Context context, Clocks _clock)
     {
