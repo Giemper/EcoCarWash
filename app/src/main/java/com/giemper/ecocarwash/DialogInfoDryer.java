@@ -10,7 +10,6 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import static com.giemper.ecocarwash.CarMethods.getMillisToStringSmall;
 
 public class DialogInfoDryer
 {

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.giemper.ecocarwash.CarMethods.*;
+import static com.giemper.ecocarwash.EcoMethods.*;
 
 public class CsvExport
 {
@@ -108,6 +108,9 @@ public class CsvExport
     {
         String start = Long.toString(startDate.getTimeInMillis());
         String end = Long.toString(endDate.getTimeInMillis());
+
+
+
         Query queryDryers = ecoDatabase.child("Dryers/Attendance").orderByKey().startAt(start).endAt(end);
         queryDryers.keepSynced(true);
         queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
@@ -121,12 +124,18 @@ public class CsvExport
                     {
                         long snapDay = Long.parseLong(snap.getKey());
 
-                        for (DataSnapshot snapClock : snap.getChildren())
+                        for (DataSnapshot snapAtten : snap.getChildren())
                         {
-                            Clocks clock = snapClock.getValue(Clocks.class);
+                            DryerAttendance attendance = snapAtten.getValue(DryerAttendance.class);
 
-                            AddData("ID", clock.getTransactionID());
-                            AddRow();
+                            if(attendance.getAction().equals("Enter"))
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
                         }
                     }
                 }

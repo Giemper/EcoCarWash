@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import static com.giemper.ecocarwash.CarMethods.getHHMMSS;
+import static com.giemper.ecocarwash.EcoMethods.getHHMMSS;
 
 public class CardDayReportClock extends LinearLayout
 {

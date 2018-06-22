@@ -18,7 +18,7 @@ import com.google.firebase.database.Query;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 
-import static com.giemper.ecocarwash.CarMethods.getMillisToString;
+import static com.giemper.ecocarwash.EcoMethods.getMillisToString;
 
 public class FragmentHomeRegistry extends Fragment
 {

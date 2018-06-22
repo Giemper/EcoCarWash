@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.giemper.ecocarwash.CarMethods.*;
+import static com.giemper.ecocarwash.EcoMethods.*;
 
 public class FragmentHomeTimer extends Fragment
 {
@@ -36,6 +36,7 @@ public class FragmentHomeTimer extends Fragment
     private Context mContext;
     private View rootView;
     private LinearLayout layout;
+    private View.OnClickListener nextListener;
 
     public FragmentHomeTimer() {}
 
@@ -98,8 +99,7 @@ public class FragmentHomeTimer extends Fragment
                     cd.stopButton.setVisibility(View.VISIBLE);
                 }
 
-                setCountdownButtonListener(cd);
-
+                setClickListeners(cd);
                 layout.addView(cd);
             }
 
@@ -190,12 +190,13 @@ public class FragmentHomeTimer extends Fragment
 
     }
 
-    private void setCountdownButtonListener(CardChronometer cd)
+    private void setClickListeners(CardChronometer cd)
     {
         if(CountdownAccess)
         {
-            cd.nextButton.setOnClickListener((View view) ->
+            nextListener = ((View view) ->
             {
+                cd.nextButton.setOnClickListener(null);
                 cd.MidTime = Calendar.getInstance();
                 final DialogCreateCarDryer dialogCarDryer = new DialogCreateCarDryer(ecoDatabase);
 
@@ -206,13 +207,12 @@ public class FragmentHomeTimer extends Fragment
 
                 dialogCarDryer.AddDialog(getActivity());
                 dialogCarDryer.setDialogCreateCarDryerListener(cd);
+                dialogCarDryer.resumeClickListener(cd.nextButton, nextListener);
             });
 
-            cd.stopButton.setOnClickListener((View view) ->
+            View.OnClickListener stopListener = ((View view) ->
             {
-                Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerFirstName() + " fue terminado.",
-                        Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+                cd.stopButton.setOnClickListener(null);
                 cd.EndTime = Calendar.getInstance();
                 cd.clock.setEndTime(cd.EndTime.getTimeInMillis());
 
@@ -226,7 +226,17 @@ public class FragmentHomeTimer extends Fragment
 
                 ecoDatabase.updateChildren(hash);
                 ecoDatabase.child("Clocks/Active").child(getTodayInMillisString()).child(cd.clock.getTransactionID()).removeValue();
+                Snackbar.make(view, cd.clock.Car.getLicense() + " lavado por " + cd.clock.getDryerFirstName() + " fue terminado.",
+                        Snackbar.LENGTH_LONG).setAction("Action", null).show();
             });
+
+            cd.nextButton.setOnClickListener(nextListener);
+            cd.stopButton.setOnClickListener(stopListener);
+        }
+        else
+        {
+            cd.nextButton.setBackgroundTintList(ContextCompat.getColorStateList(mContext, R.color.grayLight));
+            cd.stopButton.setBackgroundTintList(ContextCompat.getColorStateList(mContext, R.color.grayLight));
         }
     }
 

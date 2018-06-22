@@ -2,6 +2,7 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
+import static com.giemper.ecocarwash.EcoMethods.getTodayInMillisString;
 
 public class DialogCreateCarDryer
 {
@@ -39,7 +40,6 @@ public class DialogCreateCarDryer
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(R.layout.dialog_createcardryer);
-
     }
 
     public void getNextInQueue()
@@ -79,6 +79,7 @@ public class DialogCreateCarDryer
     public void getDryerInQueue(Clocks clock)
     {
         Query queryQueue = ecoDatabase.child("Dryers/List").orderByKey().equalTo(clock.getDryerID()).limitToFirst(1);
+        queryQueue.keepSynced(true);
         queryQueue.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override public void onCancelled(DatabaseError databaseError){}
@@ -148,6 +149,14 @@ public class DialogCreateCarDryer
         quit.setOnClickListener((View v) ->
         {
             dialog.dismiss();
+        });
+    }
+
+    public void resumeClickListener(SquareButton nextButton, View.OnClickListener nextListener)
+    {
+        dialog.setOnCancelListener((DialogInterface dialogInterface) ->
+        {
+            nextButton.setOnClickListener(nextListener);
         });
     }
 }

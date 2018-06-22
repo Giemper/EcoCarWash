@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CarMethods
+public class EcoMethods
 {
     public static void checkFirebase(Activity activity)
     {
@@ -27,6 +27,11 @@ public class CarMethods
             }
         }
         catch (Exception e) {}
+    }
+
+    public static void switchAttendance()
+    {
+
     }
 
     public static String getMonth(int month)

@@ -2,7 +2,6 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.content.Context;
-import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -13,11 +12,9 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillis;
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
-import static com.giemper.ecocarwash.CarMethods.getTodaySmallInMillis;
-import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
+import static com.giemper.ecocarwash.EcoMethods.getTodayInMillisString;
+import static com.giemper.ecocarwash.EcoMethods.getTodaySmallInMillis;
+import static com.giemper.ecocarwash.EcoMethods.getTodaySmallInString;
 
 public class CardCheckbox extends LinearLayout
 {
@@ -53,6 +50,8 @@ public class CardCheckbox extends LinearLayout
 
                 hash.put("List/" + dryer.getDryerID() + "/workStatus", "available");
                 hash.put("List/" + dryer.getDryerID() + "/queue", getTodaySmallInMillis());
+//                hash.put("List/" + dryer.getDryerID() + "/attendance", atten);
+
                 hash.put("Attendance/" + getTodayInMillisString() + "/" + getTodaySmallInString(), atten);
             }
             else

@@ -20,8 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import static com.giemper.ecocarwash.CarMethods.getTodayInMillisString;
-import static com.giemper.ecocarwash.CarMethods.getTodaySmallInString;
+import static com.giemper.ecocarwash.EcoMethods.getTodayInMillisString;
+import static com.giemper.ecocarwash.EcoMethods.getTodaySmallInString;
 
 public class DialogCreateCar
 {
@@ -122,13 +122,15 @@ public class DialogCreateCar
                     {
                         optionalDryer = true;
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        arrayAdapter.add(new DrySpinner("none", "", ""));
 
                         for (DataSnapshot snap : dataSnapshot.getChildren())
                         {
                             Dryer dryer = snap.getValue(Dryer.class);
-                            arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.fullName()));
+                            arrayAdapter.add(new DrySpinner(dryer.getDryerID(), dryer.getFirstName(), dryer.getLastNameFather()));
                         }
                         spinnerDryer.setAdapter(arrayAdapter);
+                        spinnerDryer.performClick();
                     }
                     else
                     {
@@ -147,23 +149,29 @@ public class DialogCreateCar
         Button add = dialog.findViewById(R.id.Dialog_CreateCar_Button_Add);
         add.setOnClickListener((View view) ->
         {
-            Map hash = new HashMap<>();
+            add.setOnClickListener(null);
 
             Clocks clock = new Clocks(getTodaySmallInString());
             clock.setCarValues(dialog);
             clock.setStartTime(StartTime.getTimeInMillis());
+
+            Map hash = new HashMap<>();
+            hash.put("Clocks/Active/" + getTodayInMillisString() + "/" + clock.getTransactionID(), clock);
+
             if(optionalDryer)
             {
                 Spinner spinner = dialog.findViewById(R.id.Dialog_CreateCar_SpinnerDryer);
                 DrySpinner selectedDryer = (DrySpinner) spinner.getSelectedItem();
-                clock.setDryerID(selectedDryer.getTag());
-                clock.setDryerFirstName(selectedDryer.getFirstName());
-                clock.setDryerLastName(selectedDryer.getLastName());
+                if(!selectedDryer.getTag().equals("none"))
+                {
+                    clock.setDryerID(selectedDryer.getTag());
+                    clock.setDryerFirstName(selectedDryer.getFirstName());
+                    clock.setDryerLastName(selectedDryer.getLastName());
 
-                hash.put("Dryers/List/" + clock.getDryerID() + "/workStatus", "busy");
-                hash.put("Dryers/List/" + clock.getDryerID() + "/queue", 0);
+                    hash.put("Dryers/List/" + clock.getDryerID() + "/workStatus", "busy");
+                    hash.put("Dryers/List/" + clock.getDryerID() + "/queue", 0);
+                }
             }
-            hash.put("Clocks/Active/" + getTodayInMillisString() + "/" + clock.getTransactionID(), clock);
 
             ecoDatabase.updateChildren(hash);
             dialog.dismiss();
