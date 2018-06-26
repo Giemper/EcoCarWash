@@ -42,6 +42,7 @@ public class DialogSendReportDryers extends DialogSendReport
         {
             CsvExport CSV = new CsvExport(ecoDatabase, dialog.getContext());
             CSV.sendDryersReport(DateStart, DateEnd, mActivity.findViewById(android.R.id.content));
+            dialog.dismiss();
         });
 
 

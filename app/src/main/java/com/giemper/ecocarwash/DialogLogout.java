@@ -39,7 +39,7 @@ public class DialogLogout
         {
             dialog.dismiss();
             FirebaseAuth.getInstance().signOut();
-            mActivity.startActivity(new Intent(mActivity.getApplication(), LoginTest.class));
+            mActivity.startActivity(new Intent(mActivity.getApplication(), LoginActivity.class));
             mActivity.finish();
         });
     }

@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import static com.giemper.ecocarwash.EcoMethods.checkFirebase;
 
 public class MainActivity extends AppCompatActivity

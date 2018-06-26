@@ -1,22 +1,13 @@
 package com.giemper.ecocarwash;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-/**
- * Created by gmoma on 4/21/2018.
- */
 
 public class DialogSendReportClocks extends DialogSendReport
 {
@@ -50,6 +41,7 @@ public class DialogSendReportClocks extends DialogSendReport
         {
             CsvExport CSV = new CsvExport(ecoDatabase, dialog.getContext());
             CSV.sendClocksReport(DateStart, DateEnd, mActivity.findViewById(android.R.id.content));
+            dialog.dismiss();
         });
 
 

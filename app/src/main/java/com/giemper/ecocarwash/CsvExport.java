@@ -86,7 +86,7 @@ public class CsvExport
                         }
                     }
                     CreateFile();
-                    SendFile();
+                    SendFile("Reporte de Cronometros");
                 }
                 else
                 {
@@ -120,24 +120,40 @@ public class CsvExport
             {
                 if(dataSnapshot.getChildrenCount() > 0)
                 {
+                    List<DryerPairAttendance> pairAttendances = new ArrayList<>();
+
                     for(DataSnapshot snap : dataSnapshot.getChildren())
                     {
                         long snapDay = Long.parseLong(snap.getKey());
 
-                        for (DataSnapshot snapAtten : snap.getChildren())
+                        for (DataSnapshot snapAttendance : snap.getChildren())
                         {
-                            DryerAttendance attendance = snapAtten.getValue(DryerAttendance.class);
+                            int index;
+                            DryerAttendance attendance = snapAttendance.getValue(DryerAttendance.class);
 
                             if(attendance.getAction().equals("Enter"))
                             {
-
+                                index = pairAttendances.size();
+                                pairAttendances.add(new DryerPairAttendance(attendance));
+                                pairAttendances.get(index).setStartTime(attendance.getDate());
+                                pairAttendances.get(index).setDate(snapDay);
                             }
                             else
                             {
-
+                                index = findPairAttendance(attendance.getDryerID(), snapDay, pairAttendances);
+                                if(index >= 0)
+                                    pairAttendances.get(index).setEndTime(attendance.getDate());
+                                else
+                                {
+                                    pairAttendances.add(new DryerPairAttendance(attendance));
+                                    pairAttendances.get(pairAttendances.size() - 1).setEndTime(attendance.getDate());
+                                    pairAttendances.get(pairAttendances.size() - 1).setDate(snapDay);
+                                }
                             }
                         }
                     }
+
+                    printPairAttendances(pairAttendances);
                 }
                 else
                 {
@@ -152,6 +168,28 @@ public class CsvExport
             }
         });
 
+    }
+
+    private void printPairAttendances(List<DryerPairAttendance> pairAttendance)
+    {
+        for(DryerPairAttendance attendance : pairAttendance)
+        {
+            String Note = "";
+            if (attendance.getStartTime() == 0)
+                Note = "Entrada no registrada.";
+            if(attendance.getEndTime() == 0)
+                Note = "Salida no registrada.";
+
+            AddData("Fecha", getDDMMYYYY(attendance.getDate()));
+            AddData("ID", attendance.getDryerID());
+            AddData("Hora de Entrada", getHHMMSS(attendance.getStartTime()));
+            AddData("Hora de Salida", getHHMMSS(attendance.getEndTime()));
+            AddData("Nota", Note);
+            AddRow();
+        }
+
+        CreateFile();
+        SendFile("Reporte de Asistencia");
     }
 
     public void CreateFile()
@@ -180,14 +218,14 @@ public class CsvExport
         }
     }
 
-    public void SendFile()
+    public void SendFile(String fileTitle)
     {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.ACTION_SENDTO, Uri.parse("mailto:gmpco51@gmail.com"));
-        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte Eco");
+//        sendIntent.putExtra(Intent.ACTION_SENDTO, Uri.parse("mailto:gmpco51@gmail.com"));
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Eco Car Wash - " + fileTitle);
         sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
         sendIntent.setType("text/html");
         mContext.startActivity(sendIntent);
@@ -208,5 +246,19 @@ public class CsvExport
     private void AddRow()
     {
         csvRows.add("");
+    }
+
+    private int findPairAttendance(String DryerID, long Date, List<DryerPairAttendance> pairAttendances)
+    {
+        for(int i = 0; i < pairAttendances.size(); i++)
+        {
+            if(!pairAttendances.get(i).getComplete())
+            {
+                if (pairAttendances.get(i).getDryerID().equals(DryerID) && pairAttendances.get(i).getDate() == Date)
+                    return i;
+            }
+        }
+
+        return -1;
     }
 }
