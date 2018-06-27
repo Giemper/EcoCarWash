@@ -182,9 +182,10 @@ public class CsvExport
 
             AddData("Fecha", getDDMMYYYY(attendance.getDate()));
             AddData("ID", attendance.getDryerID());
+            AddData("Nombre", attendance.getDryerName());
             AddData("Hora de Entrada", getHHMMSS(attendance.getStartTime()));
             AddData("Hora de Salida", getHHMMSS(attendance.getEndTime()));
-            AddData("Nota", Note);
+            AddData("Notas", Note);
             AddRow();
         }
 
