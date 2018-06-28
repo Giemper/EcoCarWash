@@ -56,8 +56,9 @@ public class CsvExport
         queryClocks.keepSynced(true);
         queryClocks.addListenerForSingleValueEvent(new ValueEventListener()
         {
+            @Override public void onCancelled(@NonNull DatabaseError databaseError){}
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
+            public void onDataChange(@ NonNull DataSnapshot dataSnapshot)
             {
                 if(dataSnapshot.getChildrenCount() > 0)
                 {
@@ -92,14 +93,8 @@ public class CsvExport
                 {
                     // Say that no info is available here
 
-                    Snackbar.make(view, "No hay fechas disponibles (Placeholder error)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(view, "No hay fechas disponibles", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-                throw databaseError.toException();
             }
         });
     }

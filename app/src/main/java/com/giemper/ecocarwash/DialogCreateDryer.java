@@ -81,6 +81,7 @@ public class DialogCreateDryer
         Button add = dialog.findViewById(R.id.Dialog_CreateDryer_Button_Add);
         add.setOnClickListener((View view) ->
         {
+            add.setOnClickListener(null);
             EditText firstName = dialog.findViewById(R.id.Dialog_CreateDryer_Name);
             EditText lastNameFather = dialog.findViewById(R.id.Dialog_CreateDryer_LastNameFather);
             long dryerID = Calendar.getInstance().getTimeInMillis();

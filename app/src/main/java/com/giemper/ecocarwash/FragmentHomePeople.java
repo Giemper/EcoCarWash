@@ -2,6 +2,7 @@ package com.giemper.ecocarwash;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,8 @@ public class FragmentHomePeople extends Fragment
     private CardView CardRegistry;
     private CardView CardActive;
     private Context mContext;
+
+    private View.OnClickListener fabListener;
 
     public FragmentHomePeople() {}
 
@@ -165,12 +168,28 @@ public class FragmentHomePeople extends Fragment
     {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setEnabled(true);
-        fab.setOnClickListener((View view) ->
+
+        fabListener = ((View view) ->
         {
+//            fab.setOnClickListener(null);
             final DialogCreateDryer dcd = new DialogCreateDryer();
             dcd.AddDialog(getActivity(), view);
             dcd.setListeners(ecoDatabase);
+            dcd.dialog.setOnDismissListener((DialogInterface dialogInterface) ->
+            {
+                fab.setOnClickListener(fabListener);
+            });
+            dcd.dialog.setOnCancelListener((DialogInterface dialogInterface) ->
+            {
+                fab.setOnClickListener(fabListener);
+            });
+            dcd.dialog.setOnShowListener((DialogInterface dialogInterface) ->
+            {
+                fab.setOnClickListener(null);
+            });
         });
+
+        fab.setOnClickListener(fabListener);
     }
 
     private CardCheckbox findCardCheckbox(String tag)

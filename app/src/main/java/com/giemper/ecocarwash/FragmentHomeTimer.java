@@ -1,6 +1,7 @@
 package com.giemper.ecocarwash;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.giemper.ecocarwash.EcoMethods.*;
 
 public class FragmentHomeTimer extends Fragment
@@ -36,7 +35,9 @@ public class FragmentHomeTimer extends Fragment
     private Context mContext;
     private View rootView;
     private LinearLayout layout;
+
     private View.OnClickListener nextListener;
+    private View.OnClickListener fabListener;
 
     public FragmentHomeTimer() {}
 
@@ -55,7 +56,7 @@ public class FragmentHomeTimer extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootView = inflater.inflate(R.layout.fragment_home_timer, container, false);
         layout = rootView.findViewById(R.id.Card_Layout);
@@ -104,7 +105,7 @@ public class FragmentHomeTimer extends Fragment
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s)
             {
                 Clocks clock = dataSnapshot.getValue(Clocks.class);
                 CardChronometer cd = findCountdown(clock.getTransactionID());
@@ -122,7 +123,7 @@ public class FragmentHomeTimer extends Fragment
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
             {
                 Clocks clock = dataSnapshot.getValue(Clocks.class);
                 CardChronometer cd = findCountdown(clock.getTransactionID());
@@ -180,14 +181,23 @@ public class FragmentHomeTimer extends Fragment
     {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setEnabled(true);
-        fab.setOnClickListener((View view) ->
+        fabListener = ((View view) ->
         {
+            fab.setOnClickListener(null);
             final DialogCreateCar dcc = new DialogCreateCar();
             dcc.AddDialog(getActivity(), view);
             dcc.setSpinners(ecoDatabase);
             dcc.setDialogCreateCarListener(ecoDatabase);
+            dcc.dialog.setOnDismissListener((DialogInterface dialogInterface) ->
+            {
+                fab.setOnClickListener(fabListener);
+            });
+            dcc.dialog.setOnCancelListener((DialogInterface dialogInterface) ->
+            {
+                fab.setOnClickListener(fabListener);
+            });
         });
-
+        fab.setOnClickListener(fabListener);
     }
 
     private void setClickListeners(CardChronometer cd)

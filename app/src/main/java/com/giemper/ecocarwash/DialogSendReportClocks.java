@@ -39,6 +39,7 @@ public class DialogSendReportClocks extends DialogSendReport
         Button add = dialog.findViewById(R.id.Button_Add);
         add.setOnClickListener((View view) ->
         {
+            add.setOnClickListener(null);
             CsvExport CSV = new CsvExport(ecoDatabase, dialog.getContext());
             CSV.sendClocksReport(DateStart, DateEnd, mActivity.findViewById(android.R.id.content));
             dialog.dismiss();

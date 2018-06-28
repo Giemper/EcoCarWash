@@ -2,6 +2,7 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.ToggleGroup;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +26,7 @@ import static com.giemper.ecocarwash.EcoMethods.getTodaySmallInString;
 
 public class DialogCreateCar
 {
-    private Dialog dialog;
+    public Dialog dialog;
     private Calendar StartTime;
     private boolean CheckPack = false;
     private boolean CheckSize = false;
