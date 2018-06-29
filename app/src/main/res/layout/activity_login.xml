@@ -33,8 +33,6 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="6dp">
 
-
-
             <LinearLayout
                 android:id="@+id/email_login_form"
                 android:layout_width="match_parent"

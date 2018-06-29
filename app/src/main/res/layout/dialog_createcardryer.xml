@@ -72,6 +72,15 @@
         android:orientation="horizontal">
 
         <Button
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:textAllCaps="true"
+            android:text="@string/Reasignar"
+            android:textAlignment="textStart"
+            android:enabled="false"
+            style="@style/BorderlessButton"/>
+
+        <Button
             android:id="@+id/Dialog_CreateCarDryer_Button_Quit"
             android:layout_width="100dp"
             android:layout_height="50dp"

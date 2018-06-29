@@ -4,6 +4,7 @@ package com.giemper.ecocarwash;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -51,7 +52,7 @@ public class FragmentHomePeople extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootView =  inflater.inflate(R.layout.fragment_home_people, container, false);
         layoutRegistry = rootView.findViewById(R.id.Card_Layout);
@@ -74,10 +75,10 @@ public class FragmentHomePeople extends Fragment
         Query queryList = ecoDatabase.child("Dryers/List").orderByChild("active").equalTo(true);
         queryList.addChildEventListener(new ChildEventListener()
         {
-            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
-            @Override public void onCancelled(DatabaseError databaseError){}
+            @Override public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(@NonNull DatabaseError databaseError){}
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s)
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = new CardCheckbox(mContext, dryer);
@@ -99,7 +100,7 @@ public class FragmentHomePeople extends Fragment
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s)
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
@@ -125,7 +126,7 @@ public class FragmentHomePeople extends Fragment
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardCheckbox cardCheckbox = findCardCheckbox(dryer.getDryerID());
@@ -141,11 +142,11 @@ public class FragmentHomePeople extends Fragment
         Query queryList = ecoDatabase.child("Dryers/List").orderByChild("queue").startAt(1);
         queryList.addChildEventListener(new ChildEventListener()
         {
-            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s){}
-            @Override public void onCancelled(DatabaseError databaseError){}
-            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s){}
+            @Override public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s){}
+            @Override public void onCancelled(@NonNull DatabaseError databaseError){}
+            @Override public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s){}
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s)
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardActiveList cardActiveList = new CardActiveList(mContext, dryer);
@@ -154,7 +155,7 @@ public class FragmentHomePeople extends Fragment
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
             {
                 Dryer dryer = dataSnapshot.getValue(Dryer.class);
                 CardActiveList cardActiveList = findCardActiveList(dryer.getDryerID());

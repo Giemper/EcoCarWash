@@ -9,6 +9,7 @@
     <string name="Cerrar">Cerrar Sesión</string>
     <string name="Ok">OK</string>
     <string name="Borrar">Borrar</string>
+    <string name="Reasignar">Reasignar</string>
 
     <!-- Home Tab -->
     <string name="Home_Tab1">Tiempos</string>

@@ -188,10 +188,8 @@ public class CsvExport
         SendFile("Reporte de Asistencia");
     }
 
-    public void CreateFile()
+    private void CreateFile()
     {
-        int c = csvColumns.size();
-        int s = csvRows.size();
         if(csvColumns.size() > 0)
         {
             File root = Environment.getExternalStorageDirectory();
@@ -214,7 +212,7 @@ public class CsvExport
         }
     }
 
-    public void SendFile(String fileTitle)
+    private void SendFile(String fileTitle)
     {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());

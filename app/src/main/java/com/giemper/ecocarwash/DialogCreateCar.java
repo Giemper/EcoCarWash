@@ -2,6 +2,7 @@ package com.giemper.ecocarwash;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.ToggleGroup;
 import android.text.Editable;
@@ -40,6 +41,7 @@ public class DialogCreateCar
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(R.layout.dialog_createcar);
+
 
         StartTime = Calendar.getInstance();
 
@@ -114,9 +116,9 @@ public class DialogCreateCar
             Query queryDryers = ecoDatabase.child("Dryers/List").orderByChild("workStatus").equalTo("available");
             queryDryers.addListenerForSingleValueEvent(new ValueEventListener()
             {
-                @Override public void onCancelled(DatabaseError databaseError){}
+                @Override public void onCancelled(@NonNull DatabaseError databaseError){}
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
                     ArrayAdapter<DrySpinner> arrayAdapter = new ArrayAdapter<>(dialog.getContext(), android.R.layout.simple_spinner_item);
                     if(dataSnapshot.getChildrenCount() > 0)

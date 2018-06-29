@@ -8,248 +8,257 @@
     android:background="@color/white">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
-            android:text="@string/Dialog_CreateCar_Title"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
-
-        <Chronometer
-            android:id="@+id/Dialog_CreateCar_Chronometer"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:layout_marginEnd="15dp"
-            android:gravity="center_vertical|end"
-            android:textColor="@color/white"
-            android:textSize="24sp"/>
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="320dp">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:text="@string/Dialog_CreateCar_Licence"/>
 
-            <EditText
-                android:id="@+id/Dialog_CreateCar_Text_Licence"
+<!--Si no funciona, solo remueve el scrollview y linearlayout-->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:textColorHint="@color/grayLight"
-                android:hint="Obligatorio"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:text="@string/Dialog_CreateCar_Color"/>
-
-            <Spinner
-                android:id="@+id/Dialog_CreateCar_SpinnerColor"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="-22dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/gray"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:text="@string/Dialog_CreateCar_Package"/>
-
-            <android.support.v7.widget.ToggleGroup
-                android:id="@+id/Dialog_CreateCar_Toggle_PackTop"
-                style="@style/ContrastToggle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:exclusive="true"
-                app:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:button="@drawable/ic_pack_one"/>
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:button="@drawable/ic_pack_two"/>
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:button="@drawable/ic_pack_three"/>
-            </android.support.v7.widget.ToggleGroup>
-
-            <android.support.v7.widget.ToggleGroup
-                android:id="@+id/Dialog_CreateCar_Toggle_PackBottom"
-                style="@style/ContrastToggle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:exclusive="true"
-                app:orientation="horizontal"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:textStyle="bold"
-                    android:text="Manual"/>
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:textStyle="bold"
-                    android:text="Detallado"/>
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:textStyle="bold"
-                    android:text="Otro"/>
-            </android.support.v7.widget.ToggleGroup>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:text="@string/Dialog_CreateCar_Size"/>
-
-            <android.support.v7.widget.ToggleGroup
-                android:id="@+id/Dialog_CreateCar_Toggle_Size"
-                style="@style/ContrastToggle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:exclusive="true"
-                app:orientation="horizontal"
-                android:layout_margin="5dp">
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:button="@drawable/ic_car_small"/>
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:button="@drawable/ic_car_med"/>
-
-                <android.support.v7.widget.ToggleButton
-                    android:layout_weight="1"
-                    style="@style/ContrastToggle"
-                    android:button="@drawable/ic_car_large"/>
-
-            </android.support.v7.widget.ToggleGroup>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:text="@string/Dialog_CreateCar_InitialDryer"/>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Spinner
-                    android:id="@+id/Dialog_CreateCar_SpinnerDryer"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="20dp" />
-                <Button
-                    android:id="@+id/Dialog_CreateCar_SpinnerDryerPre"
-                    android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimary">
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    style="@style/BorderlessButton"/>
-            </RelativeLayout>
+                    android:layout_weight="3"
+                    android:layout_margin="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/Dialog_CreateCar_Title"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <Chronometer
+                    android:id="@+id/Dialog_CreateCar_Chronometer"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center_vertical|end"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"/>
+            </LinearLayout>
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="320dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:text="@string/Dialog_CreateCar_Licence"/>
+
+                    <EditText
+                        android:id="@+id/Dialog_CreateCar_Text_Licence"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="20dp"
+                        android:textColorHint="@color/grayLight"
+                        android:hint="Obligatorio"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:text="@string/Dialog_CreateCar_Color"/>
+
+                    <Spinner
+                        android:id="@+id/Dialog_CreateCar_SpinnerColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="20dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="-22dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/gray"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:text="@string/Dialog_CreateCar_Package"/>
+
+                    <android.support.v7.widget.ToggleGroup
+                        android:id="@+id/Dialog_CreateCar_Toggle_PackTop"
+                        style="@style/ContrastToggle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:exclusive="true"
+                        app:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:button="@drawable/ic_pack_one"/>
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:button="@drawable/ic_pack_two"/>
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:button="@drawable/ic_pack_three"/>
+                    </android.support.v7.widget.ToggleGroup>
+
+                    <android.support.v7.widget.ToggleGroup
+                        android:id="@+id/Dialog_CreateCar_Toggle_PackBottom"
+                        style="@style/ContrastToggle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:exclusive="true"
+                        app:orientation="horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:textStyle="bold"
+                            android:text="Manual"/>
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:textStyle="bold"
+                            android:text="Detallado"/>
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:textStyle="bold"
+                            android:text="Otro"/>
+                    </android.support.v7.widget.ToggleGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:text="@string/Dialog_CreateCar_Size"/>
+
+                    <android.support.v7.widget.ToggleGroup
+                        android:id="@+id/Dialog_CreateCar_Toggle_Size"
+                        style="@style/ContrastToggle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:exclusive="true"
+                        app:orientation="horizontal"
+                        android:layout_margin="5dp">
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:button="@drawable/ic_car_small"/>
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:button="@drawable/ic_car_med"/>
+
+                        <android.support.v7.widget.ToggleButton
+                            android:layout_weight="1"
+                            style="@style/ContrastToggle"
+                            android:button="@drawable/ic_car_large"/>
+
+                    </android.support.v7.widget.ToggleGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:text="@string/Dialog_CreateCar_InitialDryer"/>
 
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:id="@+id/Dialog_CreateCar_SpinnerDryer"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="20dp" />
+                        <Button
+                            android:id="@+id/Dialog_CreateCar_SpinnerDryerPre"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            style="@style/BorderlessButton"/>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="-22dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/gray"/>
+
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
 
             <View
-                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="-22dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/gray"/>
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/grayLight"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="end"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/Dialog_CreateCar_Button_Quit"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:textAllCaps="true"
+                    android:text="@string/Cancelar"
+                    style="@style/BorderlessButton"/>
+
+                <Button
+                    android:id="@+id/Dialog_CreateCar_Button_Add"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:textAllCaps="true"
+                    android:text="@string/Agregar"
+                    android:enabled="false"
+                    style="@style/BorderlessButton"/>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <View
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/grayLight"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="end"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/Dialog_CreateCar_Button_Quit"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:textAllCaps="true"
-            android:text="@string/Cancelar"
-            style="@style/BorderlessButton"/>
-
-        <Button
-            android:id="@+id/Dialog_CreateCar_Button_Add"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:textAllCaps="true"
-            android:text="@string/Agregar"
-            android:enabled="false"
-            style="@style/BorderlessButton"/>
-
-    </LinearLayout>
-
 
 </LinearLayout>
